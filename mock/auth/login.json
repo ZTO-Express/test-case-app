@@ -1,0 +1,40 @@
+{
+  "respCode": "S0001",
+  "data": {
+    "userInfo": {
+      "id": 268,
+      "userId": "diablo007",
+      "userName": "admin",
+      "nickName": "超级管理员",
+      "oldUserPwd": null,
+      "userStatus": "2",
+      "mobile": "18855953734",
+      "email": "admin@ftvalue.com",
+      "appId": "diablo",
+      "loginErrorTimes": 0,
+      "startDate": 1523602272000,
+      "endDate": 6257199072000,
+      "dateCreated": 1523602272000,
+      "dateUpdated": 1532934545000,
+      "roles": [
+        {
+          "id": 1,
+          "roleCode": "00001",
+          "roleName": "超级管理员",
+          "systemRole": "1",
+          "appId": "diablo",
+          "status": "1",
+          "createTime": 1523497742000,
+          "updateTime": 1524817590000,
+          "creatorChain": "TOP"
+        }
+      ]
+    },
+    "access_token": "acst:diablo007:73f1973280b2f2bf1af217ba121983d0",
+    "session_name": "login-session",
+    "auth_token": "ce95781c90ffec7eecde93dbecebe2d2",
+    "auth_next_step": "auth_verify",
+    "auth_max_age": 300000
+  },
+  "respMessage": "成功"
+}

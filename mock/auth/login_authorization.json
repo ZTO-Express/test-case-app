@@ -1,0 +1,10 @@
+{
+  "respCode": "S0001",
+  "data": {
+    "session_name": "login-session",
+    "auth_token": "64265c505105e20668c1d0e71673893e",
+    "auth_next_step": "login",
+    "auth_max_age": 300000
+  },
+  "respMessage": "成功"
+}

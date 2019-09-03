@@ -1,0 +1,28 @@
+#!/bin/bash
+
+set -e
+
+source ~/.bashrc
+
+basepath=$(cd `dirname $0`; pwd)
+echo $basepath
+
+cd $basepath
+
+echo ===================
+nvm use v8.10.0
+echo "node -v"
+node -v
+
+echo ---------------------
+echo 'install package......'
+yarn install
+echo ------------------------
+
+echo -------------------------
+#echo 'run test ......'
+#yarn run test
+echo -------------------------
+
+yarn run build && cd -
+

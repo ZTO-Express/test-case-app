@@ -1,0 +1,99 @@
+/*公用样式*/
+.logo-name{
+  color: #fafafa;
+  font-size: 32px;
+  letter-spacing: 0;
+  text-shadow: 0px 1px 0px #999,
+  0px 2px 0px #888,
+  0px 3px 0px #777,
+  0px 4px 0px #666,
+  0px 5px 0px #555,
+  0px 6px 0px #444,
+  0px 7px 0px #333,
+  0px 8px 7px #001135;
+}
+
+.center-div {
+  width: 90%;
+  margin: 0 auto;
+  text-align: left;
+}
+
+body{
+  font-family: 'Segoe UI', SegoeUI, 'Microsoft YaHei', 微软雅黑, "Helvetica Neue", Helvetica, Arial, sans-serif;;
+}
+
+a{
+  text-decoration:none;
+  color: #2292DD;
+}
+
+.tx18 {
+  font-size: 18px;
+}
+
+.tx16 {
+  font-size: 16px;
+}
+
+.tx14 {
+  font-size: 14px;
+}
+
+.tx-hint {
+  color: #909399;
+}
+
+/*页面上方的搜索面板*/
+.search-panel {
+  margin-bottom: 20px;
+  padding-bottom: 0px;
+}
+
+.search-panel .el-card__body {
+  padding: 20px 20px 0 20px;
+}
+
+.search-panel .el-form-item {
+  margin-bottom: 20px;
+}
+
+.el-table .error-row {
+  background: #f56c6c;
+}
+
+.el-table .warning-row {
+  background: oldlace;
+}
+
+.el-table .success-row {
+  background: #f0f9eb;
+}
+
+.el-main {
+  flex-basis: 0;
+}
+
+.search-form-template .parent {
+  flex:1;
+  display: flex;
+  flex-flow :row wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+.search-form-template .parent input {
+  width : 270px;
+}
+.search-form-template .parent .child {
+  flex: 0 0 33%;
+  display: flex;
+  flex-flow :row nowrap;
+  justify-content: flex-start;
+  align-items: center;
+}
+.search-form-template .el-card__body {
+  padding-bottom: 0px;
+}
+.search-form-template .el-card {
+  margin-bottom: 15px;
+}

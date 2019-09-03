@@ -1,0 +1,26 @@
+-- 初始化超级管理员角色
+INSERT INTO  ifpay_center.sys_rolesinfo (APP_ID, ROLE_CODE, ROLE_NAME, SYSTEM_ROLE, STATUS, CREATE_TIME, UPDATE_TIME, CREATOR_CHAIN) VALUES ('ccpay', '00001', '超级管理员', '1', '1', now(), now(), 'TOP');
+-- 初始化超级管理员用户
+INSERT INTO  ifpay_center.sys_userinfo  ( USER_ID, USER_NAME, NICK_NAME, USER_PWD, USER_STATUS, MOBILE, EMAIL, START_DATE, END_DATE, DATE_CREATED, DATE_UPDATED, APP_ID, LOGIN_ERROR_TIMES) VALUES ( 'ccpay007', 'admin', '超级管理员', '43474fb270d1cd90cf1c8d8656503b0fcc6c3818', '2', '15558075323', 'admin@ftvalue.com', now(), now(), now(), now(), 'ccpay', '0');
+-- 初始化用户和角色关联
+INSERT INTO  ifpay_center.sys_userrolesrelation (APP_ID, USER_ID, ROLE_ID) VALUES ( 'ccpay','ccpay007','00001');
+-- 初始化菜单信息
+INSERT INTO  ifpay_center.sys_menuinfo  ( APP_ID ,  MENU_CODE ,  MENU_NAME ,  ICON ,  URL ,  PARENT_CODE ,  TREE_PATH ,  TREE_PATH_NAME ,  SRL ,  TITLE_DESC ,  MENU_HELP ,  ISDELETED ,  CREATED_DATE ,  UPDATE_DATE ,  DEFAULT_SELECT_STATUS ,  CHANGEABLE ) VALUES ('ccpay', 'MC_ccpay_menu', '菜单管理', '', 'menu/index', 'MC_ccpay100002', '', '', 0, '', '', 0, now(), now(), 0, 1);
+INSERT INTO  ifpay_center.sys_menuinfo  ( APP_ID ,  MENU_CODE ,  MENU_NAME ,  ICON ,  URL ,  PARENT_CODE ,  TREE_PATH ,  TREE_PATH_NAME ,  SRL ,  TITLE_DESC ,  MENU_HELP ,  ISDELETED ,  CREATED_DATE ,  UPDATE_DATE ,  DEFAULT_SELECT_STATUS ,  CHANGEABLE ) VALUES ('ccpay', 'MC_ccpay100001', '设置', 'setting', '', 'root', '', '', 1, '', '', 0, now(), now(), 0, 1);
+INSERT INTO  ifpay_center.sys_menuinfo  ( APP_ID ,  MENU_CODE ,  MENU_NAME ,  ICON ,  URL ,  PARENT_CODE ,  TREE_PATH ,  TREE_PATH_NAME ,  SRL ,  TITLE_DESC ,  MENU_HELP ,  ISDELETED ,  CREATED_DATE ,  UPDATE_DATE ,  DEFAULT_SELECT_STATUS ,  CHANGEABLE ) VALUES ('ccpay', 'MC_ccpay100002', '权限管理', 'nav-list-o', '', 'MC_ccpay100001', '', '', 1, '', '', 0, now(), now(), 0, 1);
+INSERT INTO  ifpay_center.sys_menuinfo  ( APP_ID ,  MENU_CODE ,  MENU_NAME ,  ICON ,  URL ,  PARENT_CODE ,  TREE_PATH ,  TREE_PATH_NAME ,  SRL ,  TITLE_DESC ,  MENU_HELP ,  ISDELETED ,  CREATED_DATE ,  UPDATE_DATE ,  DEFAULT_SELECT_STATUS ,  CHANGEABLE ) VALUES ('ccpay', 'MC_ccpay100003', '角色管理', '', 'role/list', 'MC_ccpay100002', '', '', 3, '', '', 0, now(), now(), 0, 1);
+INSERT INTO  ifpay_center.sys_menuinfo  ( APP_ID ,  MENU_CODE ,  MENU_NAME ,  ICON ,  URL ,  PARENT_CODE ,  TREE_PATH ,  TREE_PATH_NAME ,  SRL ,  TITLE_DESC ,  MENU_HELP ,  ISDELETED ,  CREATED_DATE ,  UPDATE_DATE ,  DEFAULT_SELECT_STATUS ,  CHANGEABLE ) VALUES ('ccpay', 'MC_ccpay100004', '操作员管理', '', 'user/list', 'MC_ccpay100002', '', '', 95, '', '', 0, now(), now(), 0, 1);
+
+-- 初始化控件元素信息
+INSERT INTO  ifpay_center.sys_uimetadata  ( APP_ID ,  MENU_CODE ,  CONTROL_ID ,  CONTROL_NAME ,  CONTROL_TYPE ,  ISDELETED ,  CREATED_DATE ,  UPDATE_DATE ) VALUES ('ccpay', 'MC_ccpay_menu', 'menu-page-index/edit', '编辑', 'oper', 0, now(), now());
+INSERT INTO  ifpay_center.sys_uimetadata  ( APP_ID ,  MENU_CODE ,  CONTROL_ID ,  CONTROL_NAME ,  CONTROL_TYPE ,  ISDELETED ,  CREATED_DATE ,  UPDATE_DATE ) VALUES ('ccpay', 'MC_ccpay_menu', 'menu-page-index/add', '增加', 'oper', 0, now(), now());
+INSERT INTO  ifpay_center.sys_uimetadata  ( APP_ID ,  MENU_CODE ,  CONTROL_ID ,  CONTROL_NAME ,  CONTROL_TYPE ,  ISDELETED ,  CREATED_DATE ,  UPDATE_DATE ) VALUES ('ccpay', 'MC_ccpay_menu', 'menu-page-index/del', '删除', 'oper', 0, now(), now());
+INSERT INTO  ifpay_center.sys_uimetadata  ( APP_ID ,  MENU_CODE ,  CONTROL_ID ,  CONTROL_NAME ,  CONTROL_TYPE ,  ISDELETED ,  CREATED_DATE ,  UPDATE_DATE ) VALUES ('ccpay', 'MC_ccpay100003', 'role-page-list/edit', '编辑', 'oper', 0, now(), now());
+INSERT INTO  ifpay_center.sys_uimetadata  ( APP_ID ,  MENU_CODE ,  CONTROL_ID ,  CONTROL_NAME ,  CONTROL_TYPE ,  ISDELETED ,  CREATED_DATE ,  UPDATE_DATE ) VALUES ('ccpay', 'MC_ccpay100003', 'role-page-list/del', '删除', 'oper', 0, now(), now());
+INSERT INTO  ifpay_center.sys_uimetadata  ( APP_ID ,  MENU_CODE ,  CONTROL_ID ,  CONTROL_NAME ,  CONTROL_TYPE ,  ISDELETED ,  CREATED_DATE ,  UPDATE_DATE ) VALUES ('ccpay', 'MC_ccpay100003', 'role-page-list/add', '增加', 'oper', 0, now(), now());
+INSERT INTO  ifpay_center.sys_uimetadata  ( APP_ID ,  MENU_CODE ,  CONTROL_ID ,  CONTROL_NAME ,  CONTROL_TYPE ,  ISDELETED ,  CREATED_DATE ,  UPDATE_DATE ) VALUES ('ccpay', 'MC_ccpay100004', 'user-page-list/add', '增加', 'oper', 0, now(), now());
+INSERT INTO  ifpay_center.sys_uimetadata  ( APP_ID ,  MENU_CODE ,  CONTROL_ID ,  CONTROL_NAME ,  CONTROL_TYPE ,  ISDELETED ,  CREATED_DATE ,  UPDATE_DATE ) VALUES ('ccpay', 'MC_ccpay100004', 'user-page-list/edit', '编辑', 'oper', 0, now(), now());
+INSERT INTO  ifpay_center.sys_uimetadata  ( APP_ID ,  MENU_CODE ,  CONTROL_ID ,  CONTROL_NAME ,  CONTROL_TYPE ,  ISDELETED ,  CREATED_DATE ,  UPDATE_DATE ) VALUES ('ccpay', 'MC_ccpay100004', 'user-page-list/del', '删除', 'oper', 0, now(), now());
+INSERT INTO  ifpay_center.sys_uimetadata  ( APP_ID ,  MENU_CODE ,  CONTROL_ID ,  CONTROL_NAME ,  CONTROL_TYPE ,  ISDELETED ,  CREATED_DATE ,  UPDATE_DATE ) VALUES ('ccpay', 'MC_ccpay_menu', 'menu-page-index/url', '菜单URL', 'field', 0, now(), now());
+
+COMMIT ;

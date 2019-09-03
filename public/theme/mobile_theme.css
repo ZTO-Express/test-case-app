@@ -1,0 +1,67 @@
+/*移动端*/
+
+.login-container .login-form{transition:all .3s}
+
+@media screen and (max-width: 768px) {
+
+  /*登录界面*/
+  .login-container .login-form{ width:350px; max-width:90%; box-sizing:border-box; padding:30px 20px 10px;border:none;box-shadow:none }
+  .login-container .icon-user,.icon-key{display:none}
+
+  /*登录身份验证*/
+  .auth-verify-dialog .el-dialog{width:350px !important; max-width:90% !important; box-sizing:border-box;}
+  .auth-verify-dialog .el-dialog__body{padding:16px 20px 30px}
+  .auth-verify-dialog .auth-verify-panel{width:98%}
+  .auth-verify-dialog .el-form-item__content .el-input{width:60% !important; }
+  .auth-verify-dialog .el-form-item__content .el-input input{border-radius:4px}
+  .auth-verify-dialog .el-form-item__content #sendCaptcha{width:35% !important}
+
+  /*message*/
+  .el-message{top:0; border-radius:0;border:none}
+
+  /*golbal*/
+
+  .body-container{min-width:100% !important; padding:12px}
+  .el-card__body{padding:12px !important}
+  .el-breadcrumb.app-breadcrumb.breadcrumb{display:none}
+  .el-dialog{width:90% !important}
+  .el-dialog .el-dialog__body{padding:24px 10px 28px;}
+
+  /*日期控件*/
+  .el-date-range-picker{left:0 !important; max-width:100%}
+  .el-date-range-picker .el-picker-panel__body{min-width:100% !important; max-width:100%}
+
+  /*left_menu*/
+  .sidebar-menu-container:not(.sidebar-menu-container-collapse) {
+    min-width: 0 !important; max-width:0}
+  .is-active.level_3{border-radius:0; margin-left:0; text-indent:0; background:rgba(255,255,255,.8) !important}
+
+  /*日志*/
+  .md-view-dialog .el-dialog{width:90% !important; }
+
+  /*welcome*/
+  .pan-item{display:none !important}
+  .info-container{margin-left:0 !important}
+  .display_name{font-size:16px !important;}
+  .el-col-14,.el-col-10{clear:both; width:100%}
+  .el-col-14 span{padding:3px 0 !important;line-height:180% !important; position:unset; top:unset}
+  .el-col-10{padding:5px 0}
+
+  .dashboard-container .info-container{line-height:180%}
+
+  .el-col-19{width:100%}
+  .el-col-5{clear:both;width:100%}
+  .el-col-2{min-width:40px;width:15%}
+  .avatar-mini{margin-left:0 !important}
+  .el-col-20{padding-left:8px;width:83%}
+  .el-col-4{clear:both}
+  .el-col-4 .el-tag{height:24px; line-height:24px; margin:8px 0 0 8px;}
+
+  /*交易总揽  通道和产品占比样式*/
+  .channel-ratio-panel,.product-ratio-panel {
+    width: 100%;
+  }
+  .product-ratio-panel{
+    margin-top: 20px;
+  }
+}

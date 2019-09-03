@@ -1,0 +1,8 @@
+[class^="icon"], [class*=" icon"] {
+  font-family:"iconfont" !important;
+  font-size:20px;
+  color: #889aa4;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

@@ -1,0 +1,154 @@
+{
+  "respCode": "S0001",
+  "respMessage": "成功",
+  "data": {
+    "userInfo": {
+      "id": 268,
+      "userId": "diablo007",
+      "userName": "admin",
+      "nickName": "超级管理员",
+      "userStatus": "2",
+      "mobile": "18855953734",
+      "email": "admin@ftvalue.com",
+      "appId": "diablo",
+      "userPwd": "****",
+      "loginErrorTimes": 0,
+      "startDate": null,
+      "endDate": null,
+      "dateCreated": null,
+      "dateUpdated": null,
+      "roles": [
+        {
+          "id": 1,
+          "roleCode": "00001",
+          "roleName": "超级管理员",
+          "systemRole": "1",
+          "appId": "diablo",
+          "status": "1",
+          "createTime": 1523497742000,
+          "updateTime": 1524817590000,
+          "creatorChain": "TOP"
+        }
+      ]
+    },
+    "pms": {
+      "role-page-list/del": {
+        "permType": "view",
+        "uiMetaId": "10013",
+        "menuCode": "MC_diablo100003",
+        "permId": null
+      },
+      "url:merchant-center/customer/modify": {
+        "permType": "view",
+        "uiMetaId": "10086",
+        "menuCode": "MC_diablo100254",
+        "permId": null
+      }
+    },
+    "menu": [
+      {
+        "id": 341,
+        "appId": "diablo",
+        "menuCode": "MC_diablo100341",
+        "menuName": "Dashboard",
+        "icon": "dashboard-o",
+        "url": "",
+        "parentCode": "root",
+        "treePath": "",
+        "treePathName": "",
+        "srl": 1,
+        "titleDesc": "",
+        "menuHelp": "",
+        "isdeleted": 0,
+        "defaultSelectStatus": 0,
+        "changeable": 1,
+        "createdDate": 1539931565000,
+        "updateDate": 1541075247000,
+        "child": [
+          {
+            "id": 351,
+            "appId": "diablo",
+            "menuCode": "MC_diablo100351",
+            "menuName": "统计",
+            "icon": "",
+            "url": "",
+            "parentCode": "MC_diablo100341",
+            "treePath": "",
+            "treePathName": "",
+            "srl": 351,
+            "titleDesc": "",
+            "menuHelp": "",
+            "isdeleted": 0,
+            "defaultSelectStatus": 0,
+            "changeable": 1,
+            "createdDate": 1541040476000,
+            "updateDate": 1541040476000,
+            "child": [
+              {
+                "id": 352,
+                "appId": "diablo",
+                "menuCode": "MC_diablo100352",
+                "menuName": "趋势统计",
+                "icon": "",
+                "url": "statistics-center/tendency",
+                "parentCode": "MC_diablo100351",
+                "treePath": "",
+                "treePathName": "",
+                "srl": 352,
+                "titleDesc": "",
+                "menuHelp": "",
+                "isdeleted": 0,
+                "defaultSelectStatus": 0,
+                "changeable": 1,
+                "createdDate": 1541040510000,
+                "updateDate": 1541040536000,
+                "child": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 351,
+        "appId": "diablo",
+        "menuCode": "MC_diablo100361",
+        "menuName": "收款管理",
+        "icon": "",
+        "url": "",
+        "parentCode": "MC_diablo100341",
+        "treePath": "",
+        "treePathName": "",
+        "srl": 351,
+        "titleDesc": "",
+        "menuHelp": "",
+        "isdeleted": 0,
+        "defaultSelectStatus": 0,
+        "changeable": 1,
+        "createdDate": 1541040476000,
+        "updateDate": 1541040476000,
+        "child": [
+          {
+            "id": 352,
+            "appId": "diablo",
+            "menuCode": "MC_diablo100362",
+            "menuName": "交易查询",
+            "icon": "",
+            "url": "payee-account-page/trade-search",
+            "parentCode": "root",
+            "treePath": "",
+            "treePathName": "",
+            "srl": 352,
+            "titleDesc": "",
+            "menuHelp": "",
+            "isdeleted": 0,
+            "defaultSelectStatus": 0,
+            "changeable": 1,
+            "createdDate": 1541040510000,
+            "updateDate": 1541040536000,
+            "child": []
+          }
+        ]
+      }
+    ]
+  }
+}

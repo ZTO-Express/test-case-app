@@ -1,0 +1,21 @@
+{
+  "root": true,
+  "extends": [
+    "plugin:vue/essential",
+    "@vue/airbnb"
+  ],
+  "rules": {
+    "no-param-reassign": [2, { "props": false }],
+    "prefer-template": "off",
+    "no-unused-vars":0,
+    "linebreak-style": "off",
+    "camelcase": "off",
+    "max-len": ["error", { "code": 180 }],
+    "prefer-destructuring": ["error", {
+      "array": false,
+      "object": false
+    }, {
+      "enforceForRenamedProperties": false
+    }]
+  }
+}
