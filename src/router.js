@@ -24,9 +24,11 @@ import operationLog from './pages/oper-manager-page/operation-log-page/index.vue
 // MIX
 import bookingCenter from './pages/operation-center/booking';
 import classesCenter from './pages/operation-center/classes';
+import placeCenter from './pages/operation-center/place';
 import trainingSessionCenter from './pages/operation-center/trainingSession';
 import coachCenter from './pages/club-center/coach';
 import playerCenter from './pages/club-center/player';
+import echelonCenter from './pages/club-center/echelon';
 import signInCenter from './pages/sign-in-center/signIn';
 import h5SignInCenter from './pages/sign-in-center/h5SignIn';
 import audit from './pages/audit-center/audit';
@@ -109,6 +111,11 @@ const router = new Router({
           component: classesCenter,
         },
         {
+          path: 'operation-center/place',
+          name: 'placeCenter',
+          component: placeCenter,
+        },
+        {
           path: 'operation-center/trainingSession',
           name: 'trainingSessionCenter',
           component: trainingSessionCenter,
@@ -122,6 +129,11 @@ const router = new Router({
           path: 'club-center/player',
           name: 'playerCenter',
           component: playerCenter,
+        },
+        {
+          path: 'club-center/echelon',
+          name: 'echelonCenter',
+          component: echelonCenter,
         },
         {
           path: 'sign-in-center/signIn',

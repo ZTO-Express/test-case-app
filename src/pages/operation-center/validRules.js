@@ -281,6 +281,9 @@ const dialogForm1Rules = {
   classesId: [$('required')],
   trainingTimeStart: [$('required')],
   trainingTimeEnd: [$('required')],
+  placeName: [$('required')],
+  placeAddress: [$('required')],
+  placeRent: [$('required'), $('intNumber')],
 };
 
 export {rules, dialogForm1Rules};

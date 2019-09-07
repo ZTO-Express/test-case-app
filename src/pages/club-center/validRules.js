@@ -277,6 +277,9 @@ const dialogForm1Rules = {
   classTotal: [$('required'), $('intNumber')],
   perPrice: [$('required'), $('amount')],
   share: [$('required'), $('scale')],
+  echelonName: [$('required')],
+  echelonAgeStart: [$('required'),$('intNumber')],
+  echelonAgeEnd: [$('required'),$('intNumber')],
 };
 
 export {rules, dialogForm1Rules};
