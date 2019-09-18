@@ -78,7 +78,7 @@
           </el-table-column>
           <el-table-column prop="trainingTimeStart" label="训练开始时间"/>
           <el-table-column prop="trainingTimeEnd" label="训练结束时间"/>
-          <el-table-column prop="classesName" label="训练班名称"/>
+          <el-table-column width="140px" prop="classesName" label="训练班名称"/>
           <el-table-column prop="echelonId" label="梯队名称" :formatter="formatEchelonName"/>
           <el-table-column prop="placeId" label="场地名称" :formatter="formatPlaceName"/>
           <el-table-column prop="status" label="状态">

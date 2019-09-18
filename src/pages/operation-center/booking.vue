@@ -91,8 +91,15 @@
             </template>
           </el-table-column>
           <el-table-column prop="parentsName" label="家长姓名"/>
-          <el-table-column prop="relation" label="关系"/>
-          <el-table-column prop="concatWay" label="联系方式"/>
+          <el-table-column prop="relation" label="关系">
+            <template slot-scope="scope">
+              <span v-if="scope.row.relation === 'father'">爸爸</span>
+              <span v-if="scope.row.relation === 'mother'">妈妈</span>
+              <span v-if="scope.row.relation === 'grandpa'">爷爷/外公</span>
+              <span v-if="scope.row.relation === 'grandma'">奶奶/外婆</span>
+            </template>
+          </el-table-column>
+          <el-table-column prop="concatWay" label="手机号码"/>
           <el-table-column prop="address" label="家庭住址"/>
           <el-table-column prop="isReturnVisit" label="是否回访">
             <template slot-scope="scope">
@@ -117,6 +124,7 @@
           </el-table-column>
           <el-table-column prop="joinDate" label="加入日期" :formatter="formatDate"/>
           <el-table-column prop="remark" label="备注"/>
+          <el-table-column prop="remark1" label="备注1" v-if="false"/>
           <el-table-column prop="createUser" label="创建者"/>
           <el-table-column prop="createTime" label="创建时间" :formatter="formatTime"/>
           <el-table-column prop="updateUser" label="更新者"/>

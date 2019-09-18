@@ -36,12 +36,14 @@
         <el-row>
           <el-col :span="12">
             <el-form-item prop="chineseName" label="中文名">
-              <el-input style="width: 220px" v-model.trim="dialogForm.chineseName" clearable maxlength=100 placeholder="中文名"/>
+              <el-input style="width: 220px" v-model.trim="dialogForm.chineseName" clearable maxlength=100
+                        placeholder="中文名"/>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item prop="englishName" label="英文名">
-              <el-input style="width: 220px" v-model.trim="dialogForm.englishName" clearable maxlength=100 placeholder="英文名"/>
+              <el-input style="width: 220px" v-model.trim="dialogForm.englishName" clearable maxlength=100
+                        placeholder="英文名"/>
             </el-form-item>
           </el-col>
         </el-row>
@@ -104,7 +106,7 @@
         </el-row>
         <el-row>
           <el-col :span="12">
-            <el-form-item prop="concatWay" label="联系方式">
+            <el-form-item prop="concatWay" label="手机号码">
               <el-input style="width: 220px" v-model.trim="dialogForm.concatWay" clearable maxlength=50>
               </el-input>
             </el-form-item>
@@ -142,9 +144,9 @@
           <el-col :span="12">
             <el-form-item prop="isExperience" label="是否体验">
               <el-select v-model="dialogForm.isExperience" clearable placeholder="请选择">
-              <el-option v-for="item in isExperienceArr" :key="item.value" :label="item.label"
-                         :value="item.value"></el-option>
-            </el-select>
+                <el-option v-for="item in isExperienceArr" :key="item.value" :label="item.label"
+                           :value="item.value"></el-option>
+              </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -182,10 +184,26 @@
             </el-form-item>
           </el-col>
         </el-row>
+        <el-row
+          v-if="dialogForm.isJoin == 1 && (dialogForm.remark1 == null || dialogForm.remark1 == '' || dialogForm.remark1 == undefined)">
+          <el-col>
+            <el-form-item prop="classesId" label="所属班级">
+              <el-select style="width:560px" v-model="dialogForm.classesId" multiple
+                         clearable placeholder="请选择">
+                <el-option style="width: 560px"
+                  v-for="classes in classesList"
+                  :key="classes.id"
+                  :label="classes.classesName"
+                  :value="classes.id">
+                </el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+        </el-row>
         <el-row>
           <el-col>
             <el-form-item prop="bookingRemark" label="备注">
-              <el-input style="width: 540px" v-model.trim="dialogForm.remark" clearable maxlength=255>
+              <el-input type="textarea" v-model.trim="dialogForm.remark" clearable maxlength=255>
               </el-input>
             </el-form-item>
           </el-col>
@@ -227,6 +245,9 @@
         experienceDate: '',
         isJoin: '',
         joinDate: '',
+        classesId: [],
+        remark: '',
+        remark1: '',
       };
       return {
         loading: false,
@@ -302,6 +323,7 @@
             label: "已退出",
           }
         ],
+        classesList: [],
         curIndex: '',
         curType: '',
         pickerOptions: {
@@ -317,27 +339,49 @@
       },
     },
     created() {
-      // this.initTestServiceList();
-      // this.initTestEnvList();
+      this.initClassesList();
     },
     methods: {
+      // initClasses() {
+      //   if (this.dialogForm.isJoin == 1 && (this.dialogForm.remark1 == null || this.dialogForm.remark1 == '' || this.dialogForm.remark1 == undefined)) {
+      //     this.initClassesList();
+      //   }
+      // },
+      initClassesList() {
+        const param = {};
+        param.pageNo = 1;
+        param.pageSize = 1000;
+        this.$axiosUtil.post(this.$appConfig.MIX, this.$urlConst.QUERY_CLASSES_LIST, param).then((res) => {
+          this.classesList = res.data.classesDtoList;
+        }).catch((error) => {
+          this.$message.error(error.msg);
+        })
+      },
       initForm() {
-        this.dialogForm = {};
+        // this.dialogForm = {};
+        this.dialogForm.bookingDate = '';
+        this.dialogForm.source = '';
+        this.dialogForm.chineseName = '';
+        this.dialogForm.englishName = '';
+        this.dialogForm.birthday = '';
+        this.dialogForm.age = '';
+        this.dialogForm.height = '';
+        this.dialogForm.parentsName = '';
+        this.dialogForm.relation = '';
+        this.dialogForm.mobile = '';
+        this.dialogForm.concatWay = '';
+        this.dialogForm.address = '';
+        this.dialogForm.remark = '';
+        this.dialogForm.remark1 = '';
         this.dialogForm.isReturnVisit = 0;
+        this.dialogForm.returnVisitDate = '';
         this.dialogForm.isExperience = 0;
+        this.dialogForm.experienceDate = '';
         this.dialogForm.isJoin = 0;
+        this.dialogForm.joinDate = '';
+        this.dialogForm.classesId = [];
         this.$refs.dialogForm && this.$refs.dialogForm.clearValidate();
       },
-      // getData() {
-      //   let _data = {};
-      //   if (this.curType === 'new') {
-      //     _data["serviceId"] = this.dialogForm.serviceId;
-      //   }
-      //   if (this.curType === 'edit') {
-      //     _data["serviceId"] = this.dialogForm.serviceIdDisplay;
-      //   }
-      //   return _data;
-      // },
       initDialog() {
         this.dialogForm.bookingDate = this.$formatters.formatDate(this.dialogForm.bookingDate);
         this.dialogForm.birthday = this.$formatters.formatDate(this.dialogForm.birthday);
@@ -361,7 +405,6 @@
           if (this.curType === 'edit') {
             reqUrl = this.$urlConst.EDIT_BOOKING_LIST;
           }
-          console.log(params);
           this.$axiosUtil.post(this.$appConfig.MIX, reqUrl, params).then((res) => {
             if (res.code === 'S0001') {
               this.loading = !this.loading;
@@ -393,9 +436,6 @@
       },
       showMod(dialogType) {
         if (dialogType) {
-          this.dialogForm = dialogType.data; // 还原当前修改项
-
-          this.curIndex = dialogType.index; // 记录当前修改位置
           this.curType = dialogType.type;
         }
         if (this.curType === 'new') {
@@ -404,6 +444,8 @@
           this.initForm();
         }
         if (this.curType === 'edit') {
+          this.dialogForm = dialogType.data; // 还原当前修改项
+          this.curIndex = dialogType.index; // 记录当前修改位置
           this.title = "编辑预约";
           this.allDisabled = false;
           this.initDialog();

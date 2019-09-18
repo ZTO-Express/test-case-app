@@ -267,9 +267,10 @@ rules.$ = (rule, paramA, paramB, paramC) => {
 const $ = rules.$;
 
 const dialogForm1Rules = {
-  bookingTime: [$('required')],
+  bookingDate: [$('required')],
   source: [$('required')],
-  caseType: [$('required')],
+  chineseName: [$('required')],
+  concatWay: [$('required'), $('mobile')],
   height: [$('intNumber')],
   classesName: [$('required')],
   placeId: [$('required')],

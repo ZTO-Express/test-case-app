@@ -113,6 +113,10 @@ const CREATE_AUDIT_ORDER = '/v1/audit/createAuditOrder';
 const UPDATE_AUDIT_ORDER = '/v1/audit/updateAuditOrder';
 const QUERY_AUDIT_ORDER = '/v1/audit/getAuditList';
 
+const QUERY_SIGN_IN_STATISTICS = '/v1/dataCenter/getSignInStatisticsRealTime';
+const QUERY_SALARY_STATISTICS = '/v1/dataCenter/getSalaryStatistics';
+// const QUERY_SIGN_IN_STATISTICS = '/v1/dataCenter/getSignInStatistics';
+
 const UPLOAD_IMG = '/v1/upload/img';
 
 export default {
@@ -221,6 +225,9 @@ export default {
   CREATE_AUDIT_ORDER,
   UPDATE_AUDIT_ORDER,
   QUERY_AUDIT_ORDER,
+
+  QUERY_SIGN_IN_STATISTICS,
+  QUERY_SALARY_STATISTICS,
 
   UPLOAD_IMG,
 };

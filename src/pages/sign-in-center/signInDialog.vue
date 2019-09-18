@@ -33,7 +33,7 @@
                      @change="changeUserArr">
             <el-option v-for="user in userList"
                        :key="user.userId"
-                       :label="user.englishName + '(' + user.chineseName + ')'"
+                       :label="user.chineseName + '(' + user.englishName + ')'"
                        :value="user.userId">
             </el-option>
           </el-select>

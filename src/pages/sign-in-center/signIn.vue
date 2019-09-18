@@ -24,7 +24,7 @@
             </el-select>
           </el-form-item>
           <el-form-item prop="trainingDate">
-            <el-date-picker style="width: 236.67px" v-model="searchForm.trainingDate"
+            <el-date-picker v-model="searchForm.trainingDate"
                             type="date"
                             placeholder="训练日期"
                             format="yyyy-MM-dd"
@@ -49,11 +49,11 @@
           </el-form-item>
           <el-form-item>
             <el-select v-show="this.$appData.userInfo.roles[0].roleName == '超级管理员'
-                       || this.$appData.userInfo.roles[0].roleName == 'Boss'" v-model="searchForm.userName" clearable
-                       placeholder="签到名单">
+                       || this.$appData.userInfo.roles[0].roleName == 'Boss'" v-model="searchForm.userName" filterable clearable
+                       placeholder="签到人员">
               <el-option v-for="user in userList"
                          :key="user.userId"
-                         :label="user.englishName + '(' + user.chineseName + ')'"
+                         :label="user.chineseName + '(' + user.englishName + ')'"
                          :value="user.chineseName">
               </el-option>
             </el-select>

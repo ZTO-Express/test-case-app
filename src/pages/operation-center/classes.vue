@@ -60,7 +60,7 @@
             width="50">
           </el-table-column>
           <el-table-column prop="id" label="编号" v-if="false"/>
-          <el-table-column prop="classesName" label="训练班名称"/>
+          <el-table-column width="140px" prop="classesName" label="训练班名称"/>
           <el-table-column prop="echelonId" label="梯队名称" :formatter="formatEchelonName"/>
           <el-table-column prop="placeId" label="场地名称" :formatter="formatPlaceName"/>
           <el-table-column prop="classesPrice" label="训练班单价(元/节)" :formatter="formatAmount"/>

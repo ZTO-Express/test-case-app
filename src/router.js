@@ -35,6 +35,8 @@ import audit from './pages/audit-center/audit';
 import signInAudit from './pages/audit-center/signInAudit';
 import order from './pages/order-center/order';
 import account from './pages/finance-center/account';
+import signInStatistics from './pages/data-center/signInStatistics';
+import salaryStatistics from './pages/data-center/salaryStatistics';
 
 Vue.use(Router);
 
@@ -164,6 +166,16 @@ const router = new Router({
           path: 'finance-center/account',
           name: 'account',
           component: account,
+        },
+        {
+          path: 'data-center/signInStatistics',
+          name: 'signInStatistics',
+          component: signInStatistics,
+        },
+        {
+          path: 'data-center/salaryStatistics',
+          name: 'salaryStatistics',
+          component: salaryStatistics,
         },
       ],
     },

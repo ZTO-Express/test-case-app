@@ -222,7 +222,6 @@
         if (pageNo === 1) {
           this.data.pagination.currentPage = 1;
         }
-        ;
         const _data = this.getData();
         this.$axiosUtil.post(this.$appConfig.MIX, this.$urlConst.QUERY_COACH_LIST, _data).then((res) => {
           this.loading = !this.loading;
