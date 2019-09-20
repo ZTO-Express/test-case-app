@@ -64,6 +64,8 @@
                   element-loading-text="拼命加载中"
                   element-loading-spinner="el-icon-loading"
                   element-loading-background="#fff"
+                  :default-sort="{prop:'remainTime',order:'ascending'}"
+                  @sort-change="searchBySort"
                   :row-class-name="tableRowClassName">
           <el-table-column label="序号"
                            type="index"
@@ -132,7 +134,7 @@
           <el-table-column prop="mobile" label="手机号"/>
           <el-table-column prop="accountNo" label="账号"/>
           <el-table-column prop="balance" label="账户余额(元)" :formatter="formatAmount"/>
-          <el-table-column prop="remainTime" label="剩余课时(节)">
+          <el-table-column prop="remainTime" label="剩余课时(节)" sortable="custom">
             <template slot-scope="scope">
               <span>{{scope.row.remainTime + scope.row.nextRemainTime}}</span>
             </template>
@@ -199,6 +201,8 @@
         chineseName: '',
         englishName: '',
         searchDate: '',
+        prop: '',
+        order: '',
       };
       const defaultSearchDate = [
         // moment(new Date().setDate(1)).format('YYYY-MM-DD'),
@@ -252,7 +256,7 @@
       }
     },
     created: function () {
-      this.search();
+      // this.search();
       this.initUserList();
     },
     mounted() {
@@ -303,6 +307,8 @@
         _data["endTime"] = this.searchDate && this.searchDate[1] ? moment(this.searchDate[1]).format('YYYY-MM-DD') : '';
         _data["status"] = this.searchForm.status;
         _data["userId"] = this.searchForm.userName;
+        _data["prop"] = this.searchForm.prop;
+        _data["order"] = this.searchForm.order;
         return _data;
       },
       search(pageNo = 1) {
@@ -372,6 +378,23 @@
         }
         return '';
       },
+      searchBySort(column, prop, order) {
+        if (column.prop == null || column.order == null) {
+          this.searchForm.prop = "";
+          this.searchForm.order = "";
+        } else {
+          if (column.prop == "remainTime") {
+            this.searchForm.prop = "remain_time";
+          }
+          if (column.order == "ascending") {
+            this.searchForm.order = "ASC";
+          }
+          if (column.order == "descending") {
+            this.searchForm.order = "DESC";
+          }
+        }
+        this.search(1);
+      }
     }
   }
 </script>
