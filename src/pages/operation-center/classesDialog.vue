@@ -11,30 +11,62 @@
                     placeholder="训练班名称"/>
         </el-form-item>
         <el-form-item prop="echelonId" label="梯队">
-          <el-select style="width: 360px" v-model.trim="dialogForm.echelonId" clearable placeholder="梯队">
+          <el-select style="width: 360px" v-model.trim="dialogForm.echelonId" clearable placeholder="请选择">
             <el-option v-for="item in echelonList" :key="item.id" :label="item.echelonName"
                        :value="item.id"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item prop="placeId" label="场地名称">
-          <el-select style="width: 360px" v-model="dialogForm.placeId" clearable placeholder="场地名称">
+          <el-select style="width: 360px" v-model="dialogForm.placeId" clearable placeholder="请选择">
             <el-option v-for="item in placeList" :key="item.id" :label="item.placeName"
                        :value="item.id"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item prop="classesPrice" label="训练班单价">
-          <el-input style="width: 360px" v-model.trim="dialogForm.classesPrice" clearable maxlength=6
-                    placeholder="训练班单价"/>
+        <el-form-item prop="placeRent" label="场地租金">
+          <el-input style="width: 360px" v-model.trim="dialogForm.placeRent" clearable maxlength=6
+                    placeholder="场地租金">
+            <template slot="append">元</template>
+          </el-input>
         </el-form-item>
-        <el-form-item prop="classesDay" label="训练日期">
-          <el-select style="width: 360px" v-model="dialogForm.classesDay" clearable placeholder="训练日期">
+        <!--<el-form-item prop="classesPrice" label="训练班单价">-->
+        <!--<el-input style="width: 360px" v-model.trim="dialogForm.classesPrice" clearable maxlength=6-->
+        <!--placeholder="训练班单价">-->
+        <!--<template slot="append">元</template>-->
+        <!--</el-input>-->
+        <!--</el-form-item>-->
+        <el-form-item prop="classesDay" label="训练日">
+          <el-select style="width: 360px" v-model="dialogForm.classesDay" clearable placeholder="请选择">
             <el-option v-for="item in classesDayArr" :key="item.label" :label="item.label"
                        :value="item.label"></el-option>
           </el-select>
         </el-form-item>
+        <el-form-item prop="trainingTimeStart" label="训练时间">
+          <el-time-select style="width: 170px"
+                          placeholder="训练开始时间"
+                          v-model="dialogForm.trainingTimeStart"
+                          :picker-options="{
+                start: '09:00',
+                step: '00:30',
+                end: '21:00'
+              }"
+          >
+          </el-time-select>
+          ---
+          <el-time-select style="width: 170px"
+                          placeholder="训练结束时间"
+                          v-model="dialogForm.trainingTimeEnd"
+                          :picker-options="{
+                start: '09:00',
+                step: '00:30',
+                end: '21:00',
+              minTime: dialogForm.trainingTimeStart
+            }"
+          >
+          </el-time-select>
+        </el-form-item>
         <!--<el-form-item prop="remark" label="备注">-->
-          <!--<el-input style="width: 360px" v-model.trim="dialogForm.remark" clearable maxlength=255>-->
-          <!--</el-input>-->
+        <!--<el-input style="width: 360px" v-model.trim="dialogForm.remark" clearable maxlength=255>-->
+        <!--</el-input>-->
         <!--</el-form-item>-->
       </el-form>
       <el-col align="right">
@@ -62,6 +94,9 @@
         classesPrice: '',
         classesDay: '',
         remark: '',
+        placeRent: '',
+        trainingTimeStart: '',
+        trainingTimeEnd: '',
       };
       return {
         loading: false,

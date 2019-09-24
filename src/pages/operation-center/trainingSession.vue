@@ -19,7 +19,7 @@
       <el-card align="left" id="el-sessionQuery">
         <el-form ref="searchForm" :model="searchForm" size="small" :inline="true">
           <el-form-item>
-            <el-select v-model.trim="searchForm.classesName" clearable placeholder="训练班名称">
+            <el-select v-model.trim="searchForm.classesName" filterable clearable placeholder="训练班名称">
               <el-option v-for="item in classesList" :key="item.classesName" :label="item.classesName"
                          :value="item.classesName"></el-option>
             </el-select>
@@ -76,8 +76,8 @@
               <span>{{formatDate(scope.row.trainingDate)}}({{scope.row.classesDay}}) </span>
             </template>
           </el-table-column>
-          <el-table-column prop="trainingTimeStart" label="训练开始时间"/>
-          <el-table-column prop="trainingTimeEnd" label="训练结束时间"/>
+          <el-table-column width="100px" prop="trainingTimeStart" label="训练开始时间"/>
+          <el-table-column width="100px" prop="trainingTimeEnd" label="训练结束时间"/>
           <el-table-column width="140px" prop="classesName" label="训练班名称"/>
           <el-table-column prop="echelonId" label="梯队名称" :formatter="formatEchelonName"/>
           <el-table-column prop="placeId" label="场地名称" :formatter="formatPlaceName"/>
@@ -101,7 +101,7 @@
           <el-table-column width="140px" prop="createTime" label="创建时间" :formatter="formatTime"/>
           <el-table-column prop="updateUser" label="更新者"/>
           <el-table-column width="140px" prop="updateTime" label="更新时间" :formatter="formatTime"/>
-          <el-table-column align="center" width='250px' fixed="right" label="操作">
+          <el-table-column align="center" width='250px' label="操作">
             <template slot-scope="scope">
               <el-button type="primary" size="mini" @click="openSessionDialog('check',scope.row, scope.$index)"
                          v-permission="'session-center/session/check'">查看
@@ -235,10 +235,10 @@
       }
     },
     created: function () {
-      this.search();
       this.initClassesList();
       this.initEchelonList();
       this.initPlaceList();
+      this.search();
     },
     mounted() {
     },

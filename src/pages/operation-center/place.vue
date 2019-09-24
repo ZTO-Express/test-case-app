@@ -65,7 +65,7 @@
             </template>
           </el-table-column>
           <el-table-column prop="placeRent" label="训练营租金" :formatter="formatAmount"/>
-          <el-table-column width="200px" prop="remark" label="签到备注">
+          <el-table-column width="200px" prop="remark" label="备注">
             <template slot-scope="scope">
               <el-popover v-if="needPop(scope.row.remark)" placement="top-start" width="200" trigger="hover"
                           :content="scope.row.remark">

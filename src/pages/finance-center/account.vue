@@ -4,6 +4,17 @@
       <el-card align="left" id="el-accountQuery">
         <el-form ref="searchForm" :model="searchForm" size="small" :inline="true">
           <el-form-item>
+            <el-select v-model="searchForm.userName" filterable clearable placeholder="姓名"
+                       v-show="this.$appData.userInfo.roles[0].roleName == '超级管理员'
+                       || this.$appData.userInfo.roles[0].roleName == 'Boss'">
+              <el-option v-for="user in userList"
+                         :key="user.userId"
+                         :label="user.nickName + '(' + user.userName + ')'"
+                         :value="user.userId">
+              </el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item>
             <el-input v-model="searchForm.accountNo" clearable placeholder="账户号"></el-input>
           </el-form-item>
           <el-form-item>
@@ -17,17 +28,6 @@
                          :key="item.label"
                          :label="item.label"
                          :value="item.value"></el-option>
-            </el-select>
-          </el-form-item>
-          <el-form-item>
-            <el-select v-model="searchForm.userName" clearable placeholder="姓名"
-                       v-show="this.$appData.userInfo.roles[0].roleName == '超级管理员'
-                       || this.$appData.userInfo.roles[0].roleName == 'Boss'">
-              <el-option v-for="user in userList"
-                         :key="user.userId"
-                         :label="user.nickName"
-                         :value="user.userId">
-              </el-option>
             </el-select>
           </el-form-item>
           <el-form-item>
@@ -52,9 +52,9 @@
             width="60">
           </el-table-column>
           <el-table-column prop="id" label="编号" v-if="false"/>
-          <el-table-column width="110px"  prop="memberId" label="成员编号"/>
-          <el-table-column width="100px"   prop="accountNo" label="账户号"/>
-          <el-table-column width="110px"   prop="accountName" label="账户名称"/>
+          <el-table-column width="110px" prop="memberId" label="成员编号"/>
+          <el-table-column width="100px" prop="accountNo" label="账户号"/>
+          <el-table-column width="110px" prop="accountName" label="账户名称"/>
           <el-table-column prop="accountType" label="账户类型">
             <template slot-scope="scope">
               <span v-if="scope.row.accountType === 'club'">俱乐部</span>
@@ -71,11 +71,11 @@
           <el-table-column prop="createTime" label="创建时间" :formatter="formatTime"/>
           <el-table-column prop="updateTime" label="更新时间" :formatter="formatTime"/>
           <!--<el-table-column align="center" width='100px' fixed="right" label="操作">-->
-            <!--<template slot-scope="scope">-->
-              <!--<el-button type="primary" size="mini" @click="openAccountInfo(scope.row)"-->
-                         <!--v-permission="'account-center/account-info/info'">账户流水-->
-              <!--</el-button>-->
-            <!--</template>-->
+          <!--<template slot-scope="scope">-->
+          <!--<el-button type="primary" size="mini" @click="openAccountInfo(scope.row)"-->
+          <!--v-permission="'account-center/account-info/info'">账户流水-->
+          <!--</el-button>-->
+          <!--</template>-->
           <!--</el-table-column>-->
         </el-table>
 

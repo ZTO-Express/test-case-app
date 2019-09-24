@@ -7,12 +7,12 @@
             <el-input v-model="searchForm.tradeNo" clearable placeholder="订单号"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-select v-model="searchForm.userName" clearable placeholder="球员姓名"
+            <el-select v-model="searchForm.userName" filterable clearable placeholder="球员姓名"
                        v-show="this.$appData.userInfo.roles[0].roleName == '超级管理员'
                        || this.$appData.userInfo.roles[0].roleName == 'Boss'">
               <el-option v-for="user in userList"
                          :key="user.userId"
-                         :label="user.nickName"
+                         :label="user.nickName + '(' + user.userName + ')'"
                          :value="user.userId">
               </el-option>
             </el-select>

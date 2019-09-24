@@ -14,10 +14,10 @@
           <el-input style="width: 360px" v-model.trim="dialogForm.placeAddress" clearable maxlength=100
                     placeholder="训练营地址"/>
         </el-form-item>
-        <el-form-item prop="placeRent" label="训练营租金">
-          <el-input style="width: 360px" v-model.trim="dialogForm.placeRent" clearable maxlength=6
-                    placeholder="训练营租金"/>
-        </el-form-item>
+        <!--<el-form-item prop="placeRent" label="训练营租金">-->
+          <!--<el-input style="width: 360px" v-model.trim="dialogForm.placeRent" clearable maxlength=6-->
+                    <!--placeholder="训练营租金"/>-->
+        <!--</el-form-item>-->
         <el-form-item prop="placeRemark" label="备注">
           <el-input type="textarea" style="width: 360px" v-model.trim="dialogForm.remark" clearable maxlength=100>
           </el-input>

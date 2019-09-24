@@ -15,26 +15,26 @@
       <el-card align="left" id="el-classesQuery">
         <el-form ref="searchForm" :model="searchForm" size="small" :inline="true">
           <el-form-item>
-            <el-select v-model.trim="searchForm.classesName" clearable placeholder="训练班名称">
+            <el-select v-model.trim="searchForm.classesName" filterable clearable placeholder="训练班名称">
               <el-option v-for="item in classesList" :key="item.id" :label="item.classesName"
                          :value="item.classesName"></el-option>
             </el-select>
           </el-form-item>
           <el-form-item>
-            <el-select v-model="searchForm.classesDay" clearable placeholder="训练日期">
+            <el-select v-model="searchForm.classesDay" clearable placeholder="训练日">
               <el-option v-for="item in classesDayArr" :key="item.label" :label="item.label"
                          :value="item.label"></el-option>
             </el-select>
           </el-form-item>
           <el-form-item>
-            <el-select v-model.trim="searchForm.echelonId" clearable placeholder="梯队名称">
-              <el-option v-for="item in echelonList" :key="item.id" :label="item.echelonName"
+            <el-select v-model="searchForm.placeId" clearable placeholder="场地名称">
+              <el-option v-for="item in placeList" :key="item.id" :label="item.placeName"
                          :value="item.id"></el-option>
             </el-select>
           </el-form-item>
           <el-form-item>
-            <el-select v-model="searchForm.placeId" clearable placeholder="场地名称">
-              <el-option v-for="item in placeList" :key="item.id" :label="item.placeName"
+            <el-select v-model.trim="searchForm.echelonId" clearable placeholder="梯队名称">
+              <el-option v-for="item in echelonList" :key="item.id" :label="item.echelonName"
                          :value="item.id"></el-option>
             </el-select>
           </el-form-item>
@@ -53,7 +53,8 @@
                   show-overflow-tooltip
                   element-loading-text="拼命加载中"
                   element-loading-spinner="el-icon-loading"
-                  element-loading-background="#fff">
+                  element-loading-background="#fff"
+                  :row-class-name="tableRowClassName">
           <el-table-column
             label="序号"
             type="index"
@@ -63,16 +64,26 @@
           <el-table-column width="140px" prop="classesName" label="训练班名称"/>
           <el-table-column prop="echelonId" label="梯队名称" :formatter="formatEchelonName"/>
           <el-table-column prop="placeId" label="场地名称" :formatter="formatPlaceName"/>
-          <el-table-column prop="classesPrice" label="训练班单价(元/节)" :formatter="formatAmount"/>
-          <el-table-column prop="classesDay" label="训练日期"/>
+          <!--<el-table-column prop="classesPrice" label="训练班单价(元/节)" :formatter="formatAmount"/>-->
+          <el-table-column prop="placeRent" label="场地租金" :formatter="formatAmount"/>
+          <el-table-column prop="classesDay" label="训练日"/>
+          <el-table-column width="100px" prop="trainingTimeStart" label="训练开始时间"/>
+          <el-table-column width="100px" prop="trainingTimeEnd" label="训练结束时间"/>
+          <el-table-column prop="status" label="状态">
+            <template slot-scope="scope">
+              <span v-if="scope.row.status===0">取消</span>
+              <span v-if="scope.row.status===1">正常</span>
+            </template>
+          </el-table-column>
           <el-table-column prop="remark" label="备注"/>
           <el-table-column prop="createUser" label="创建者"/>
           <el-table-column prop="createTime" label="创建时间" :formatter="formatTime"/>
           <el-table-column prop="updateUser" label="更新者"/>
           <el-table-column prop="updateTime" label="更新时间" :formatter="formatTime"/>
-          <el-table-column align="center" width='200' fixed="right" label="操作">
+          <el-table-column align="center" width='200' label="操作">
             <template slot-scope="scope">
               <el-button type="primary" size="mini" @click="openClasses('edit',scope.row, scope.$index)"
+                         v-if="scope.row.status === 1"
                          v-permission="'classes-center/classes/edit'">编辑
               </el-button>
               <el-button type="primary" size="mini" @click="delClasses(scope.row)" v-if="scope.row.status === 1"
@@ -291,12 +302,12 @@
         this.dialogVisible = !this.dialogVisible;
         this.dialogType = {type, data, index};
       },
-      // tableRowClassName({row}) {
-      //   if (row.isReturnVisit === 0) {
-      //     return 'warning-row';
-      //   }
-      //   return '';
-      // },
+      tableRowClassName({row}) {
+        if (row.status === 0) {
+          return 'warning-row';
+        }
+        return '';
+      },
       formatTime(row, col, val, index) { //格式化日期
         return this.$formatters.formatTime(val);
       },
@@ -316,7 +327,7 @@
       formatPlaceName(val) {
         let placeName;
         for (let i = 0; i < this.placeList.length; i++) {
-          if (val.echelonId == this.placeList[i].id) {
+          if (val.placeId == this.placeList[i].id) {
             placeName = this.placeList[i].placeName;
           }
         }

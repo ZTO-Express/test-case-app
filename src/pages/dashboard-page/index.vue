@@ -20,10 +20,10 @@
           </el-form-item>
           <el-form-item
             v-show="this.$appData.userInfo.roles[0].roleName == '超级管理员' || this.$appData.userInfo.roles[0].roleName == 'Boss'">
-            <el-select v-model="searchForm.userName" clearable placeholder="球员名单">
+            <el-select v-model="searchForm.userName" filterable clearable placeholder="球员姓名">
               <el-option v-for="user in userList"
                          :key="user.userId"
-                         :label="user.chineseName"
+                         :label="user.chineseName + '(' + user.englishName + ')'"
                          :value="user.userId">
               </el-option>
             </el-select>

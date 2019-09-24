@@ -5,7 +5,7 @@
         <el-form ref="searchForm" :model="searchForm" size="small" :inline="true">
           <el-form-item label="教练:" v-show="this.$appData.userInfo.roles[0].roleCode == '00001'
                        || this.$appData.userInfo.roles[0].roleCode == '100037'">
-            <el-select v-model.trim="searchForm.userId" clearable placeholder="请选择">
+            <el-select v-model.trim="searchForm.userId" filterable clearable placeholder="请选择">
               <el-option v-for="item in coachList"
                          :key="item.userId"
                          :label="item.chineseName + '(' + item.englishName + ')'"

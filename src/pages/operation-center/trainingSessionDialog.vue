@@ -18,14 +18,14 @@
           </el-date-picker>
         </el-form-item>
         <el-form-item prop="classesId" label="训练班名称:">
-          <el-select style="width: 360px" v-model.trim="dialogForm.classesId" clearable placeholder="训练班名称"
-                     v-bind:disabled="isDisabled">
+          <el-select style="width: 360px" v-model.trim="dialogForm.classesId" filterable clearable placeholder="训练班名称"
+                     v-bind:disabled="isDisabled" @change="formatTrainingTime">
             <el-option v-for="item in classesList" :key="item.classesName" :label="item.classesName"
                        :value="item.id"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item prop="trainingTimeStart" label="训练时间:">
-          <el-time-select style="width: 160px"
+          <el-time-select style="width: 170px"
                           placeholder="训练开始时间"
                           v-model="dialogForm.trainingTimeStart"
                           :picker-options="{
@@ -35,15 +35,15 @@
               }"
                           v-bind:disabled="isDisabled">
           </el-time-select>
-          --
-          <el-time-select style="width: 160px"
+          ---
+          <el-time-select style="width: 170px"
                           placeholder="训练结束时间"
                           v-model="dialogForm.trainingTimeEnd"
                           :picker-options="{
                 start: '09:00',
                 step: '00:30',
                 end: '21:00',
-              minTime: dialogForm.trainingTimeStart
+                minTime: dialogForm.trainingTimeStart
             }"
                           v-bind:disabled="isDisabled">
           </el-time-select>
@@ -119,7 +119,12 @@
         })
       },
       initForm() {
-        this.dialogForm = {};
+        // this.dialogForm = {};
+        this.dialogForm.trainingDate = '';
+        this.dialogForm.classesId = '';
+        this.dialogForm.trainingTimeStart = '';
+        this.dialogForm.trainingTimeEnd = '';
+
         this.$refs.dialogForm && this.$refs.dialogForm.clearValidate();
       },
       initDialog() {
@@ -161,7 +166,7 @@
               this.close();
               this.$message({type: 'success', message: res.msg});
               this.$emit('submit');
-              this.dialogForm = {};
+              // this.dialogForm = {};
             }
           }).catch((err) => {
             this.loading = !this.loading;
@@ -186,32 +191,41 @@
       },
       showMod(dialogType) {
         if (dialogType) {
-          this.dialogForm = dialogType.data; // 还原当前修改项
-
-          this.curIndex = dialogType.index; // 记录当前修改位置
           this.curType = dialogType.type;
         }
         if (this.curType === 'new') {
-          this.title = "新增训练课";
+          this.title = "新增训练课程";
           this.isDisabled = false;
           this.initForm();
         }
         if (this.curType === 'edit') {
-          this.title = "编辑训练课";
+          this.dialogForm = dialogType.data; // 还原当前修改项
+
+          this.curIndex = dialogType.index; // 记录当前修改位置
+          this.title = "编辑训练课程";
           // this.isDisabled = false;
           this.initDialog();
         }
         if (this.curType === 'cancel') {
-          this.title = "取消训练课";
+          this.title = "取消训练课程";
           // this.isDisabled = true;
           // this.remarkIsDisabled = false;
           this.initDialog();
         }
         if (this.curType === 'check') {
-          this.title = "查看训练课";
+          this.title = "查看训练课程";
           // this.isDisabled = true;
           // this.remarkIsDisabled = false;
           this.initDialog();
+        }
+      },
+      formatTrainingTime(e) {
+        for (let i = 0; i < this.classesList.length; i++) {
+          if (e == this.classesList[i].id) {
+            this.dialogForm.trainingTimeStart = this.classesList[i].trainingTimeStart;
+            this.dialogForm.trainingTimeEnd = this.classesList[i].trainingTimeEnd;
+            break;
+          }
         }
       },
     },

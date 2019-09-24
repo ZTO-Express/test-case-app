@@ -34,7 +34,7 @@
           <!--</el-select>-->
           <!--</el-form-item>-->
           <el-form-item>
-            <el-select v-model="searchForm.userName" clearable placeholder="签到名单">
+            <el-select v-model="searchForm.userName" filterable clearable placeholder="签到名单">
               <el-option v-for="user in userList"
                          :key="user.userId"
                          :label="user.englishName + '(' + user.chineseName + ')'"

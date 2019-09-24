@@ -4,7 +4,7 @@
       <el-card align="left" id="el-sessionQuery">
         <el-form ref="searchForm" :model="searchForm" size="small" :inline="true">
           <el-form-item label="训练班:">
-            <el-select v-model.trim="searchForm.classesName" clearable placeholder="请选择">
+            <el-select v-model.trim="searchForm.classesName" filterable clearable placeholder="请选择">
               <el-option v-for="item in classesList"
                          :key="item.id"
                          :label="item.classesName"
