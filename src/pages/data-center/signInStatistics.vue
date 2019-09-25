@@ -61,7 +61,7 @@
           <el-table-column prop="placeRent" label="场地租金" :formatter="formatAmount"/>
           <el-table-column prop="income" label="收入">
             <template slot-scope="scope">
-              <span>￥{{scope.row.amount - scope.row.placeRent}}</span>
+              <span>￥{{(scope.row.amount - scope.row.placeRent).toFixed(2)}}</span>
             </template>
           </el-table-column>
         </el-table>
