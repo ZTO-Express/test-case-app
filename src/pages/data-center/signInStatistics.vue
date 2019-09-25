@@ -217,11 +217,11 @@
       },
       formatAmount(row, col, val, index) { // 格式化金额 千位符
         if (!val || val === '0') return '--';
-        return '￥' + val;
+        return '￥' + val.toFixed(2);
       },
       formatAmountByVal(val) { // 格式化金额 千位符
         if (!val || val === '0') return '￥0.00';
-        return '￥' + val;
+        return '￥' + val.toFixed(2);
       },
     }
   }
