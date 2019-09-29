@@ -41,12 +41,54 @@
     </el-row>
     <el-row :gutter="20" class="card-box">
       <el-col :span="6"
+              v-show="this.$appData.userInfo.roles[0].roleName == '超级管理员' || this.$appData.userInfo.roles[0].roleName == 'Boss'">
+        <el-card>
+          <i class="icon icon-haikezhangguizhushou_dingdan" style="color:#23b7e5"></i>
+          <div class="count-box">
+            <p>{{list.incomeAmount}}</p>
+            <span>课时总收入(元)</span>
+          </div>
+        </el-card>
+      </el-col>
+      <el-col :span="6"
+              v-show="this.$appData.userInfo.roles[0].roleName == '超级管理员' || this.$appData.userInfo.roles[0].roleName == 'Boss'">
+        <el-card>
+          <i class="icon icon-haikezhangguizhushou_dingdan" style="color:#23b7e5"></i>
+          <div class="count-box">
+            <p>{{list.chargeAmount}}</p>
+            <span>新增充值金额(元)</span>
+          </div>
+        </el-card>
+      </el-col>
+      <el-col :span="6"
+              v-show="this.$appData.userInfo.roles[0].roleName == '超级管理员' || this.$appData.userInfo.roles[0].roleName == 'Boss'">
+        <el-card>
+          <i class="icon icon-jiaoyijilu-copy-copy" style="color:#4CAF50"></i>
+          <div class="count-box">
+            <p>{{list.playerCount}}</p>
+            <span>新增球员数</span>
+          </div>
+        </el-card>
+      </el-col>
+      <el-col :span="6"
+              v-show="this.$appData.userInfo.roles[0].roleName == '超级管理员' || this.$appData.userInfo.roles[0].roleName == 'Boss'">
+        <el-card>
+          <i class="icon icon-jiaoyijilu-copy-copy" style="color:#4CAF50"></i>
+          <div class="count-box">
+            <p>{{list.bookingCount}}</p>
+            <span>新增预约数</span>
+          </div>
+        </el-card>
+      </el-col>
+    </el-row>
+    <el-row :gutter="20" class="card-box">
+      <el-col :span="6"
               v-show="this.$appData.userInfo.roles[0].roleName != 'Coach'">
         <el-card>
           <i class="icon icon-haikezhangguizhushou_dingdan" style="color:#23b7e5"></i>
           <div class="count-box">
-            <p>{{list.balance}}</p>
-            <span>账户余额(元)</span>
+            <p>{{list.unspentAmount}}</p>
+            <span>未消费金额(元)</span>
           </div>
         </el-card>
       </el-col>
@@ -127,10 +169,14 @@
         userList: [],
         accountNoList: [],
         list: {
-          balance: '',
+          incomeAmount: '',
+          unspentAmount: '',
+          chargeAmount: '',
           remainTime: '',
           classTotal: '',
           signInCount: '',
+          playerCount: '',
+          bookingCount: '',
         },
         accountNo: '',
         countType: '签到日期',
@@ -207,7 +253,7 @@
         let _data = {};
         _data["startTime"] = this.searchDate && this.searchDate[0] ? moment(this.searchDate[0]).format('YYYY-MM-DD 00:00:00') : '';
         _data["endTime"] = this.searchDate && this.searchDate[1] ? moment(this.searchDate[1]).format('YYYY-MM-DD 23:59:59') : '';
-        _data["memberId"] = this.$appData.userInfo.roles[0].roleName == '超级管理员' || this.$appData.userInfo.roles[0].roleName == 'Boss' || this.$appData.userInfo.roles[0].roleName == 'Coach' ? this.searchForm.userName : this.$appData.userInfo.userId;
+        _data["memberId"] = this.$appData.userInfo.roles[0].roleName == '超级管理员' || this.$appData.userInfo.roles[0].roleName == 'Boss' ? this.searchForm.userName : this.$appData.userInfo.userId;
         return _data;
       },
       search() {
@@ -278,7 +324,7 @@
           });
           series.push(
             { //Y轴系列数据
-              name: this.countType,
+              name: '签到次数',
               type: 'line',
               smooth: true,
               itemStyle: {
@@ -308,7 +354,7 @@
           });
           series.push(
             { //Y轴系列数据
-              name: this.countType,
+              name: '签到人数',
               type: 'line',
               smooth: true,
               itemStyle: {
