@@ -129,6 +129,7 @@
           </el-table-column>
           <el-table-column width="100px" prop="trainingTimeStart" label="开始时间"/>
           <el-table-column width="100px" prop="trainingTimeEnd" label="结束时间"/>
+          <el-table-column width="100px" prop="trainingExpense" label="课时费用" :formatter="formatAmount"/>
           <el-table-column width="80px" prop="echelonId" label="梯队" :formatter="formatEchelonName"/>
           <el-table-column prop="placeId" label="场地" :formatter="formatPlaceName"/>
           <el-table-column width="100px" prop="status" label="课程状态">
@@ -513,6 +514,10 @@
           }
         }
         return placeName
+      },
+      formatAmount(row, col, val, index) { // 格式化金额 千位符
+        if (!val || val === '0') return '--';
+        return '￥' + val;
       },
       needPop(val) {
         if (val && val.length > 20) {

@@ -269,6 +269,7 @@ const $ = rules.$;
 const dialogForm1Rules = {
   classesId: [$('required')],
   chineseName: [$('required')],
+  joinDate: [$('required')],
   // birthday: [$('required')],
   mobile: [$('required'), $('mobile')],
   height: [$('intNumber')],

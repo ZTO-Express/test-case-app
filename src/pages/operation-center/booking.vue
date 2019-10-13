@@ -70,6 +70,7 @@
           </el-table-column>
           <el-table-column prop="id" label="编号" v-if="false"/>
           <el-table-column prop="bookingDate" label="预约日期" :formatter="formatDate"/>
+          <el-table-column prop="bookingPlace" label="预约训练营"/>
           <el-table-column prop="source" label="来源">
             <template slot-scope="scope">
               <span v-if="scope.row.source === 'dianping'">大众点评</span>

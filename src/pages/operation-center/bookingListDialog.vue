@@ -21,13 +21,13 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item prop="source" label="预约来源">
-              <el-select style="width: 220px" v-model.trim="dialogForm.source" clearable placeholder="请选择">
+            <el-form-item prop="bookingPlace" label="预约训练营">
+              <el-select style="width: 220px" v-model.trim="dialogForm.bookingPlace" clearable placeholder="请选择">
                 <el-option
-                  v-for="item in sourceArr"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value">
+                  v-for="item in placeList"
+                  :key="item.placeName"
+                  :label="item.placeName"
+                  :value="item.placeName">
                 </el-option>
               </el-select>
             </el-form-item>
@@ -49,6 +49,18 @@
         </el-row>
         <el-row>
           <el-col :span="12">
+            <el-form-item prop="source" label="预约来源">
+              <el-select style="width: 220px" v-model.trim="dialogForm.source" clearable placeholder="请选择">
+                <el-option
+                  v-for="item in sourceArr"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value">
+                </el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
             <el-form-item prop="birthday" label="生日">
               <el-date-picker
                 v-model="dialogForm.birthday"
@@ -58,13 +70,6 @@
                 value-format="yyyy-MM-dd"
                 :picker-options="pickerOptions">
               </el-date-picker>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item prop="age" label="年龄">
-              <el-input style="width: 220px" v-model.trim="dialogForm.age" clearable maxlength=2>
-                <template slot="append">岁</template>
-              </el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -191,10 +196,10 @@
               <el-select style="width:560px" v-model="dialogForm.classesId" multiple
                          clearable placeholder="请选择">
                 <el-option style="width: 560px"
-                  v-for="classes in classesList"
-                  :key="classes.id"
-                  :label="classes.classesName"
-                  :value="classes.id">
+                           v-for="classes in classesList"
+                           :key="classes.id"
+                           :label="classes.classesName"
+                           :value="classes.id">
                 </el-option>
               </el-select>
             </el-form-item>
@@ -229,6 +234,7 @@
     data() {
       const defaultDialogForm = {
         bookingDate: '',
+        bookingPlace: '',
         source: '',
         chineseName: '',
         englishName: '',
@@ -324,6 +330,7 @@
           }
         ],
         classesList: [],
+        placeList: [],
         curIndex: '',
         curType: '',
         pickerOptions: {
@@ -340,6 +347,7 @@
     },
     created() {
       this.initClassesList();
+      this.initPlaceList();
     },
     methods: {
       // initClasses() {
@@ -347,6 +355,16 @@
       //     this.initClassesList();
       //   }
       // },
+      initPlaceList() {
+        const param = {};
+        param.pageNo = 1;
+        param.pageSize = 1000;
+        this.$axiosUtil.post(this.$appConfig.MIX, this.$urlConst.QUERY_PLACE_LIST, param).then((res) => {
+          this.placeList = res.data.placeDtoList;
+        }).catch((error) => {
+          this.$message.error(error.msg);
+        })
+      },
       initClassesList() {
         const param = {};
         param.pageNo = 1;
