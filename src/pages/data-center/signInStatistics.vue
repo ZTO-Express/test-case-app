@@ -3,6 +3,12 @@
     <el-row class="search-box gap">
       <el-card align="left" id="el-sessionQuery">
         <el-form ref="searchForm" :model="searchForm" size="small" :inline="true">
+          <el-form-item>
+            <el-select v-model="searchForm.placeName" clearable placeholder="训练营">
+              <el-option v-for="item in placeList" :key="item.id" :label="item.placeName"
+                         :value="item.id"></el-option>
+            </el-select>
+          </el-form-item>
           <el-form-item label="训练班:">
             <el-select v-model.trim="searchForm.classesName" filterable clearable placeholder="请选择">
               <el-option v-for="item in classesList"
@@ -91,6 +97,7 @@
     },
     data() {
       const defaultSearchForm = {
+        placeName: '',
         classesName: '',
         trainingDay: '',
       };
@@ -114,6 +121,7 @@
           // },
         },
         searchForm: JSON.parse(JSON.stringify(defaultSearchForm)),
+        placeList: [],
         classesList: [],
         data: {
           pagination: {
@@ -136,12 +144,23 @@
       }
     },
     created: function () {
+      this.initPlaceList();
       this.initClassesList();
       this.search();
     },
     mounted() {
     },
     methods: {
+      initPlaceList() {
+        const param = {};
+        param.pageNo = 1;
+        param.pageSize = 1000;
+        this.$axiosUtil.post(this.$appConfig.MIX, this.$urlConst.QUERY_PLACE_LIST, param).then((res) => {
+          this.placeList = res.data.placeDtoList;
+        }).catch((error) => {
+          this.$message.error(error.msg);
+        })
+      },
       initClassesList() {
         const param = {};
         param.pageNo = 1;
@@ -183,6 +202,7 @@
           _data[pagination.keyCurrSize] = pagination.currentSize;
           _data[pagination.keyCurrPage] = pagination.currentPage;
         }
+        _data["placeId"] = this.searchForm.placeName;
         _data["classesId"] = this.searchForm.classesName;
         _data["startTime"] = this.searchDate && this.searchDate[0] ? moment(this.searchDate[0]).format('YYYY-MM-DD 00:00:00') : '';
         _data["endTime"] = this.searchDate && this.searchDate[1] ? moment(this.searchDate[1]).format('YYYY-MM-DD 23:59:59') : '';
