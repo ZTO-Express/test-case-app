@@ -275,6 +275,16 @@ hr {
 .el-input__inner {
   border-radius: 2px;
   color: #000;
+  height: 32px;
+  line-height: 32px;
+}
+.el-input__icon {
+  height: 100%;
+  width: 25px;
+  text-align: center;
+  -webkit-transition: all .3s;
+  transition: all .3s;
+  line-height: 32px
 }
 .el-cascader__label {
   color: #000;
