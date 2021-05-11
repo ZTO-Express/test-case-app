@@ -48,6 +48,8 @@ const GET_ALL_STAGE = '/testcase/config/stage/listAll';
 const GET_BUSINESS_LINE_TREE = '/testcase/sys/business/getBusinessLineTree';
 const GET_PROJECT_LIST_BY_BID = '/testcase/sys/business/getProjectListByBid';
 const GET_VERSION_BY_PID = '/testcase/sys/business/getVersionByPid';
+const GET_TYPE_LIST = '/testcase/config/type/listAll';
+const GET_FILE_LIST_BY_CASE_ID = '/testcase/testcase/getFileListByCaseId';
 
 export default {
   OPERATION_LOG_LIST,
@@ -97,4 +99,6 @@ export default {
   GET_BUSINESS_LINE_TREE,
   GET_PROJECT_LIST_BY_BID,
   GET_VERSION_BY_PID,
+  GET_TYPE_LIST,
+  GET_FILE_LIST_BY_CASE_ID,
 };
