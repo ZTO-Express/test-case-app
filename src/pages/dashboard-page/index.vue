@@ -13,14 +13,14 @@
               :clearable="true"
               type="daterange"
               range-separator="至"
-              start-placeholder="签到日期(起)"
-              end-placeholder="签到日期(止)"
+              start-placeholder="开始日期(起)"
+              end-placeholder="结束日期(止)"
               :picker-options="pickerOptions">
             </el-date-picker>
           </el-form-item>
           <el-form-item
-            v-show="this.$appData.userInfo.roles[0].roleName == '超级管理员' || this.$appData.userInfo.roles[0].roleName == 'Boss'">
-            <el-select v-model="searchForm.userName" filterable clearable placeholder="球员姓名">
+            v-show="this.$appData.userInfo.roles[0].roleName == '超级管理员'">
+            <el-select v-model="searchForm.userName" filterable clearable placeholder="测试负责人">
               <el-option v-for="user in userList"
                          :key="user.userId"
                          :label="user.chineseName + '(' + user.englishName + ')'"
@@ -31,93 +31,48 @@
           <el-form-item>
             <el-button @click="search" icon="el-icon-search" type="primary" :loading="loading">搜索</el-button>
             <el-button @click="clear" icon="el-icon-close">清空</el-button>
-            <el-button @click="openChargeDialog()" icon="el-icon-star-off" type="danger"
-                       v-permission="'dashboard-page/player/charge'"
-                       v-show="this.$appData.userInfo.roles[0].roleName == 'Player'" align="right">充值
-            </el-button>
           </el-form-item>
         </el-form>
       </el-card>
     </el-row>
     <el-row :gutter="20" class="card-box">
       <el-col :span="6"
-              v-show="this.$appData.userInfo.roles[0].roleName == '超级管理员' || this.$appData.userInfo.roles[0].roleName == 'Boss'">
+              v-show="this.$appData.userInfo.roles[0].roleName == '超级管理员'">
         <el-card>
           <i class="icon icon-haikezhangguizhushou_dingdan" style="color:#23b7e5"></i>
           <div class="count-box">
             <p>{{list.incomeAmount}}</p>
-            <span>课时总收入(元)</span>
+            <span>用例总数</span>
           </div>
         </el-card>
       </el-col>
       <el-col :span="6"
-              v-show="this.$appData.userInfo.roles[0].roleName == '超级管理员' || this.$appData.userInfo.roles[0].roleName == 'Boss'">
+              v-show="this.$appData.userInfo.roles[0].roleName == '超级管理员'">
         <el-card>
           <i class="icon icon-haikezhangguizhushou_dingdan" style="color:#23b7e5"></i>
           <div class="count-box">
             <p>{{list.chargeAmount}}</p>
-            <span>新增充值金额(元)</span>
+            <span>新增用例数</span>
           </div>
         </el-card>
       </el-col>
       <el-col :span="6"
-              v-show="this.$appData.userInfo.roles[0].roleName == '超级管理员' || this.$appData.userInfo.roles[0].roleName == 'Boss'">
+              v-show="this.$appData.userInfo.roles[0].roleName == '超级管理员'">
         <el-card>
           <i class="icon icon-jiaoyijilu-copy-copy" style="color:#4CAF50"></i>
           <div class="count-box">
             <p>{{list.playerCount}}</p>
-            <span>新增球员数</span>
+            <span>计划总数</span>
           </div>
         </el-card>
       </el-col>
       <el-col :span="6"
-              v-show="this.$appData.userInfo.roles[0].roleName == '超级管理员' || this.$appData.userInfo.roles[0].roleName == 'Boss'">
+              v-show="this.$appData.userInfo.roles[0].roleName == '超级管理员'">
         <el-card>
           <i class="icon icon-jiaoyijilu-copy-copy" style="color:#4CAF50"></i>
           <div class="count-box">
             <p>{{list.bookingCount}}</p>
-            <span>新增预约数</span>
-          </div>
-        </el-card>
-      </el-col>
-    </el-row>
-    <el-row :gutter="20" class="card-box">
-      <el-col :span="6"
-              v-show="this.$appData.userInfo.roles[0].roleName != 'Coach'">
-        <el-card>
-          <i class="icon icon-haikezhangguizhushou_dingdan" style="color:#23b7e5"></i>
-          <div class="count-box">
-            <p>{{list.unspentAmount}}</p>
-            <span>未消费金额(元)</span>
-          </div>
-        </el-card>
-      </el-col>
-      <el-col :span="6"
-              v-show="this.$appData.userInfo.roles[0].roleName != 'Coach'">
-        <el-card>
-          <i class="icon icon-jiaoyijilu-copy-copy" style="color:#4CAF50"></i>
-          <div class="count-box">
-            <p>{{list.remainTime}}</p>
-            <span>剩余课时数(节)</span>
-          </div>
-        </el-card>
-      </el-col>
-      <el-col :span="6"
-              v-show="this.$appData.userInfo.roles[0].roleName != 'Coach'">
-        <el-card>
-          <i class="icon icon-jiaoyijilu-copy-copy" style="color:#4CAF50"></i>
-          <div class="count-box">
-            <p>{{list.classTotal}}</p>
-            <span>累计课时数(节)</span>
-          </div>
-        </el-card>
-      </el-col>
-      <el-col :span="6">
-        <el-card>
-          <i class="icon icon-touxiang" style="color:#FF7043"></i>
-          <div class="count-box">
-            <p>{{list.signInCount}}</p>
-            <span>签到次数</span>
+            <span>新增计划数</span>
           </div>
         </el-card>
       </el-col>
@@ -125,10 +80,10 @@
     <el-row>
       <el-card>
         <el-radio-group size="small" v-model="countType" @change="selectFilterChange">
-          <el-radio-button label="签到日期"></el-radio-button>
+          <el-radio-button label="周期"></el-radio-button>
           <el-radio-button
-            v-show="this.$appData.userInfo.roles[0].roleName == '超级管理员' || this.$appData.userInfo.roles[0].roleName == 'Boss'"
-            label="签到名单"></el-radio-button>
+            v-show="this.$appData.userInfo.roles[0].roleName == '超级管理员'"
+            label="负责人"></el-radio-button>
         </el-radio-group>
         <div id="echartMap"></div>
       </el-card>
@@ -143,11 +98,8 @@
   import 'echarts/lib/component/title';
   import 'echarts/lib/component/toolbox';
 
-  import playerChargeDialog from "./playerChargeDialog";
-
   export default {
     components: {
-      playerChargeDialog,
     },
     data() {
       return {
@@ -213,7 +165,7 @@
     },
     computed: {},
     mounted() {
-      if (this.$appData.userInfo.roles[0].roleName == '超级管理员' || this.$appData.userInfo.roles[0].roleName == 'Boss') {
+      if (this.$appData.userInfo.roles[0].roleName == '超级管理员') {
         this.initUserList();
       } else {
         this.getAccountInfo();
@@ -223,14 +175,12 @@
     },
     methods: {
       initUserList() {
-        let param = {};
-        param.pageSize = 10000;
-        param.pageNo = 1;
-        param.status = 1;
-        this.$axiosUtil.post(this.$appConfig.MIX, this.$urlConst.QUERY_PLAYER_LIST, param).then((res) => {
-          this.userList = res.data.playerDtoList;
-        }).catch((error) => {
-          this.$message.error(error.msg);
+        this.$axiosUtil.get(this.$appConfig.API, this.$urlConst.GET_ALL_TESTER).then((res) => {
+          if (res.code === '000000') {
+            this.userList = res.data
+          } else {
+            this.showMsg(res.msg, 'error')
+          }
         })
       },
       getAccountInfo() {
@@ -253,7 +203,7 @@
         let _data = {};
         _data["startTime"] = this.searchDate && this.searchDate[0] ? moment(this.searchDate[0]).format('YYYY-MM-DD 00:00:00') : '';
         _data["endTime"] = this.searchDate && this.searchDate[1] ? moment(this.searchDate[1]).format('YYYY-MM-DD 23:59:59') : '';
-        _data["memberId"] = this.$appData.userInfo.roles[0].roleName == '超级管理员' || this.$appData.userInfo.roles[0].roleName == 'Boss' ? this.searchForm.userName : this.$appData.userInfo.userId;
+        _data["memberId"] = this.$appData.userInfo.roles[0].roleName == '超级管理员' ? this.searchForm.userName : this.$appData.userInfo.userId;
         return _data;
       },
       search() {

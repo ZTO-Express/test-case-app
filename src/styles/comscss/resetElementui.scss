@@ -1,0 +1,262 @@
+/************************
+重置elementui样式
+************************/
+
+.zto-mainbody {
+    // 设置选择下拉菜单最大高度360px
+    .el-select-dropdown {
+        max-height: 360px;
+    } // 设置dialog头部颜色和paddding
+    .el-dialog__header {
+        padding: 15px 15px 10px !important;
+        background: #4db3ff;
+    } // 设置分页组件样式
+    .el-pagination {
+        text-align: right;
+        padding: 0px;
+    }
+    .el-pagination__sizes .el-input .el-input__inner {
+        border-color: #bfcbd9;
+    }
+    .el-pagination .el-select .el-input {
+        margin: 0px !important;
+    }
+    .el-pagination .btn-next,
+    .el-pagination .btn-prev {
+        position: relative;
+        top: 1px;
+        border: 1px solid #bfcbd9;
+        .el-icon {
+            color: #bfcbd9;
+        }
+    } // 表格样式
+    .el-table thead {
+        color: #272727;
+    }
+    .el-tabs__item {
+        font-weight: bold;
+        font-size: 16px;
+        margin-bottom: 6px;
+    }
+    .el-tabs__nav-scroll {}
+    .el-tabs__nav-wrap {
+        margin: 0 -35px;
+        padding: 0 35px;
+        &::after {
+            height: 1px;
+        }
+    }
+    .el-table th {
+        white-space: nowrap;
+        overflow: hidden;
+        background-color: #f8f9fb;
+        font-size: 12px;
+        font-weight: 500; //color: #1f2d3d;
+        display: table-cell !important;
+    }
+    .el-table td {
+        font-size: 12px;
+    }
+    .el-table--border td,
+    .el-table--border th {
+        font-size: 12px;
+        border-right: 1px solid #e8eaf1;
+        border-bottom: 1px solid #e8eaf1;
+        padding: 3px 0;
+    }
+    .el-table--border td:last-child,
+    .el-table--border th:last-child {
+        border-right: none;
+    }
+    .el-table--border th,
+    .el-table__fixed-right-patch {
+        border-bottom: 1px solid #e8eaf1;
+    }
+    .el-table {
+        border-top: 1px solid #e8eaf1;
+        border-left: 1px solid #e8eaf1;
+    }
+    .el-table--border .el-table__expanded-cell {
+        padding: 15px;
+    }
+}
+
+//统一element input长度
+
+/*.z-page .el-fom-item .el-input__inner{
+  width: 220px;
+}*/
+
+//修改element折叠面板样式 为了不影响其他地方使用elementui的原始样式请在使用时在外面套一层class为z-page的div
+.zto-mainbody .el-collapse,
+.zto-mainbody .el-collapse-item__wrap,
+.z-page .el-collapse-item__header {
+    padding-left: 0px;
+    border: none;
+    background-color: #fff;
+}
+
+//修改输入框的大小
+.el-select-dropdown__item.selected,
+.el-select-dropdown__item {
+    font-weight: normal;
+    // font-size: 1rem;
+    font-size: 12px;
+}
+
+.el-submenu [class^='zto-'] {
+    vertical-align: baseline;
+    margin-right: 12px;
+    display: inline-block;
+    width: 18px;
+    text-align: center;
+}
+
+.jsoneditor-poweredBy {
+    display: none;
+}
+
+.jsoneditor-separator {
+    display: none;
+}
+
+// .jsoneditor {
+//     height: 280px;
+// }
+.jsoneditor-tree {
+    height: 220px;
+}
+
+.jsoneditor-outer {
+    min-height: 220px !important;
+}
+
+.ace-jsoneditor {
+    height: 220px !important;
+}
+
+.el-select-dropdown {
+    max-height: 360px;
+}
+
+.z-operator-bar {
+    .el-button+.el-button {
+        margin-left: 0px;
+    }
+    .el-button {
+        margin-right: 5px;
+    }
+}
+
+.min-textarea textarea {
+    height: 120px;
+}
+
+//重置nav-tabs
+.el-tabs__header {
+    margin: 0 !important;
+}
+
+// 重置elementuidialog
+//重置elementUI css
+.el-dialog__header {
+    background: #4db3ff;
+    padding: 15px;
+    text-align: center;
+}
+
+.el-dialog__title {
+    color: white;
+    font-size: 16px;
+}
+
+.el-dialog__headerbtn .el-dialog__close {
+    color: #ffffff;
+}
+
+.el-dialog__headerbtn:hover .el-dialog__close {
+    color: #ffffff;
+}
+
+.el-dialog .el-form-item {
+    //  margin-bottom: 15px;
+}
+
+.el-table .el-button--mini {
+    padding: 3px 5px;
+}
+
+.el-autocomplete {
+    width: 172px;
+}
+
+.el-autocomplete-suggestion__wrap {
+    max-height: 280px;
+}
+
+.el-textarea__inner {
+    border-radius: 2px;
+}
+
+.is-disabled {
+    .el-input__inner {
+        color: black !important;
+    }
+}
+
+.el-autocomplete-suggestion {
+    // width: auto !important;
+}
+
+.el-table-column--selection .cell {
+    padding: 0 10px;
+    text-align: center;
+}
+
+.el-popover {
+    font-size: 12px;
+}
+
+.pz-upload-popover {
+    padding: 10px 15px;
+}
+
+.el-table__body-wrapper {
+    overflow-y: auto;
+}
+
+.el-date-editor--datetime .el-input__inner {
+    padding-right: 19px;
+}
+
+.el-tabs__item {
+    height: 30px;
+    line-height: 30px;
+}
+
+.el-table__column-filter-trigger {
+    line-height: 23px;
+}
+
+.el-upload-list__item.is-success .el-upload-list__item-name:focus {
+    outline: none;
+    color: #606266;
+}
+
+.el-upload-list__item.is-success.focusing {
+    outline: none;
+}
+
+.el-upload-list__item.is-success:focus:not(:hover) .el-icon-close-tip {
+    display: none;
+}
+
+.el-menu-item,
+.el-submenu__title,
+.el-submenu .el-menu-item {
+    height: 40px;
+    line-height: 40px;
+}
+
+
+/*++++++++++++++++++++++++++重置elementUI css结束++++++++++++++++++++++++++*/

@@ -46,6 +46,18 @@ function get(service, url, data, headers) {
   return Vue.axios(config);
 }
 
+function del(service, url, data, headers) {
+  const config = {
+    url: getReqUrl(service.baseUrl, service.prefix, url),
+    method: 'DELETE',
+    params: data,
+  };
+  if (headers) {
+    config.headers = headers;
+  }
+  return Vue.axios(config);
+}
+
 function download(service, url, data) {
   const config = {
     url: getReqUrl(service.baseUrl, service.prefix, url),
@@ -61,5 +73,6 @@ export default {
   fullReqUrl,
   post,
   get,
+  del,
   download,
 };

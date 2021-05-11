@@ -26,8 +26,8 @@ function injectMerchantId(config) {
 
 function injectSmsExt(config) {
   if(config.url !== urlConst.SMS_CAPTCHA
-    && config.url !== appConfig.CCPAY.prefix+urlConst.MERCHANT_REGISTER
-    && config.url != appConfig.CCPAY.prefix+urlConst.MERCHANT_SEND_EMAIL){
+    && config.url !== appConfig.API.prefix+urlConst.MERCHANT_REGISTER
+    && config.url != appConfig.API.prefix+urlConst.MERCHANT_SEND_EMAIL){
     return;
   }
   if (config.data) {

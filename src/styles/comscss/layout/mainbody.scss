@@ -1,0 +1,18 @@
+$mainbody-bg-color: #eef0f6;
+
+.zto-mainbody {
+  overflow: auto;
+  position: relative;
+  min-width: 1036px;
+  height: 100%;
+  overflow-x: hidden;
+}
+
+.deleterBgCoolor {
+  color: #ED5565;
+  cursor: pointer;
+}
+
+.el-notification__content {
+  line-height: 1;
+}

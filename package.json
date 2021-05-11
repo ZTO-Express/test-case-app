@@ -1,6 +1,6 @@
 {
-  "name": "MARS",
-  "version": "0.1.0",
+  "name": "test-case-app",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "mock": "vue-cli-service serve --mode mock",
@@ -18,8 +18,7 @@
     "crypto-js": "^3.1.9-1",
     "echarts": "^3.8.5",
     "ele-calendar": "^1.2.0",
-    "element-theme-chalk": "^2.4.8",
-    "element-ui": "^2.2.2",
+    "element-ui": "^2.13.2",
     "exif-js": "^2.3.0",
     "github-markdown-css": "^2.10.0",
     "js-md5": "^0.7.3",
@@ -33,6 +32,7 @@
     "register-service-worker": "^1.0.0",
     "sass-loader": "^7.1.0",
     "screenfull": "3.3.2",
+    "sortablejs": "^1.13.0",
     "swiper": "^4.5.0",
     "v-viewer": "^1.4.1",
     "viewerjs": "^1.3.3",
@@ -45,7 +45,10 @@
     "vue-permission": "^1.0.12",
     "vue-router": "^3.0.1",
     "vue2-animate": "^2.0.0",
-    "vue2-filters": "^0.3.0"
+    "vue2-filters": "^0.3.0",
+    "vuex": "^3.6.2",
+    "@riophae/vue-treeselect": "^0.4.0",
+    "vkbeautify": "^0.99.3"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.0.0-beta.6",

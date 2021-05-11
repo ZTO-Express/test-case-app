@@ -177,7 +177,6 @@ export default {
       this.$axiosUtil.post(this.$appConfig.API, this.$urlConst.LOGIN_AUTHORIZATION, {
         login_name: this.loginForm.username
       }).then((response) => {
-
         this.nextStep(this.loginSessionData, response.data);
       }).catch((error) => {
         this.loading = false;
@@ -218,7 +217,6 @@ export default {
         'access-token': sessionData.access_token,
       };
       this.authVerifyNext = (authForm, success) => {
-        debugger
         if (authForm.verifyType === 'mobile') {
           this.$axiosUtil.post(this.$appConfig.API, smsUrl, {
             captcha: authForm.verifyCode,
@@ -329,7 +327,7 @@ export default {
       position: absolute;
       left: 0;
       right: 0;
-      width: 350px;
+      width: 450px;
       padding: 35px 35px 15px 35px;
       margin: 120px auto;
     }

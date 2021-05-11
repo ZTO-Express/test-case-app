@@ -1,0 +1,34 @@
+// 清除浮动
+.clearboth:after{ display:block; clear:both; content:""; overflow:hidden; height:0; }
+.clearboth{ *zoom:1;}
+.FL{ float:left;}
+.FR{ float:right;}
+
+// 显示和隐藏
+.z-hidden{
+  display: none;
+}
+.z-display{
+  display: block;
+}
+
+// 页面大部分地方常用的margin
+.z-margin-bottom-16{
+  margin-bottom: 16px;
+}
+.z-margin-top-6{
+  margin-top: 6px;
+}
+.z-margin-bottom-22{
+  margin-bottom: 22px;
+}
+// 常用颜色   如果需要继续定义颜色请在这里按格式加入
+.z-color-red{
+  color: #f5222d;    // 表示危险
+}
+.z-color-green{
+  color: #52c41a;    // 表示成功等
+}
+.z-color-grey{
+  color: rgba(0, 0, 0, 0.45);  // 表示禁用等
+}

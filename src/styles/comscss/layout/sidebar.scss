@@ -1,0 +1,33 @@
+.z-collapse-menu {
+  .zto-sidebar-body {
+      overflow: inherit !important;
+  }
+  width: 40px !important;
+  .el-menu-vertical {
+      .el-tooltip {
+          text-align: center;
+          padding: 0 !important;
+      }
+      >div>.el-menu-noClidren {
+          padding: 0 10px !important;
+          padding: 0;
+          margin-right: 0;
+          span {
+              display: none;
+          }
+      }
+      width: 40px !important;
+      .el-submenu__title {
+          padding: 0 10px !important;
+          padding: 0;
+          margin-right: 0;
+          span {
+              display: none;
+          }
+          .el-submenu__icon-arrow,
+          .el-icon-arrow-right {
+              display: none;
+          }
+      }
+  }
+}

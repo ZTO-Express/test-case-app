@@ -21,22 +21,8 @@ import securityCenter from './pages/oper-manager-page/security-center/index.vue'
 // 操作日志
 import operationLog from './pages/oper-manager-page/operation-log-page/index.vue';
 
-// MIX
-import bookingCenter from './pages/operation-center/booking';
-import classesCenter from './pages/operation-center/classes';
-import placeCenter from './pages/operation-center/place';
-import trainingSessionCenter from './pages/operation-center/trainingSession';
-import coachCenter from './pages/club-center/coach';
-import playerCenter from './pages/club-center/player';
-import echelonCenter from './pages/club-center/echelon';
-import signInCenter from './pages/sign-in-center/signIn';
-import h5SignInCenter from './pages/sign-in-center/h5SignIn';
-import audit from './pages/audit-center/audit';
-import signInAudit from './pages/audit-center/signInAudit';
-import order from './pages/order-center/order';
-import account from './pages/finance-center/account';
-import signInStatistics from './pages/data-center/signInStatistics';
-import salaryStatistics from './pages/data-center/salaryStatistics';
+import testlibrary from './pages/testlibrary/testlibrary.vue';
+import testplan from './pages/testplan/testplan.vue';
 
 Vue.use(Router);
 
@@ -103,79 +89,14 @@ const router = new Router({
           component: operationLog,
         },
         {
-          path: 'operation-center/booking',
-          name: 'bookingCenter',
-          component: bookingCenter,
+          path: 'testplan',
+          name: 'testplan',
+          component: testplan,
         },
         {
-          path: 'operation-center/classes',
-          name: 'classesCenter',
-          component: classesCenter,
-        },
-        {
-          path: 'operation-center/place',
-          name: 'placeCenter',
-          component: placeCenter,
-        },
-        {
-          path: 'operation-center/trainingSession',
-          name: 'trainingSessionCenter',
-          component: trainingSessionCenter,
-        },
-        {
-          path: 'club-center/coach',
-          name: 'coachCenter',
-          component: coachCenter,
-        },
-        {
-          path: 'club-center/player',
-          name: 'playerCenter',
-          component: playerCenter,
-        },
-        {
-          path: 'club-center/echelon',
-          name: 'echelonCenter',
-          component: echelonCenter,
-        },
-        {
-          path: 'sign-in-center/signIn',
-          name: 'signInCenter',
-          component: signInCenter,
-        },
-        {
-          path: 'sign-in-center/h5SignIn',
-          name: 'h5SignInCenter',
-          component: h5SignInCenter,
-        },
-        {
-          path: 'audit-center/audit',
-          name: 'audit',
-          component: audit,
-        },
-        {
-          path: 'audit-center/signInAudit',
-          name: 'signInAudit',
-          component: signInAudit,
-        },
-        {
-          path: 'order-center/order',
-          name: 'order',
-          component: order,
-        },
-        {
-          path: 'finance-center/account',
-          name: 'account',
-          component: account,
-        },
-        {
-          path: 'data-center/signInStatistics',
-          name: 'signInStatistics',
-          component: signInStatistics,
-        },
-        {
-          path: 'data-center/salaryStatistics',
-          name: 'salaryStatistics',
-          component: salaryStatistics,
+          path: 'testlibrary',
+          name: 'testlibrary',
+          component: testlibrary,
         },
       ],
     },

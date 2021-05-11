@@ -1,0 +1,194 @@
+/*
+ *  全局样式
+ */
+
+body,
+html {
+  font-size: 14px;
+}
+
+.slide-fade-enter-active {
+  transition: all 0.3s ease;
+}
+
+.slide-fade-leave-active {
+  transition: all 0.4s cubic-bezier(1, 0.5, 0.8, 1);
+}
+
+.slide-fade-enter,
+.slide-fade-leave-to {
+  transform: translateY(10px);
+  opacity: 0;
+}
+
+.ps-a {
+  position: absolute;
+}
+
+.ps-r {
+  position: relative;
+}
+
+.ps-center {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+.flex-col {
+  flex-flow: column;
+}
+
+.flex-just-start {
+  justify-content: flex-start;
+}
+.flex-just-end {
+  justify-content: flex-end;
+}
+.flex-just-between {
+  justify-content: space-between;
+}
+
+.flex-just-center {
+  justify-content: center;
+}
+
+.flex-align-center {
+  align-items: center;
+}
+
+.flex-center {
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.flex-nowrap {
+  flex-wrap: nowrap;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.mr-center {
+  margin: 0 auto;
+}
+
+.w100 {
+  width: 100%;
+}
+
+.w47 {
+  width: 48%;
+}
+
+.w50 {
+  width: 50%;
+}
+
+.h100 {
+  height: 100%;
+}
+
+.border-r5 {
+  border-radius: 5px;
+}
+
+.cur-p {
+  cursor: pointer;
+}
+
+.color-success {
+  color: #4caf50;
+}
+
+.color-danger {
+  color: #f44336;
+}
+
+.cur-all {
+  cursor: all-scroll;
+}
+
+.t0 {
+  top: 0;
+}
+
+.r0 {
+  right: 0;
+}
+
+.b0 {
+  bottom: 0;
+}
+
+.l0 {
+  left: 0;
+}
+
+.fr {
+  float: right;
+}
+
+.fl {
+  float: left;
+}
+
+.text-r {
+  text-align: right;
+}
+
+.text-l {
+  text-align: left;
+}
+
+.text-c {
+  text-align: center;
+}
+
+.ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+@keyframes transIcon {
+  0% {
+    transform: rotate(0);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes transIconReversal {
+  0% {
+    transform: rotate(0);
+  }
+
+  100% {
+    transform: rotate(-360deg);
+  }
+}
+
+.main-content {
+  height: 100%;
+  padding: 10px 15px;
+}
+
+.border-red {
+  border: 1px solid red;
+}

@@ -62,7 +62,7 @@ p{margin:2px 0}
 .tags-view-container .el-tag--small{height:30px;line-height:30px; padding:0 8px 0 14px}
 
 .el-menu--horizontal {border-bottom: none}
-.el-header { min-height: 77px !important;padding: 0;overflow: hidden !important ;background:rgb(110,80,90) !important}
+.el-header { min-height: 77px !important;padding: 0;overflow: hidden !important ;background:#3693ff !important}
 .el-header ul{height:47px !important; background:transparent}
 .el-header .right-menu { margin-right: 16px !important;margin-top: 10px !important}
 
@@ -119,7 +119,7 @@ p{margin:2px 0}
 .sidebar-menu-container{background:#1049a5;}
 .sidebar-menu-container .el-scrollbar__wrap{background:#fff !important ;} /*左侧背景颜色*/
 .el-menu-vertical {background: transparent !important}
-.el-menu-vertical >li{height: 77px;background:rgb(110,80,90) !important}
+.el-menu-vertical >li{height: 77px;background:#3693ff !important}
 .el-menu-vertical >li:hover{background:rgb(110,80,90) !important}
 .el-menu-vertical >div{margin-top: 20px}
 .logoImg {left: 16px !important;max-width: 132px !important;top:21px !important;}
@@ -313,7 +313,7 @@ hr {
 
 /*login*/
 .login-container{ z-index:2; }
-.login-container:after{position: absolute; z-index:-1;left: 0; top: 0;height: 100%; width: 100%;content: "";background: url("ccpay_bg.jpg") no-repeat center center / cover; }
+.login-container:after{position: absolute; z-index:-1;left: 0; top: 0;height: 100%; width: 100%;content: "";background: url("小吉.jpg") no-repeat center center / cover; }
 .login-container:before{background:rgba(73, 60, 80,.97);position: absolute; z-index:1;left: 0; top: 0;height: 100%; width: 100%;content: "";}
 .login-container .el-form-item{ border:none !important; background:#fff}
 .login-container input {color:#333}
@@ -333,7 +333,7 @@ hr {
 
 
 /*pop*/
-.el-dialog__header {font-weight:bold; font-size:14px;text-align:left}
+.el-dialog__header {font-weight:bold; font-size:14px;text-align:center}
 .el-dialog__title{font-weight:bold; font-size:15px;line-height:16px}
 .el-dialog__body{padding:30px 20px 42px}
 .el-dialog__body .font-a{margin-bottom:-10px;display:block}
@@ -346,7 +346,7 @@ hr {
 .create-submerchant-group-panel .el-dialog{min-width:400px !important}
 
 .el-form-item__label{text-align:left !important}
-.el-dialog .el-icon-close{color:#889 !important}
+.el-dialog .el-icon-close{color:#ffffff !important}
 .el-dialog .el-icon-close:hover{color:#556 !important}
 
 /*表格*/
@@ -461,8 +461,8 @@ p .text{font-weight:bold !important}
 
 .el-tabs__item.is-active{font-weight:bold}
 
-.el-table__row .el-dropdown-selfdefine{color:#fff !important;padding: 7px 8px 5px 10px !important}
-.el-button.el-button--primary.el-button--mini.el-dropdown-selfdefine {color:#fff !important;padding: 7px 8px 3px 10px !important}
+.el-table__row .el-dropdown-selfdefine{!important;padding: 7px 8px 5px 10px !important}
+.el-button.el-button--primary.el-button--mini.el-dropdown-selfdefine {!important;padding: 7px 8px 3px 10px !important}
 .el-dropdown-menu__item{color:#444; font-weight:bold}
 .el-table__row .el-dropdown-menu__item:hover{color:#338dea}
 
@@ -579,51 +579,51 @@ p .text{font-weight:bold !important}
 
 /*趋势分析*/
 
-.icon-jiaoyijilu-copy-copy::before{font-size:38px}
-.icon-haikezhangguizhushou_dingdan::before{font-size:42px}
-.icon-zhanghao2::before{font-size:40px; }
-.statistics-center-tendency .card-box .icon{line-height:120%}
+/*.icon-jiaoyijilu-copy-copy::before{font-size:38px}*/
+/*.icon-haikezhangguizhushou_dingdan::before{font-size:42px}*/
+/*.icon-zhanghao2::before{font-size:40px; }*/
+/*.statistics-center-tendency .card-box .icon{line-height:120%}*/
 
-.table-display-title{height:40px !important; line-height:20px !important}
-.el-form-item--mini.el-form-item{margin-bottom:12px}
-.statistics-center-tendency .card-box{margin:20px 0}
+/*.table-display-title{height:40px !important; line-height:20px !important}*/
+/*.el-form-item--mini.el-form-item{margin-bottom:12px}*/
+/*.statistics-center-tendency .card-box{margin:20px 0}*/
 
 /*设备*/
-.device-manager .center-div.device-info .el-tag{border-radius:3px; padding:0 4px}
-.device-manager .el-icon-info.el-tooltip{color:rgba(0,0,0,.15)}
-.device-manager .el-icon-info.el-tooltip:hover{color:rgba(0,0,0,.35)}
-.device-manager .status-info .auto-status .el-tooltip{margin-right:unset !important}
-.device-manager .body.center-div{padding-bottom:12px;min-height:260px}
-.device-item{min-height:353px; }
-.device-manager .device-item .bottom{height:40px; padding:12px 0 0 0; margin-top:0; box-sizing:border-box}
-.device-manager .device-item .body .device-info{padding:0 12px}
+/*.device-manager .center-div.device-info .el-tag{border-radius:3px; padding:0 4px}*/
+/*.device-manager .el-icon-info.el-tooltip{color:rgba(0,0,0,.15)}*/
+/*.device-manager .el-icon-info.el-tooltip:hover{color:rgba(0,0,0,.35)}*/
+/*.device-manager .status-info .auto-status .el-tooltip{margin-right:unset !important}*/
+/*.device-manager .body.center-div{padding-bottom:12px;min-height:260px}*/
+/*.device-item{min-height:353px; }*/
+/*.device-manager .device-item .bottom{height:40px; padding:12px 0 0 0; margin-top:0; box-sizing:border-box}*/
+/*.device-manager .device-item .body .device-info{padding:0 12px}*/
 
 /*设备管理配置弹窗*/
-.device-manager-edit .dialog-footer, .device-manager-edit .el-dialog__body{text-align:right}
-.device-manager-edit .dialog-footer button{margin-right:6px !important}
-.device-manager-edit .dialog-footer .el-button--danger{float:left;margin-left:6px}
+/*.device-manager-edit .dialog-footer, .device-manager-edit .el-dialog__body{text-align:right}*/
+/*.device-manager-edit .dialog-footer button{margin-right:6px !important}*/
+/*.device-manager-edit .dialog-footer .el-button--danger{float:left;margin-left:6px}*/
 
-.el-tooltip__popper.is-light{border:1px solid #aaa}
-.el-icon-warning{color:#ccc}
+/*.el-tooltip__popper.is-light{border:1px solid #aaa}*/
+/*.el-icon-warning{color:#ccc}*/
 
 
-.device-manager .status-info .status-view{min-width:390px;max-width:500px !important;margin-left: auto;margin-right: 20px;}
-.device-manager .status-view .el-card__body{display:flex;padding:0 4px 0 20px !important; height:100%; justify-content:center; align-items:center }
-.device-manager .status-view span{display:inline-block;margin:0 !important; flex:1; text-align:center}
+/*.device-manager .status-info .status-view{min-width:390px;max-width:500px !important;margin-left: auto;margin-right: 20px;}*/
+/*.device-manager .status-view .el-card__body{display:flex;padding:0 4px 0 20px !important; height:100%; justify-content:center; align-items:center }*/
+/*.device-manager .status-view span{display:inline-block;margin:0 !important; flex:1; text-align:center}*/
 
-.device-manager .status-view span:hover{background:#f3f3f3; border-radius:3px; cursor:pointer; opacity:.5}
+/*.device-manager .status-view span:hover{background:#f3f3f3; border-radius:3px; cursor:pointer; opacity:.5}*/
 
-@media screen and (max-width:1921px){
-  .device-manager .device-panel .device-item{min-width:259px;margin-right:18px;max-width:259px}
-}
+/*@media screen and (max-width:1921px){*/
+  /*.device-manager .device-panel .device-item{min-width:259px;margin-right:18px;max-width:259px}*/
+/*}*/
 
-@media screen and (max-width:1660px){
-  .device-manager .device-panel .device-item{min-width:19%;margin-right:12px;max-width:19%}
-}
+/*@media screen and (max-width:1660px){*/
+  /*.device-manager .device-panel .device-item{min-width:19%;margin-right:12px;max-width:19%}*/
+/*}*/
 
-@media screen and (max-width:1456px){
-  .device-manager .device-panel .device-item{min-width:22%;max-width:22%}
-}
+/*@media screen and (max-width:1456px){*/
+  /*.device-manager .device-panel .device-item{min-width:22%;max-width:22%}*/
+/*}*/
 
 
 @media screen and (max-width:1366px){

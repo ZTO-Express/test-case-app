@@ -1,11 +1,11 @@
 
 export default {
-  appId: 'mix',
-  appTitle: 'MIX F.C.运营管理系统',
-  logoUrl: 'img/MIX.png',
+  appId: 'test-case',
+  appTitle: '测试用例管理平台',
+  logoUrl: 'img/zto-logo.jpg',
   logoRoute: '/home/dashboard-page/index',
-  logoName: 'MARS',
-  apiDomainKey: 'ccpay-api',
+  logoName: '首页',
+  apiDomainKey: 'testcase',
   pageNotFoundRoute: '/home/pageNotFound',
   forbiddenRoute: '/home/forbidden',
   securityCenterRoute: '/home/operate/securityCenter',
@@ -19,27 +19,11 @@ export default {
   defaultPassword: process.env.VUE_APP_DEFAULT_PASSWORD,
   API: {
     baseUrl: process.env.VUE_APP_BASE_API_URL,
-    prefix: '',
+    prefix: '/testcase',
   },
 
   SSO: {
     baseUrl: process.env.VUE_APP_BASE_SSO_URL,
     prefix: '/sso',
-  },
-  CCPAY: {
-    baseUrl: process.env.VUE_APP_BASE_CCPAY_URL,
-    prefix: '/ccpay',
-  },
-  // ACCOUNT: {
-  //   baseUrl: process.env.VUE_APP_BASE_ACCOUNT_URL,
-  //   prefix: '/account',
-  // },
-  // QAMP: {
-  //   baseUrl: process.env.VUE_APP_BASE_QAMP_URL,
-  //   prefix: '/qamp',
-  // },
-  MIX: {
-    baseUrl: process.env.VUE_APP_BASE_MIX_URL,
-    prefix: '/mix',
   },
 };

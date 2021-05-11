@@ -8,14 +8,13 @@ function succResponseHandle(response) {
   if (!appConfig.isProduction) {
     console.log('response: ' + JSON.stringify(response.data, null, '\t'));
   }
-
   if (response.data.code && !response.data.respCode) {
     response.data.respCode = response.data.code;
   }
   if (response.data.msg && !response.data.respMessage) {
     response.data.respMessage = response.data.msg;
   }
-  if (response.data.respCode !== 'S0001') {
+  if (response.data.respCode !== '000000') {
     if (response.data.respCode === 'F40001' || response.data.respCode === 'F0004') {
       const msgs = JSON.parse(response.data.respMessage);
       response.data.respMessage = Object.values(msgs)[0];
@@ -43,7 +42,6 @@ function errResponseHandle(error) {
   if (!appConfig.isProduction) {
     console.dir(error);
   }
-
   if (!error.response) {
     const errorResp = {
       respCode: error,
