@@ -110,16 +110,29 @@
               </div>
               <div class="add">
                 <div v-if="$route.query.id">
-                  <el-button type="primary" plain size="mini" @click="handleOperate('updateUser')"><i class="el-icon-user"></i> 更改执行人</el-button>
-                  <el-button type="primary" plain size="mini" @click="handleOperate('updateRes')"><i class="el-icon-finished"></i> 更改执行结果</el-button>
-                  <el-button type="primary" plain size="mini" @click="handleOperate('withCase')"><i class="el-icon-connection"></i> 关联用例</el-button>
-                  <el-button type="danger" size="mini" @click="handleOperate('delCase')"><i class="el-icon-document-remove"></i> 移除用例</el-button>
+                  <el-button type="primary" v-permission="'testlibrary/updateUser'" plain
+                             size="mini" @click="handleOperate('updateUser')"><i
+                    class="el-icon-user"></i> 更改执行人
+                  </el-button>
+                  <el-button type="primary" v-permission="'testlibrary/updateRes'" plain size="mini"
+                             @click="handleOperate('updateRes')"><i class="el-icon-finished"></i>
+                    更改执行结果
+                  </el-button>
+                  <el-button type="primary" v-permission="'testlibrary/withCase'" plain size="mini"
+                             @click="handleOperate('withCase')"><i class="el-icon-connection"></i>
+                    关联用例
+                  </el-button>
+                  <el-button type="danger" v-permission="'testlibrary/delCase'" size="mini"
+                             @click="handleOperate('delCase')"><i
+                    class="el-icon-document-remove"></i> 移除用例
+                  </el-button>
                 </div>
                 <div v-else>
-                  <el-dropdown @command="handleCommand"
+                  <el-dropdown v-permission="'testlibrary/upload'" @command="handleCommand"
                                style="margin-right: 10px">
                     <el-button type="primary" size="small" style="height: 32px" plain>
-                      <i class="el-icon-upload2"></i> 导入用例<i class="el-icon-arrow-down el-icon--right"></i>
+                      <i class="el-icon-upload2"></i> 导入用例<i
+                      class="el-icon-arrow-down el-icon--right"></i>
                     </el-button>
                     <el-dropdown-menu slot="dropdown">
                       <el-dropdown-item command="first">导入 表格文件(.xlsx)</el-dropdown-item>
@@ -127,11 +140,15 @@
                     </el-dropdown-menu>
                   </el-dropdown>
                   <!--<el-button type="primary" plain @click="handleOperate('exportCase')"><i class="el-icon-download"></i> 导出用例</el-button>-->
-                  <el-button type="primary" size="small" plain @click="handleOperate('move')"><i class="el-icon-position"></i> 移动用例</el-button>
-                  <el-button type="danger" size="small"
-                             @click="handleOperate('del')"><i class="el-icon-delete"></i> 删除用例</el-button>
-                  <el-button type="primary" size="small"
-                             @click="handleOperate('add')"><i class="el-icon-plus"></i> 新建用例</el-button>
+                  <el-button type="primary" v-permission="'testlibrary/move'" size="small" plain
+                             @click="handleOperate('move')"><i class="el-icon-position"></i> 移动用例
+                  </el-button>
+                  <el-button type="danger" v-permission="'testlibrary/del'" size="small"
+                             @click="handleOperate('del')"><i class="el-icon-delete"></i> 删除用例
+                  </el-button>
+                  <el-button type="primary" size="small" v-permission="'testlibrary/add'"
+                             @click="handleOperate('add')"><i class="el-icon-plus"></i> 新建用例
+                  </el-button>
                 </div>
               </div>
             </div>
