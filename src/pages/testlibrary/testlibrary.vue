@@ -466,7 +466,7 @@ import assocaateCase from './associateCase'
 import moveCase from './moveCase'
 import editPlan from './editPlan'
 import copyEditCase from './copyEditCase'
-import { mapGetters } from 'vuex'
+// import { mapGetters } from 'vuex'
 import axios from 'axios'
 import Sortable from 'sortablejs'
 
@@ -618,7 +618,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['userInfo'])
+    // ...mapGetters(['userInfo'])
   },
   components: {
     operate, editPlan, assocaateCase, importFile, moveCase, copyEditCase, Sortable
@@ -961,7 +961,7 @@ export default {
             planId: this.$route.query.id,
             caseList: ids,
             type: 0,
-            user: this.userInfo.displayName
+            user: this.$appData.userInfo.nickName
           }
           this.api.associateCase(para).then(res => {
             if (res.code === '000000') {
@@ -1002,7 +1002,7 @@ export default {
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          this.api.delModule({ id: this.nodeInfo.data.id }).then((res) => {
+          this.$axiosUtil.post(this.$appConfig.API, this.$urlConst.DELETE_MODULE, { id: this.nodeInfo.data.id }).then((res) => {
             if (res.code === '000000') {
               this.showMsg(res.msg || res.message, 'success')
               this.getModuleList()
@@ -1057,10 +1057,10 @@ export default {
       const para = {
         name: this.moduleInfo.name,
         parentId: this.nodeInfo.data.id,
-        user: this.userInfo.displayName,
+        user: this.$appData.userInfo.nickName,
         level: this.nodeInfo.level
       }
-      this.api.addModule(para).then((res) => {
+      this.$axiosUtil.post(this.$appConfig.API, this.$urlConst.ADD_MODULE, para).then((res) => {
         if (res.code === '000000') {
           this.showMsg(res.msg || res.message, 'success')
           this.modalModule.visiable = false
@@ -1079,7 +1079,7 @@ export default {
         parentId: this.nodeInfo.data.parentId,
         id: this.nodeInfo.data.id
       }
-      this.api.editModule(para).then((res) => {
+      this.$axiosUtil.post(this.$appConfig.API, this.$urlConst.EDIT_MODULE, para).then((res) => {
         if (res.code === '000000') {
           this.showMsg(res.msg || res.message, 'success')
           this.modalModule.visiable = false
@@ -1096,7 +1096,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        this.api.delModule({ id: this.nodeInfo.data.id }).then((res) => {
+        this.$axiosUtil.post(this.$appConfig.API, this.$urlConst.DELETE_MODULE, { id: this.nodeInfo.data.id }).then((res) => {
           if (res.code === '000000') {
             this.showMsg(res.msg || res.message, 'success')
             this.getModuleList()
@@ -1246,7 +1246,7 @@ export default {
 
       const para = {
         id: this.$route.query.id,
-        user: this.userInfo.displayName,
+        user: this.$appData.userInfo.nickName,
         state: item.status
       }
       this.api.updateStatus(para).then((res) => {

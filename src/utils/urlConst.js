@@ -51,6 +51,8 @@ const GET_TYPE_LIST = '/testcase/config/type/listAll'
 const GET_FILE_LIST_BY_CASE_ID = '/testcase/testcase/getFileListByCaseId'
 
 const ADD_MODULE = '/testcase/module/addModule'
+const EDIT_MODULE = '/testcase/module/editModule'
+const DELETE_MODULE = '/testcase/module/deleteModule'
 const GET_NEXT_MODULES_BY_ID = '/testcase/module/getNextModulesById'
 const ADD_TEST_CASE = '/testcase/testcase/addTestCase'
 const EDIT_TEST_CASE = '/testcase/testcase/editTestCase'
@@ -107,7 +109,9 @@ export default {
   GET_FILE_LIST_BY_CASE_ID,
 
   ADD_MODULE,
+  EDIT_MODULE,
   GET_NEXT_MODULES_BY_ID,
   ADD_TEST_CASE,
-  EDIT_TEST_CASE
+  EDIT_TEST_CASE,
+  DELETE_MODULE
 }

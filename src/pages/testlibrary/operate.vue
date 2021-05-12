@@ -216,7 +216,7 @@ export default {
           this.search.tcTestcaseStepList = tempTestcaseStepList
           // console.log('tempTestcaseStepList==', JSON.stringify(tempTestcaseStepList))
           if (this.type === 'add') {
-            this.api.addCase(this.search).then(res => {
+            this.$axiosUtil.post(this.$appConfig.API, this.$urlConst.ADD_TEST_CASE, this.search).then((res) => {
               if (res.code === '000000') {
                 this.showMsg(res.msg || res.message, 'success')
                 this.$emit('update')
