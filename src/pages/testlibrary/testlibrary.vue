@@ -68,16 +68,12 @@
                 <div v-if="$route.query.id">
                   <span>状态  </span>
                   <el-dropdown @command="statusHandleCommand">
-                    <el-button
-                      :type="status === 0 ? 'primary' : status === 1 ? 'warning' : 'success'"
-                      size="mini"
-                      plain>
-                      <span>{{status === 0 ? '未开始' : status === 1 ? '进行中' : '已完成'}}</span><i
-                      class="el-icon-arrow-down el-icon--right"></i>
+                    <el-button :type="status === 0 ? 'primary' : status === 1 ? 'warning' : 'success'" size="mini"
+                               plain>
+                      <span>{{status === 0 ? '未开始' : status === 1 ? '进行中' : '已完成'}}</span><i class="el-icon-arrow-down el-icon--right"></i>
                     </el-button>
-                    <el-dropdown-menu
-                      style="transform-origin: center top; z-index: 2002; display: none;"
-                      slot="dropdown">
+                    <el-dropdown-menu style="transform-origin: center top; z-index: 2002; display: none;"
+                                      slot="dropdown">
                       <span style="padding: 10px;">更改计划状态:</span>
                       <el-dropdown-item style="margin-top: 15px"
                                         v-for="(item, index) in statusList"
@@ -89,19 +85,17 @@
                       </el-dropdown-item>
                     </el-dropdown-menu>
                   </el-dropdown>
-                  <br/>
-                  <br/>
+                  <br />
+                  <br />
                 </div>
                 <div>
                   <el-breadcrumb separator-class="el-icon-arrow-right">
                     <el-breadcrumb-item>所有用例</el-breadcrumb-item>
-                    <el-breadcrumb-item v-for="(item, index) in moduleList" :label="item.name"
-                                        :value="item.level" :key="index">{{item.name}}
-                    </el-breadcrumb-item>
+                    <el-breadcrumb-item v-for="(item, index) in moduleList" :label="item.name" :value="item.level" :key="index" >{{item.name}}</el-breadcrumb-item>
                   </el-breadcrumb>
                 </div>
-                <br/>
-                <br/>
+                <br />
+                <br />
                 <div v-if="$route.query.id">
                   <span style="display: inline-block; margin-left：24px;">
                     <span>通过率：</span>
@@ -116,29 +110,16 @@
               </div>
               <div class="add">
                 <div v-if="$route.query.id">
-                  <el-button type="primary" v-permission="'testlibrary/updateUser'" plain
-                             size="mini" @click="handleOperate('updateUser')"><i
-                    class="el-icon-user"></i> 更改执行人
-                  </el-button>
-                  <el-button type="primary" v-permission="'testlibrary/updateRes'" plain size="mini"
-                             @click="handleOperate('updateRes')"><i class="el-icon-finished"></i>
-                    更改执行结果
-                  </el-button>
-                  <el-button type="primary" v-permission="'testlibrary/withCase'" plain size="mini"
-                             @click="handleOperate('withCase')"><i class="el-icon-connection"></i>
-                    关联用例
-                  </el-button>
-                  <el-button type="danger" v-permission="'testlibrary/delCase'" size="mini"
-                             @click="handleOperate('delCase')"><i
-                    class="el-icon-document-remove"></i> 移除用例
-                  </el-button>
+                  <el-button type="primary" plain size="mini" @click="handleOperate('updateUser')"><i class="el-icon-user"></i> 更改执行人</el-button>
+                  <el-button type="primary" plain size="mini" @click="handleOperate('updateRes')"><i class="el-icon-finished"></i> 更改执行结果</el-button>
+                  <el-button type="primary" plain size="mini" @click="handleOperate('withCase')"><i class="el-icon-connection"></i> 关联用例</el-button>
+                  <el-button type="danger" size="mini" @click="handleOperate('delCase')"><i class="el-icon-document-remove"></i> 移除用例</el-button>
                 </div>
                 <div v-else>
-                  <el-dropdown v-permission="'testlibrary/upload'" @command="handleCommand"
+                  <el-dropdown @command="handleCommand"
                                style="margin-right: 10px">
                     <el-button type="primary" size="small" style="height: 32px" plain>
-                      <i class="el-icon-upload2"></i> 导入用例<i
-                      class="el-icon-arrow-down el-icon--right"></i>
+                      <i class="el-icon-upload2"></i> 导入用例<i class="el-icon-arrow-down el-icon--right"></i>
                     </el-button>
                     <el-dropdown-menu slot="dropdown">
                       <el-dropdown-item command="first">导入 表格文件(.xlsx)</el-dropdown-item>
@@ -146,15 +127,11 @@
                     </el-dropdown-menu>
                   </el-dropdown>
                   <!--<el-button type="primary" plain @click="handleOperate('exportCase')"><i class="el-icon-download"></i> 导出用例</el-button>-->
-                  <el-button type="primary" v-permission="'testlibrary/move'" size="small" plain
-                             @click="handleOperate('move')"><i class="el-icon-position"></i> 移动用例
-                  </el-button>
-                  <el-button type="danger" v-permission="'testlibrary/del'" size="small"
-                             @click="handleOperate('del')"><i class="el-icon-delete"></i> 删除用例
-                  </el-button>
-                  <el-button type="primary" size="small" v-permission="'testlibrary/add'"
-                             @click="handleOperate('add')"><i class="el-icon-plus"></i> 新建用例
-                  </el-button>
+                  <el-button type="primary" size="small" plain @click="handleOperate('move')"><i class="el-icon-position"></i> 移动用例</el-button>
+                  <el-button type="danger" size="small"
+                             @click="handleOperate('del')"><i class="el-icon-delete"></i> 删除用例</el-button>
+                  <el-button type="primary" size="small"
+                             @click="handleOperate('add')"><i class="el-icon-plus"></i> 新建用例</el-button>
                 </div>
               </div>
             </div>
@@ -165,7 +142,7 @@
               <el-form-item label="用例名称"
                             prop="caseName">
                 <el-input v-model="search.name"
-                          clearable/>
+                          clearable />
               </el-form-item>
               <el-form-item prop="type"
                             label="用例类型">
@@ -196,7 +173,7 @@
               <el-form-item label="维护人"
                             prop="user">
                 <el-input v-model="search.user"
-                          clearable/>
+                          clearable />
               </el-form-item>
               <el-form-item prop="gid"
                             label="显示">
@@ -206,13 +183,12 @@
                   <el-option :key="index"
                              :label="item.name"
                              :value="item.id"
-                             v-for="(item,index) in Options"/>
+                             v-for="(item,index) in Options" />
                 </el-select>
               </el-form-item>
               <el-form-item>
                 <el-button type="primary" size="small"
-                           @click="searchList">查询
-                </el-button>
+                           @click="searchList">查询</el-button>
                 <el-button size="small" @click="reset">重置</el-button>
               </el-form-item>
             </el-form>
@@ -221,50 +197,45 @@
                       @select-all="handleSelectionChange">
               <el-table-column type="selection"
                                width="35"
-                               label="全选"/>
+                               label="全选" />
               <el-table-column prop="id"
                                label="ID"
                                width="50"
                                show-overflow-tooltip
-                               v-if="false"/>
+                               v-if="false" />
               <el-table-column prop="name"
                                fixed
                                label="用例名称"
                                min-width="300"
-                               show-overflow-tooltip/>
+                               show-overflow-tooltip />
               <el-table-column prop="updateUser"
                                label="维护人"
                                width="80"
-                               show-overflow-tooltip/>
+                               show-overflow-tooltip />
               <el-table-column prop="priority"
                                width="60"
                                label="优先级"
                                show-overflow-tooltip>
                 <template slot-scope="{ row }">
-                  <el-tag
-                    :type="row.priority === 1 ? 'success' : row.priority === 2 ? 'primary' : 'danger'"
-                    disable-transitions>{{row.priority === 1 ? '低' : row.priority === 2 ? '中' :
-                    '高'}}
-                  </el-tag>
+                  <el-tag :type="row.priority === 1 ? 'success' : row.priority === 2 ? 'primary' : 'danger'"
+                          disable-transitions>{{row.priority === 1 ? '低' : row.priority === 2 ? '中' : '高'}}</el-tag>
                 </template>
               </el-table-column>
               <el-table-column prop="type"
                                label="用例类型"
                                width="100">
                 <template slot-scope="{ row }">
-                  <el-tag type="info" disable-transitions>{{getCaseType(row.type,typeList)}}
-                  </el-tag>
+                  <el-tag type="info" disable-transitions>{{getCaseType(row.type,typeList)}}</el-tag>
                 </template>
               </el-table-column>
               <el-table-column prop="tag"
                                label="用例标签"
                                width="150">
-                <template slot-scope="{ row }" v-if="row.tag">
+                <template slot-scope="{ row }" v-if = "row.tag">
                   <el-tag type="info"
-                          v-for="(tag,index) in row.tag.split(',')"
-                          :key="index"
-                          disable-transitions>{{getCaseTag(tag,tagList)}}
-                  </el-tag>
+                  v-for="(tag,index) in row.tag.split(',')"
+                  :key="index"
+                  disable-transitions>{{getCaseTag(tag,tagList)}}</el-tag>
                 </template>
               </el-table-column>
               <el-table-column prop="status"
@@ -272,18 +243,15 @@
                                width="80"
                                show-overflow-tooltip>
                 <template slot-scope="{ row }">
-                  <el-tag
-                    :type="row.status === 0 ? 'danger' : row.status === 1 ? 'success' : 'warning'"
-                    disable-transitions>{{ row.status === 0 ? '删除' : row.status === 1 ? '正常' : '停用'
-                    }}
-                  </el-tag>
+                  <el-tag :type="row.status === 0 ? 'danger' : row.status === 1 ? 'success' : 'warning'"
+                          disable-transitions>{{ row.status === 0 ? '删除' : row.status === 1 ? '正常' : '停用' }}</el-tag>
                 </template>
               </el-table-column>
               <el-table-column prop="executeUserName"
                                width="80"
                                label="执行人"
                                show-overflow-tooltip
-                               v-if="$route.query.id"/>
+                               v-if="$route.query.id" />
               <el-table-column prop="result"
                                width="80"
                                label="执行结果"
@@ -296,21 +264,14 @@
                     : 'info'"
                     disable-transitions>{{row.result === 0 ? '未执行' : row.result === 1 ? '通过'
                     : row.result === 2 ? '失败' : row.result === 3 ? '阻塞'
-                    : '跳过'}}
-                  </el-tag>
+                    : '跳过'}}</el-tag>
                 </template>
               </el-table-column>
               <el-table-column fixed="right" label="操作" width="120">
                 <template slot-scope="{ row }">
-                  <el-button @click="handleOperate('editPlan', row)" type="primary"
-                             v-if="$route.query.id">编辑
-                  </el-button>
-                  <el-button @click="handleOperate('edit', row)" type="primary" v-else
-                             style="margin-left:5px">编辑
-                  </el-button>
-                  <el-button @click="handleOperate('copyEditCase', row)" type="primary"
-                             style="margin-left:5px" v-if="!$route.query.id">复制
-                  </el-button>
+                  <el-button @click="handleOperate('editPlan', row)" type="primary" v-if="$route.query.id">编辑</el-button>
+                  <el-button @click="handleOperate('edit', row)" type="primary" v-else style="margin-left:5px">编辑</el-button>
+                  <el-button @click="handleOperate('copyEditCase', row)" type="primary" style="margin-left:5px" v-if="!$route.query.id">复制</el-button>
                   <!--<el-button @click="handleOperate('edit', row)" type="primary" v-else >删除</el-button>-->
                 </template>
               </el-table-column>
@@ -319,7 +280,7 @@
               <complete-pagination :total="page.totalDataCount"
                                    :currentPage="page.pageNumber"
                                    :pageSize="page.pageSize"
-                                   @updatePage="updatePage"/>
+                                   @updatePage="updatePage" />
             </div>
           </el-card>
         </div>
@@ -334,7 +295,7 @@
            :showReset="false">
       <template>
         <operate ref="operate"
-                 @update="getList"/>
+                 @update="getList" />
       </template>
     </modal>
     <!-- 编辑计划详情 -->
@@ -347,7 +308,7 @@
            :showReset="false">
       <template>
         <edit-plan ref="editPlan"
-                   @update="getList"/>
+                   @update="getList" />
       </template>
     </modal>
     <!-- 复制用例 -->
@@ -360,7 +321,7 @@
            :showReset="false">
       <template>
         <copy-edit-case ref="copyEditCase"
-                        @update="getList"/>
+                        @update="getList" />
       </template>
     </modal>
     <!-- 关联用例 -->
@@ -374,7 +335,7 @@
            :showReset="false">
       <template>
         <assocaateCase ref="assocaateCase"
-                       @update="getListForWithCase"/>
+                       @update="getListForWithCase" />
       </template>
     </modal>
     <!-- 修改模块树 -->
@@ -390,7 +351,7 @@
         <el-form label-width="80px"
                  style="margin-top: 24px">
           <el-form-item label="模块名称">
-            <el-input v-model="moduleInfo.name"/>
+            <el-input v-model="moduleInfo.name" />
           </el-form-item>
         </el-form>
       </template>
@@ -448,7 +409,7 @@
         </el-form>
       </template>
     </modal>
-    <!--上传用例文件-->
+<!--上传用例文件-->
     <modal
       style="height: 100%"
       :visible.sync="modalImport.visiable"
@@ -460,7 +421,7 @@
       :showReset="false"
     >
       <template>
-        <importFile ref="importFile" @update="getListAfterImport"/>
+        <importFile ref="importFile" @update="getListAfterImport" />
       </template>
     </modal>
     <!--移动用例-->
@@ -475,7 +436,7 @@
       :showReset="false"
     >
       <template>
-        <moveCase ref="moveCase" @update="getListForWithCase"/>
+        <moveCase ref="moveCase" @update="getListForWithCase" />
       </template>
     </modal>
   </div>
@@ -488,6 +449,7 @@ import assocaateCase from './associateCase'
 import moveCase from './moveCase'
 import editPlan from './editPlan'
 import copyEditCase from './copyEditCase'
+import { mapGetters } from 'vuex'
 import axios from 'axios'
 import Sortable from 'sortablejs'
 
@@ -639,6 +601,7 @@ export default {
     }
   },
   computed: {
+    ...mapGetters(['userInfo'])
   },
   components: {
     operate, editPlan, assocaateCase, importFile, moveCase, copyEditCase, Sortable
@@ -666,13 +629,29 @@ export default {
         }
       })
     },
+    // updateStatus() {
+    //   const para = {
+    //     id: this.$route.query.id - 0,
+    //     state: this.status
+    //   }
+    //   this.api.updateStatus(para).then((res) => {
+    //     if (res.code === '000000') {
+    //       this.page.pageNumber = res.data.pageNum
+    //       this.page.pageSize = res.data.pageSize
+    //       this.page.totalDataCount = res.data.total
+    //       this.search = Object.assign(this.search, res.data)
+    //     } else {
+    //       this.showMsg(res.msg || res.message)
+    //     }
+    //   })
+    // },
     updateRes() {
       const para = {
         planId: this.$route.query.id - 0,
         // executeUser: '',
-        caseList: this.multipleSelection.map(item => item.id),
+        caseList: this.multipleSelection.map((item) => item.id),
         result: this.res,
-        user: this.userInfo.displayName
+        user: this.$appData.userInfo.nickName
       }
       this.api.updateCaseInfo(para).then((res) => {
         if (res.code === '000000') {
@@ -698,24 +677,22 @@ export default {
       this.getTagList()
     },
     getTypeList() {
-      this.$axiosUtil.get(this.$appConfig.API, this.$urlConst.GET_TYPE_LIST)
-        .then((res) => {
-          if (res.code === '000000') {
-            this.typeList = res.data
-          } else {
-            this.showMsg(res.msg || res.message)
-          }
-        })
+      this.$axiosUtil.get(this.$appConfig.API, this.$urlConst.GET_TYPE_LIST).then((res) => {
+        if (res.code === '000000') {
+          this.typeList = res.data
+        } else {
+          this.showMsg(res.msg || res.message)
+        }
+      })
     },
     getTagList() {
-      this.$axiosUtil.get(this.$appConfig.API, this.$urlConst.GET_TYPE_LIST, { type: 2 })
-        .then((res) => {
-          if (res.code === '000000') {
-            this.tagList = res.data
-          } else {
-            this.showMsg(res.msg || res.message)
-          }
-        })
+      this.$axiosUtil.get(this.$appConfig.API, this.$urlConst.GET_TYPE_LIST, { type: 2 }).then((res) => {
+        if (res.code === '000000') {
+          this.tagList = res.data
+        } else {
+          this.showMsg(res.msg || res.message)
+        }
+      })
     },
     searchList() {
       this.modal.visiable = false
@@ -786,6 +763,11 @@ export default {
         }
       })
     },
+    // 过滤树节点
+    // filterNode(value, data) {
+    //   if (!value) return true
+    //   return data.name.indexOf(value) !== -1
+    // },
 
     filterNode(value, data, node) {
       if (!value) return true
@@ -795,7 +777,7 @@ export default {
       while (level < node.level) {
         labels = [...labels, parentNode.label]
         parentNode = parentNode.parent
-        level += 1
+        level++
       }
       return labels.some(label => label.indexOf(value) !== -1)
     },
@@ -889,7 +871,7 @@ export default {
       this.$nextTick(() => {
         this.$refs.copyEditCase.initViewData(row)
         // 解决先复制-后编辑问题，获取所有元素，如果是复制的话取最后一个tbody
-        const arr = document.querySelectorAll('.el-dialog__body tbody')
+        var arr = document.querySelectorAll('.el-dialog__body tbody')
         this.drawBodyWrapper = arr[arr.length - 1]
         this.rowDropCopy()
       })
@@ -910,8 +892,8 @@ export default {
     },
     // 删除用例
     executeDelRow() {
-      const id = this.multipleSelection.map(item => item.id)
-      if (id === null || id === '' || id === undefined || id.length === 0) {
+      const id = this.multipleSelection.map((item) => item.id)
+      if (id === null | id === '' || id === undefined || id.length === 0) {
         this.showMsg('请选择测试用例', 'warning')
         return
       }
@@ -921,7 +903,7 @@ export default {
         type: 'warning'
       })
         .then(() => {
-          this.api.delCase({ ids: id }).then((res) => {
+          this.api.delCase({ ids: id }).then(res => {
             if (res.code === '000000') {
               this.showMsg(res.msg || res.message, 'success')
               this.getList()
@@ -934,8 +916,8 @@ export default {
     },
     // 移动用例
     executeMoveRow() {
-      const ids = this.multipleSelection.map(item => item.id)
-      if (ids === null || ids === '' || ids === undefined || ids.length === 0) {
+      const ids = this.multipleSelection.map((item) => item.id)
+      if (ids === null | ids === '' || ids === undefined || ids.length === 0) {
         this.showMsg('请选择测试用例', 'warning')
         return
       }
@@ -947,8 +929,8 @@ export default {
     },
     // 移除用例
     executeDelCaseRow() {
-      const ids = this.multipleSelection.map(item => item.id)
-      if (ids === null || ids === '' || ids === undefined || ids.length === 0) {
+      const ids = this.multipleSelection.map((item) => item.id)
+      if (ids === null | ids === '' || ids === undefined || ids.length === 0) {
         this.showMsg('请选择测试用例', 'warning')
         return
       }
@@ -964,7 +946,7 @@ export default {
             type: 0,
             user: this.userInfo.displayName
           }
-          this.api.associateCase(para).then((res) => {
+          this.api.associateCase(para).then(res => {
             if (res.code === '000000') {
               this.showMsg(res.msg || res.message, 'success')
               this.initViewData()
@@ -976,8 +958,8 @@ export default {
         })
     },
     executeUpdateUserRow() {
-      const id = this.multipleSelection.map(item => item.id)
-      if (id === null || id === '' || id === undefined || id.length === 0) {
+      const id = this.multipleSelection.map((item) => item.id)
+      if (id === null | id === '' || id === undefined || id.length === 0) {
         this.showMsg('请选择测试用例', 'warning')
         return
       }
@@ -987,8 +969,8 @@ export default {
       this.modalUpdateStatus.visiable = true
     },
     executeUpdateResRow() {
-      const id = this.multipleSelection.map(item => item.id)
-      if (id === null || id === '' || id === undefined || id.length === 0) {
+      const id = this.multipleSelection.map((item) => item.id)
+      if (id === null | id === '' || id === undefined || id.length === 0) {
         this.showMsg('请选择测试用例', 'warning')
         return
       }
@@ -1037,7 +1019,7 @@ export default {
         planId: this.$route.query.id,
         executeUser: this.modalUpdateCase.value,
         caseList: this.multipleSelection.map(item => item.id),
-        user: this.userInfo.displayName,
+        user: this.$appData.userInfo.nickName,
         result: this.result
       }
       this.api.updateCaseInfo(para).then((res) => {
@@ -1108,24 +1090,24 @@ export default {
       })
     },
     // 取消
-    // resetForm(ucsMsg) {
-    //   this.$refs[name].resetFields()
-    // },
+    resetForm(ucsMsg) {
+      this.$refs[name].resetFields()
+    },
     // 同步部门信息
-    // updateDepartment() {
-    //   this.api.getQaOrganizationList({}).then((res) => {
-    //     if (res.code === '000000') {
-    //       this.initViewData()
-    //       this.showMsg(res.msg || res.message, 'success')
-    //     } else {
-    //       this.showMsg(res.msg || res.message, 'error')
-    //     }
-    //   })
-    // },
+    updateDepartment() {
+      this.api.getQaOrganizationList({}).then((res) => {
+        if (res.code === '000000') {
+          this.initViewData()
+          this.showMsg(res.msg || res.message, 'success')
+        } else {
+          this.showMsg(res.msg || res.message, 'error')
+        }
+      })
+    },
     // 初始获取数据
     getModuleList() {
       const planId = this.$route.query.id
-      this.$axiosUtil.get(this.$appConfig.API, this.$urlConst.GET_MODULE_TREE, { planId }).then((res) => {
+      this.$axiosUtil.get(this.$appConfig.API, this.$urlConst.GET_MODULE_TREE, planId).then((res) => {
         if (res.code === '000000') {
           if (res.data.length > 0) {
             this.treeData = res.data
@@ -1151,7 +1133,7 @@ export default {
       return arr
     },
     getModuleLevel5List() {
-      this.api.getModuleLevel5List({ id: this.nodeInfo.data.id }).then(res => {
+      this.$axiosUtil.post(this.$appConfig.API, this.$urlConst.GET_NEXT_MODULES_BY_ID, { id: this.nodeInfo.data.id }).then((res) => {
         if (res.code === '000000') {
           if (res.data.length > 0) {
             this.addedNode = res.data
@@ -1173,7 +1155,7 @@ export default {
       this.caseListPara.type = this.search.type
       this.caseListPara.user = this.search.user
       this.caseListPara.priority = this.search.priority
-      this.$axiosUtil.get(this.$appConfig.API, this.$urlConst.GET_TESTCASE_LIST, this.caseListPara).then((res) => {
+      this.$axiosUtil.post(this.$appConfig.API, this.$urlConst.GET_TESTCASE_LIST, this.caseListPara).then((res) => {
         if (res.code === '000000') {
           this.page.pageNumber = res.data.pageNum
           this.page.pageSize = res.data.pageSize
@@ -1215,7 +1197,7 @@ export default {
         // baseURL: HostName,
         withCredentials: true
       })
-      instance.post('/testcase/testcase/exportTestCase', FormDatas, { responseType: 'blob' }).then((res) => {
+      instance.post(`/testcase/testcase/exportTestCase`, FormDatas, { responseType: 'blob' }).then(res => {
         const temp = res.data
         if (temp.type === 'application/json') {
           // 错误
@@ -1305,7 +1287,7 @@ export default {
     // 根据接口返回测试类型
     getCaseType(id, list) {
       let res = '其他'
-      for (let i = 0; i < list.length; i += 1) {
+      for (let i = 0; i < list.length; i++) {
         if (list[i].id === id) {
           res = list[i].name
         }
@@ -1314,9 +1296,9 @@ export default {
     },
     // 根据接口返回测试标签
     getCaseTag(id, list) {
-      let res = '其他'
-      for (let i = 0; i < list.length; i += 1) {
-        if (list[i].id === parseInt(id, 10)) {
+      var res = '其他'
+      for (let i = 0; i < list.length; i++) {
+        if (list[i].id === parseInt(id)) {
           res = list[i].name
         }
       }

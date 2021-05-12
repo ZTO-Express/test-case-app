@@ -141,7 +141,7 @@ export default {
         this.search.status = 1
         // 默认3个步骤
         this.search.tcTestcaseStepList = []
-        for (let i = 0; i < 3; i += 1) {
+        for (let i = 0; i < 3; i++) {
           this.addField()
         }
       }
@@ -150,11 +150,11 @@ export default {
       const para = {
         id: row.id
       }
-      this.api.getCaseDetail(para).then((res) => {
+      this.api.getCaseDetail(para).then(res => {
         if (res.code === '000000') {
           if (res.data === null || res.data.length === 0) {
             this.search.tcTestcaseStepList = []
-            for (let i = 0; i < 3; i += 1) {
+            for (let i = 0; i < 3; i++) {
               this.addField()
             }
           } else {
@@ -170,7 +170,7 @@ export default {
       const para = {
         id: row.id
       }
-      this.$axiosUtil.post(this.$appConfig.API, this.$urlConst.GET_FILE_LIST_BY_CASE_ID, para).then((res) => {
+      this.api.getCaseFileList(para).then(res => {
         if (res.code === '000000') {
           this.uploadFileList = res.data
         } else {
@@ -202,7 +202,7 @@ export default {
       this.$refs.search.validate((valid) => {
         // 校验基础信息
         if (valid) {
-          this.search.user = this.userInfo.displayName
+          this.search.user = this.$appData.userInfo.nickName
           this.search.fileIds = this.uploadFileList.map(item => item.id)
           const tempTestcaseStepList = []
           this.search.tcTestcaseStepList.forEach((item, index) => {
@@ -214,8 +214,9 @@ export default {
             }
           })
           this.search.tcTestcaseStepList = tempTestcaseStepList
+          // console.log('tempTestcaseStepList==', JSON.stringify(tempTestcaseStepList))
           if (this.type === 'add') {
-            this.api.addCase(this.search).then((res) => {
+            this.api.addCase(this.search).then(res => {
               if (res.code === '000000') {
                 this.showMsg(res.msg || res.message, 'success')
                 this.$emit('update')
@@ -224,7 +225,7 @@ export default {
               }
             })
           } else {
-            this.api.editCase(this.search).then((res) => {
+            this.$axiosUtil.post(this.$appConfig.API, this.$urlConst.EDIT_TEST_CASE, this.search).then((res) => {
               if (res.code === '000000') {
                 this.showMsg(res.msg || res.message, 'success')
                 this.$emit('update')
@@ -236,7 +237,6 @@ export default {
         } else {
           return false
         }
-        return true
       })
     },
     reset() {
@@ -261,10 +261,12 @@ export default {
         return
       }
       // 删除
-      if (Number.isNaN(row.stepNumber)) {
+      if (isNaN(row.stepNumber)) {
         this.search.tcTestcaseStepList.pop()
       } else {
-        this.search.tcTestcaseStepList = this.search.tcTestcaseStepList.filter(item => item.stepNumber !== row.stepNumber)
+        this.search.tcTestcaseStepList = this.search.tcTestcaseStepList.filter(
+          item => item.stepNumber !== row.stepNumber
+        )
       }
     },
     // 删除文件
@@ -273,7 +275,7 @@ export default {
       const para = {
         id: file.id
       }
-      this.api.delFile(para).then((res) => {
+      this.api.delFile(para).then(res => {
         if (res.code === '000000') {
           this.showMsg('删除成功', 'success')
         } else {
