@@ -74,8 +74,9 @@
   </div>
 </template>
 <script>
-import { mapGetters } from 'vuex'
-import { validateLogin } from '@/config/validateRules'
+import { mapGetters } from 'vuex';
+import { validateLogin } from '@/config/validateRules';
+
 export default {
   name: 'global',
   data() {
@@ -90,158 +91,158 @@ export default {
         status: 1,
         type: 1,
         moduleId: '',
-        tcTestcaseStepList: []
+        tcTestcaseStepList: [],
       },
       uploadFileList: [],
       uploadPara: {
-        user: ''
+        user: '',
       },
       priorityList: [
         {
-          label: '高', value: 3
+          label: '高', value: 3,
         },
         {
-          label: '中', value: 2
+          label: '中', value: 2,
         },
         {
-          label: '低', value: 1
-        }
+          label: '低', value: 1,
+        },
       ],
       typeList: [],
       type: 'add',
       baseInfoRules: {
         name: validateLogin.name,
         type: validateLogin.options,
-        priority: validateLogin.options
-      }
-    }
+        priority: validateLogin.options,
+      },
+    };
   },
   components: {
   },
   computed: {
-    ...mapGetters(['userInfo'])
+    // ...mapGetters(['userInfo']),
   },
   methods: {
     initViewData(row, id) {
-      this.reset()
-      this.type = row ? 'edit' : 'add'
-      this.getTypeList()
+      this.reset();
+      this.type = row ? 'edit' : 'add';
+      this.getTypeList();
       if (row) {
-        this.search.name = row.name
-        this.search.comment = row.comment
-        this.search.priority = row.priority
-        this.search.precondition = row.precondition
-        this.search.moduleId = row.moduleId
-        this.search.id = row.id
-        this.search.type = row.type
-        this.getCaseDetail(row)
-        this.getCaseFileList(row)
+        this.search.name = row.name;
+        this.search.comment = row.comment;
+        this.search.priority = row.priority;
+        this.search.precondition = row.precondition;
+        this.search.moduleId = row.moduleId;
+        this.search.id = row.id;
+        this.search.type = row.type;
+        this.getCaseDetail(row);
+        this.getCaseFileList(row);
       } else {
-        this.search.id = ''
-        this.search.moduleId = id
-        this.search.status = 1
+        this.search.id = '';
+        this.search.moduleId = id;
+        this.search.status = 1;
         // 默认3个步骤
-        this.search.tcTestcaseStepList = []
+        this.search.tcTestcaseStepList = [];
         for (let i = 0; i < 3; i++) {
-          this.addField()
+          this.addField();
         }
       }
     },
     getCaseDetail(row) {
       const para = {
-        id: row.id
-      }
-      this.api.getCaseDetail(para).then(res => {
+        id: row.id,
+      };
+      this.api.getCaseDetail(para).then((res) => {
         if (res.code === '000000') {
           if (res.data === null || res.data.length === 0) {
-            this.search.tcTestcaseStepList = []
+            this.search.tcTestcaseStepList = [];
             for (let i = 0; i < 3; i++) {
-              this.addField()
+              this.addField();
             }
           } else {
             // console.log('编辑进来的步骤：', JSON.stringify(res.data))
-            this.search.tcTestcaseStepList = res.data
+            this.search.tcTestcaseStepList = res.data;
           }
         } else {
-          this.showMsg(res.msg || res.message, 'error')
+          this.showMsg(res.msg || res.message, 'error');
         }
-      })
+      });
     },
     getCaseFileList(row) {
       const para = {
-        id: row.id
-      }
-      this.api.getCaseFileList(para).then(res => {
+        id: row.id,
+      };
+      this.api.getCaseFileList(para).then((res) => {
         if (res.code === '000000') {
-          this.uploadFileList = res.data
+          this.uploadFileList = res.data;
         } else {
-          this.showMsg(res.msg || res.message)
+          this.showMsg(res.msg || res.message);
         }
-      })
+      });
     },
     getTypeList() {
-      this.api.getTypeList().then(res => {
+      this.$axiosUtil.get(this.$appConfig.API, this.$urlConst.GET_TYPE_LIST).then((res) => {
         if (res.code === '000000') {
-          this.typeList = res.data
+          this.typeList = res.data;
         } else {
-          this.showMsg(res.msg || res.message, 'error')
+          this.showMsg(res.msg || res.message, 'error');
         }
-      })
+      });
     },
     addField() {
       // 新增字段
-      const numb = this.search.tcTestcaseStepList
+      const numb = this.search.tcTestcaseStepList;
       const obj = {
         id: numb.length !== 0 ? numb[numb.length - 1].stepNumber + 1 : 1,
         stepNumber: numb.length !== 0 ? numb[numb.length - 1].stepNumber + 1 : 1,
         stepDesc: '',
-        expectResult: ''
-      }
-      this.search.tcTestcaseStepList.push(obj)
+        expectResult: '',
+      };
+      this.search.tcTestcaseStepList.push(obj);
     },
     submit() {
-      this.$refs['search'].validate(valid => {
+      this.$refs.search.validate((valid) => {
         // 校验基础信息
         if (valid) {
-          this.search.user = this.userInfo.displayName
-          this.search.fileIds = this.uploadFileList.map((item) => { return item.id })
-          const tempTestcaseStepList = []
+          this.search.user = this.$appData.userInfo.nickName;
+          this.search.fileIds = this.uploadFileList.map(item => item.id);
+          const tempTestcaseStepList = [];
           this.search.tcTestcaseStepList.forEach((item, index) => {
             if (item.stepDesc !== '' && item.stepDesc !== null) {
               // 删除id元素，id元素只用来拖拽，传到后端会更改ID
-              delete item.id
-              tempTestcaseStepList.push(item)
-              item.stepNumber = index + 1
+              delete item.id;
+              tempTestcaseStepList.push(item);
+              item.stepNumber = index + 1;
             }
-          })
-          this.search.tcTestcaseStepList = tempTestcaseStepList
+          });
+          this.search.tcTestcaseStepList = tempTestcaseStepList;
           // console.log('tempTestcaseStepList==', JSON.stringify(tempTestcaseStepList))
           if (this.type === 'add') {
-            this.api.addCase(this.search).then(res => {
+            this.$axiosUtil.post(this.$appConfig.API, this.$urlConst.ADD_TEST_CASE, this.search).then((res) => {
               if (res.code === '000000') {
-                this.showMsg(res.msg || res.message, 'success')
-                this.$emit('update')
+                this.showMsg(res.msg || res.message, 'success');
+                this.$emit('update');
               } else {
-                this.showMsg(res.msg || res.message, 'error')
+                this.showMsg(res.msg || res.message, 'error');
               }
-            })
+            });
           } else {
-            this.api.editCase(this.search).then(res => {
+            this.$axiosUtil.post(this.$appConfig.API, this.$urlConst.EDIT_TEST_CASE, this.search).then((res) => {
               if (res.code === '000000') {
-                this.showMsg(res.msg || res.message, 'success')
-                this.$emit('update')
+                this.showMsg(res.msg || res.message, 'success');
+                this.$emit('update');
               } else {
-                this.showMsg(res.msg || res.message, 'error')
+                this.showMsg(res.msg || res.message, 'error');
               }
-            })
+            });
           }
         } else {
-          return false
+          return false;
         }
-      })
+      });
     },
     reset() {
-      this.$refs['search'].resetFields()
+      this.$refs.search.resetFields();
       // this.search = {
       //   name: '',
       //   comment: '',
@@ -254,80 +255,78 @@ export default {
       //   moduleId: '',
       //   tcTestcaseStepList: []
       // }
-      this.uploadFileList = []
+      this.uploadFileList = [];
     },
     deleteField(row) {
       if (this.search.tcTestcaseStepList.length === 1) {
-        this.showMsg('必须保留一条操作步骤', 'warning')
-        return
+        this.showMsg('必须保留一条操作步骤', 'warning');
+        return;
       }
       // 删除
       if (isNaN(row.stepNumber)) {
-        this.search.tcTestcaseStepList.pop()
+        this.search.tcTestcaseStepList.pop();
       } else {
-        this.search.tcTestcaseStepList = this.search.tcTestcaseStepList.filter(
-          item => item.stepNumber !== row.stepNumber
-        )
+        this.search.tcTestcaseStepList = this.search.tcTestcaseStepList.filter(item => item.stepNumber !== row.stepNumber);
       }
     },
     // 删除文件
     delFile(file, fileList) {
-      this.uploadFileList = fileList
+      this.uploadFileList = fileList;
       const para = {
-        id: file.id
-      }
-      this.api.delFile(para).then(res => {
+        id: file.id,
+      };
+      this.api.delFile(para).then((res) => {
         if (res.code === '000000') {
-          this.showMsg('删除成功', 'success')
+          this.showMsg('删除成功', 'success');
         } else {
-          this.showMsg(res.msg || res.message, 'error')
+          this.showMsg(res.msg || res.message, 'error');
         }
-      })
+      });
     },
     editValue(row, type = '') {
-      this.table.editData = row
-      this.table.visiable = true
+      this.table.editData = row;
+      this.table.visiable = true;
       if (type === '') {
-        this.isJsonEditValue = this.isJSON(row.value)
-        this.jsonData = this.isJSON(row.value) ? JSON.parse(row.value) : row.value
+        this.isJsonEditValue = this.isJSON(row.value);
+        this.jsonData = this.isJSON(row.value) ? JSON.parse(row.value) : row.value;
       } else {
-        this.isJsonEditValue = this.isJSON(row.valued)
-        this.jsonData = this.isJSON(row.valued) ? JSON.parse(row.valued) : row.valued
+        this.isJsonEditValue = this.isJSON(row.valued);
+        this.jsonData = this.isJSON(row.valued) ? JSON.parse(row.valued) : row.valued;
       }
-      this.isDriveOrEnv = type === ''
+      this.isDriveOrEnv = type === '';
     },
     // 文件上传失败时的钩子
     uploadFilesError(err, file, fileList) {
-      this.showMsg('上传失败', 'warning')
-      console.log(err)
+      this.showMsg('上传失败', 'warning');
+      console.log(err);
     },
     // 文件上传成功时的钩子
     uploadFilesSuccess(res) {
       if (res.code === '000000') {
-        this.showMsg(res.msg, 'success')
-        this.uploadFileList.push(res.data)
+        this.showMsg(res.msg, 'success');
+        this.uploadFileList.push(res.data);
       } else {
-        this.showMsg(res.msg, 'warning')
+        this.showMsg(res.msg, 'warning');
       }
     },
     // 上传文件之前的钩子，参数为上传的文件，若返回 false 或者返回 Promise 且被 reject，则停止上传
     beforeUploadFiles(file) {
       if (this.type === 'edit') {
-        this.uploadPara.caseId = this.search.id
-        this.uploadPara.type = 1
+        this.uploadPara.caseId = this.search.id;
+        this.uploadPara.type = 1;
       }
-      this.uploadPara.user = this.userInfo.displayName
+      this.uploadPara.user = this.$appData.userInfo.nickName;
     },
     // 删除上传文件
     handleRemove(file, fileList) {
-      this.uploadFileList = JSON.parse(JSON.stringify(fileList))
+      this.uploadFileList = JSON.parse(JSON.stringify(fileList));
     },
     // 文件下载
     handlePreview(obj) {
-      window.open(`/testcase/file/download?id=${obj.id}`)
-    }
-  }
-}
+      window.open(`/testcase/file/download?id=${obj.id}`);
+    },
+  },
+};
 
 </script>
 

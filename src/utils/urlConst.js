@@ -1,55 +1,59 @@
-/** ******************* sso权限模块 *********************** */
-const LOGIN_PATH = '/testcase/v1/sso/login';
-const FORGET_PASSWD_AUTHORIZATION = '/testcase/v1/sso/forgetPswAuthorization'; // 忘记密码授权
-const LOGIN_AUTHORIZATION = '/testcase/v1/sso/loginAuthorization'; // 登录授权
-const LOGIN_NAME_CHECK = '/testcase/v1/user/findByLoginName'; // 登录名验证
-const BIND_MOBILE_AUTHORIZATION = '/v1/user-mobile/authorization'; // 绑定手机号授权
-const LOGOUT = '/testcase/v1/user/logout';
-const LOAD_APP_DATA_PATH = '/testcase/v1/user/loadAppData';
-const FIND_USERS = '/testcase/v1/user/findAll';
-const UPDATE_USER = '/testcase/v1/user/updateByUserId';
-const CREATE_USER = '/testcase/v1/user/create';
-const DELETE_USER = '/testcase/v1/user/delete';
-const FIND_ROLES = '/testcase/v1/role/findAll';
-const MENU_TREE = '/testcase/v1/menu/tree';
-const MENU_UPDATE = '/testcase/v1/menu/updateById';
-const MENU_CREATE = '/testcase/v1/menu/create';
-const MENU_DELETE = '/testcase/v1/menu/deleteById';
-const UI_META_TREE = '/testcase/v1/uimeta/tree';
-const UI_META_CREATE = '/testcase/v1/uimeta/create';
-const UI_META_UPDATE = '/testcase/v1/uimeta/updateById';
-const UI_META_DELETE = '/testcase/v1/uimeta/deleteById';
-const UI_META_BY_ROLE = '/testcase/v1/uimeta/treeByRoleCode';
-const UI_META_BATCH_CREATE = '/testcase/v1/pms/control/batchCreate';
-const UI_META_DELETE_BY_ROLECODE = '/testcase/v1/pms/control/deleteByRoleCode';
-const UI_META_BATCH_UPDATE = '/testcase/v1/pms/control/batchUpdateById';
-const DELETE_ROLE = '/testcase/v1/role/delete';
-const UPDATE_ROLE = '/testcase/v1/role/updateByRoleCode';
-const CREATE_ROLE = '/testcase/v1/role/create';
-const BAND_MENU = '/testcase/v1/role/bandMenu';
-const MENU_TREE_BY_ROLE = '/testcase/v1/pms/menu/treeByRoleCode';
-const PMS_BY_ROLE = '/testcase/v1/pms/control/treeByRoleCode';
-const SLR_UPDATE = '/testcase/v1/menu/updateSrl'; // 跟新排序
-const UPDATE_USER_PWD = '/testcase/v1/user/info/updateUserPwd'; // 修改密码
-const OPERATION_LOG_LIST = '/testcase/v1/operationLog/list'; // 操作日志
-const APPINFO_LIST = '/testcase/v1/appInfo/list'; // appinfo
-
+/*  ******************* sso权限模块 *********************** */
+const LOGIN_PATH = '/testcase/v1/sso/login'
+const FORGET_PASSWD_AUTHORIZATION = '/testcase/v1/sso/forgetPswAuthorization' // 忘记密码授权
+const LOGIN_AUTHORIZATION = '/testcase/v1/sso/loginAuthorization' // 登录授权
+const LOGIN_NAME_CHECK = '/testcase/v1/user/findByLoginName' // 登录名验证
+const BIND_MOBILE_AUTHORIZATION = '/v1/user-mobile/authorization' // 绑定手机号授权
+const LOGOUT = '/testcase/v1/user/logout'
+const LOAD_APP_DATA_PATH = '/testcase/v1/user/loadAppData'
+const FIND_USERS = '/testcase/v1/user/findAll'
+const UPDATE_USER = '/testcase/v1/user/updateByUserId'
+const CREATE_USER = '/testcase/v1/user/create'
+const DELETE_USER = '/testcase/v1/user/delete'
+const FIND_ROLES = '/testcase/v1/role/findAll'
+const MENU_TREE = '/testcase/v1/menu/tree'
+const MENU_UPDATE = '/testcase/v1/menu/updateById'
+const MENU_CREATE = '/testcase/v1/menu/create'
+const MENU_DELETE = '/testcase/v1/menu/deleteById'
+const UI_META_TREE = '/testcase/v1/uimeta/tree'
+const UI_META_CREATE = '/testcase/v1/uimeta/create'
+const UI_META_UPDATE = '/testcase/v1/uimeta/updateById'
+const UI_META_DELETE = '/testcase/v1/uimeta/deleteById'
+const UI_META_BY_ROLE = '/testcase/v1/uimeta/treeByRoleCode'
+const UI_META_BATCH_CREATE = '/testcase/v1/pms/control/batchCreate'
+const UI_META_DELETE_BY_ROLECODE = '/testcase/v1/pms/control/deleteByRoleCode'
+const UI_META_BATCH_UPDATE = '/testcase/v1/pms/control/batchUpdateById'
+const DELETE_ROLE = '/testcase/v1/role/delete'
+const UPDATE_ROLE = '/testcase/v1/role/updateByRoleCode'
+const CREATE_ROLE = '/testcase/v1/role/create'
+const BAND_MENU = '/testcase/v1/role/bandMenu'
+const MENU_TREE_BY_ROLE = '/testcase/v1/pms/menu/treeByRoleCode'
+const PMS_BY_ROLE = '/testcase/v1/pms/control/treeByRoleCode'
+const SLR_UPDATE = '/testcase/v1/menu/updateSrl' // 跟新排序
+const UPDATE_USER_PWD = '/testcase/v1/user/info/updateUserPwd' // 修改密码
+const OPERATION_LOG_LIST = '/testcase/v1/operationLog/list' // 操作日志
+const APPINFO_LIST = '/testcase/v1/appInfo/list' // appinfo
 
 /** ******************* 测试用例管理平台服务模块 *********************** */
-const GET_MODULE_TREE = '/testcase/module/getModuleTree';
-const GET_TESTCASE_LIST = '/testcase/testcase/getTestCaseList';
-const GET_PLAN_COUNT = '/testcase/plan/getPlanCount';
-const GET_PLAN_LIST = '/testcase/plan/planList';
-const DELETE_PLAN = '/testcase/plan/deletePlan';
-const SAVE_PLAN = '/testcase/plan/addOrUpdatePlan';
-const GET_PLAN_DETAIL = '/testcase/plan/planDetail';
-const GET_ALL_TESTER = '/testcase/v1/user/getAllTester';
-const GET_ALL_STAGE = '/testcase/config/stage/listAll';
-const GET_BUSINESS_LINE_TREE = '/testcase/sys/business/getBusinessLineTree';
-const GET_PROJECT_LIST_BY_BID = '/testcase/sys/business/getProjectListByBid';
-const GET_VERSION_BY_PID = '/testcase/sys/business/getVersionByPid';
-const GET_TYPE_LIST = '/testcase/config/type/listAll';
-const GET_FILE_LIST_BY_CASE_ID = '/testcase/testcase/getFileListByCaseId';
+const GET_MODULE_TREE = '/testcase/module/getModuleTree'
+const GET_TESTCASE_LIST = '/testcase/testcase/getTestCaseList'
+const GET_PLAN_COUNT = '/testcase/plan/getPlanCount'
+const GET_PLAN_LIST = '/testcase/plan/planList'
+const DELETE_PLAN = '/testcase/plan/deletePlan'
+const SAVE_PLAN = '/testcase/plan/addOrUpdatePlan'
+const GET_PLAN_DETAIL = '/testcase/plan/planDetail'
+const GET_ALL_TESTER = '/testcase/v1/user/getAllTester'
+const GET_ALL_STAGE = '/testcase/config/stage/listAll'
+const GET_BUSINESS_LINE_TREE = '/testcase/sys/business/getBusinessLineTree'
+const GET_PROJECT_LIST_BY_BID = '/testcase/sys/business/getProjectListByBid'
+const GET_VERSION_BY_PID = '/testcase/sys/business/getVersionByPid'
+const GET_TYPE_LIST = '/testcase/config/type/listAll'
+const GET_FILE_LIST_BY_CASE_ID = '/testcase/testcase/getFileListByCaseId'
+
+const ADD_MODULE = '/testcase/module/addModule'
+const GET_NEXT_MODULES_BY_ID = '/testcase/module/getNextModulesById'
+const ADD_TEST_CASE = '/testcase/testcase/addTestCase'
+const EDIT_TEST_CASE = '/testcase/testcase/editTestCase'
 
 export default {
   OPERATION_LOG_LIST,
@@ -101,4 +105,9 @@ export default {
   GET_VERSION_BY_PID,
   GET_TYPE_LIST,
   GET_FILE_LIST_BY_CASE_ID,
-};
+
+  ADD_MODULE,
+  GET_NEXT_MODULES_BY_ID,
+  ADD_TEST_CASE,
+  EDIT_TEST_CASE
+}

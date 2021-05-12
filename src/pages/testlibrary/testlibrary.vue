@@ -443,15 +443,15 @@
 </template>
 <script>
 // import { util } from '@/utils/util'
-import operate from './operate'
-import importFile from './import'
-import assocaateCase from './associateCase'
-import moveCase from './moveCase'
-import editPlan from './editPlan'
-import copyEditCase from './copyEditCase'
-import { mapGetters } from 'vuex'
-import axios from 'axios'
-import Sortable from 'sortablejs'
+import operate from './operate';
+import importFile from './import';
+import assocaateCase from './associateCase';
+import moveCase from './moveCase';
+import editPlan from './editPlan';
+import copyEditCase from './copyEditCase';
+// import { mapGetters } from 'vuex';
+import axios from 'axios';
+import Sortable from 'sortablejs';
 
 export default {
   data() {
@@ -465,7 +465,7 @@ export default {
         showSubModule: 1,
         passRate: 0.00,
         executeNum: 0,
-        totalNum: 0
+        totalNum: 0,
       },
       caseList: [],
       status: 0,
@@ -475,7 +475,7 @@ export default {
       page: {
         totalDataCount: 0,
         pageNumber: 1,
-        pageSize: 10
+        pageSize: 10,
       },
       multipleSelection: [],
       rules: {}, // form 校验
@@ -485,64 +485,64 @@ export default {
         {
           id: 1,
           name: '科技与信息中心',
-          children: []
-        }
+          children: [],
+        },
       ],
       userList: [],
       defaultProps: {
         children: 'children',
-        label: 'name'
+        label: 'name',
       },
       Options: [
         { name: '显示子模块用例', id: 1 },
-        { name: '隐藏子模块用例', id: 0 }
+        { name: '隐藏子模块用例', id: 0 },
       ],
       modal: {
         visiable: false,
-        title: '新建'
+        title: '新建',
       },
       modalPlan: {
         visiable: false,
-        title: '新建'
+        title: '新建',
       },
       modalCopyTestCase: {
         visiable: false,
-        title: '新建'
+        title: '新建',
       },
       modalModule: {
         visiable: false,
         title: '新建用例',
-        type: 'add'
+        type: 'add',
       },
       modalCase: {
         visiable: false,
-        title: '关联用例'
+        title: '关联用例',
       },
       modalMoveCase: {
         visiable: false,
-        title: '移动用例'
+        title: '移动用例',
       },
       moduleInfo: {
-        name: ''
+        name: '',
       },
       modalUpdateCase: {
         visiable: false,
         title: '更改执行人',
-        value: ''
+        value: '',
       },
       modalUpdateStatus: {
         visiable: false,
         title: '更改状态',
-        value: ''
+        value: '',
       },
       modalUpdateRes: {
         visiable: false,
         title: '更改执行结果',
-        value: ''
+        value: '',
       },
       modalImport: {
         visiable: false,
-        title: '上传用例文件'
+        title: '上传用例文件',
       },
       caseListPara: {
         pageNo: 1,
@@ -552,30 +552,36 @@ export default {
         user: '',
         type: '',
         priority: '',
-        name: ''
+        name: '',
       },
       addedNode: [],
       statusList: [
-        { name: '未开始', status: 0, tag: 'primary', command: '未开始' },
-        { name: '进行中', status: 1, tag: 'warning', command: '进行中' },
-        { name: '已完成', status: 2, tag: 'success', command: '已完成' }
+        {
+          name: '未开始', status: 0, tag: 'primary', command: '未开始',
+        },
+        {
+          name: '进行中', status: 1, tag: 'warning', command: '进行中',
+        },
+        {
+          name: '已完成', status: 2, tag: 'success', command: '已完成',
+        },
       ],
       resultList: [
         {
-          label: '未执行', value: 0, tag: 'primary'
+          label: '未执行', value: 0, tag: 'primary',
         },
         {
-          label: '通过', value: 1, tag: 'success'
+          label: '通过', value: 1, tag: 'success',
         },
         {
-          label: '失败', value: 2, tag: 'danger'
+          label: '失败', value: 2, tag: 'danger',
         },
         {
-          label: '阻塞', value: 3, tag: 'warning'
+          label: '阻塞', value: 3, tag: 'warning',
         },
         {
-          label: '跳过', value: 4, tag: 'info'
-        }
+          label: '跳过', value: 4, tag: 'info',
+        },
       ],
       loading: false,
       typeList: [],
@@ -583,43 +589,45 @@ export default {
       moduleList: [],
       priorityList: [
         {
-          label: '高', value: 3
+          label: '高', value: 3,
         },
         {
-          label: '中', value: 2
+          label: '中', value: 2,
         },
         {
-          label: '低', value: 1
-        }
-      ]
-    }
+          label: '低', value: 1,
+        },
+      ],
+    };
   },
   computed: {
-    ...mapGetters(['userInfo'])
+    // ...mapGetters(['userInfo']),
   },
-  components: { operate, editPlan, assocaateCase, importFile, moveCase, copyEditCase, Sortable },
+  components: {
+    operate, editPlan, assocaateCase, importFile, moveCase, copyEditCase, Sortable,
+  },
   watch: {
     filterText(val) {
-      this.$refs.departmentTree.filter(val)
+      this.$refs.departmentTree.filter(val);
     },
     $route(to) {
-      this.getModuleList()
-      this.getList()
-    }
+      this.getModuleList();
+      this.getList();
+    },
   },
   mounted() {
-    this.initViewData()
+    this.initViewData();
   },
   methods: {
     // 获取测试负责人
     getUserList() {
       this.$axiosUtil.get(this.$appConfig.API, this.$urlConst.GET_ALL_TESTER).then((res) => {
         if (res.code === '000000') {
-          this.userList = res.data
+          this.userList = res.data;
         } else {
-          this.showMsg(res.msg)
+          this.showMsg(res.msg);
         }
-      })
+      });
     },
     // updateStatus() {
     //   const para = {
@@ -641,93 +649,93 @@ export default {
       const para = {
         planId: this.$route.query.id - 0,
         // executeUser: '',
-        caseList: this.multipleSelection.map((item) => item.id),
+        caseList: this.multipleSelection.map(item => item.id),
         result: this.res,
-        user: this.userInfo.displayName
-      }
+        user: this.$appData.userInfo.nickName,
+      };
       this.api.updateCaseInfo(para).then((res) => {
         if (res.code === '000000') {
-          this.showMsg(res.msg || res.message, 'success')
-          this.modalUpdateCase.visiable = false
-          this.getList()
+          this.showMsg(res.msg || res.message, 'success');
+          this.modalUpdateCase.visiable = false;
+          this.getList();
         } else {
-          this.showMsg(res.msg || res.message, 'error')
+          this.showMsg(res.msg || res.message, 'error');
         }
-      })
+      });
     },
     updatePage(val) { // 分页
-      this.page.pageSize = val.pageSize
-      this.page.pageNumber = val.currentPage
-      this.multipleSelection = []
-      this.getList() // 获取请求
+      this.page.pageSize = val.pageSize;
+      this.page.pageNumber = val.currentPage;
+      this.multipleSelection = [];
+      this.getList(); // 获取请求
     },
     initViewData() {
-      this.getModuleList()
-      this.getList()
-      this.getUserList()
-      this.getTypeList()
-      this.getTagList()
+      this.getModuleList();
+      this.getList();
+      this.getUserList();
+      this.getTypeList();
+      this.getTagList();
     },
     getTypeList() {
-      this.api.getTypeList().then(res => {
+      this.$axiosUtil.get(this.$appConfig.API, this.$urlConst.GET_TYPE_LIST).then((res) => {
         if (res.code === '000000') {
-          this.typeList = res.data
+          this.typeList = res.data;
         } else {
-          this.showMsg(res.msg || res.message)
+          this.showMsg(res.msg || res.message);
         }
-      })
+      });
     },
     getTagList() {
-      this.api.getTypeList({ type: 2 }).then(res => {
+      this.$axiosUtil.get(this.$appConfig.API, this.$urlConst.GET_TYPE_LIST, { type: 2 }).then((res) => {
         if (res.code === '000000') {
-          this.tagList = res.data
+          this.tagList = res.data;
         } else {
-          this.showMsg(res.msg || res.message)
+          this.showMsg(res.msg || res.message);
         }
-      })
+      });
     },
     searchList() {
-      this.modal.visiable = false
-      this.modalPlan.visiable = false
-      this.modalCase.visiable = false
-      this.page.pageNumber = 1
+      this.modal.visiable = false;
+      this.modalPlan.visiable = false;
+      this.modalCase.visiable = false;
+      this.page.pageNumber = 1;
       if (this.$route.query.id) {
         // this.caseListPara.moduleId = ''
-        this.getPlanDetail()
+        this.getPlanDetail();
       } else {
-        this.getCaseList()
+        this.getCaseList();
       }
     },
     getList() {
-      this.modal.visiable = false
-      this.modalPlan.visiable = false
-      this.modalCase.visiable = false
-      this.modalCopyTestCase.visiable = false
+      this.modal.visiable = false;
+      this.modalPlan.visiable = false;
+      this.modalCase.visiable = false;
+      this.modalCopyTestCase.visiable = false;
       if (this.$route.query.id) {
         // this.caseListPara.moduleId = ''
-        this.getPlanDetail()
+        this.getPlanDetail();
       } else {
-        this.getCaseList()
+        this.getCaseList();
       }
     },
     getListForWithCase() {
-      this.modal.visiable = false
-      this.modalPlan.visiable = false
-      this.modalCase.visiable = false
-      this.modalMoveCase.visiable = false
+      this.modal.visiable = false;
+      this.modalPlan.visiable = false;
+      this.modalCase.visiable = false;
+      this.modalMoveCase.visiable = false;
       if (this.$route.query.id) {
-        this.getPlanDetail()
-        this.getModuleList()
+        this.getPlanDetail();
+        this.getModuleList();
       } else {
-        this.getCaseList()
+        this.getCaseList();
       }
     },
     // 文件上传保存完之后子组件调用父组件方法
     getListAfterImport() {
       // console.log('文件上传保存完之后回调方法')
-      this.modalImport.visiable = false
-      this.getCaseList()
-      this.getModuleList()
+      this.modalImport.visiable = false;
+      this.getCaseList();
+      this.getModuleList();
     },
     getPlanDetail(row) {
       const para = {
@@ -740,20 +748,20 @@ export default {
         type: this.search.type,
         user: this.search.user,
         priority: this.search.priority,
-        orderBy: 'id'
-      }
+        orderBy: 'id',
+      };
       this.$axiosUtil.get(this.$appConfig.API, this.$urlConst.GET_PLAN_DETAIL, para).then((res) => {
         if (res.code === '000000') {
-          this.page.pageNumber = res.data.caseList.pageNum
-          this.page.pageSize = res.data.caseList.pageSize
-          this.page.totalDataCount = res.data.caseList.total
-          this.status = res.data.state
-          this.caseList = res.data.caseList.list
-          this.search = Object.assign(this.search, res.data)
+          this.page.pageNumber = res.data.caseList.pageNum;
+          this.page.pageSize = res.data.caseList.pageSize;
+          this.page.totalDataCount = res.data.caseList.total;
+          this.status = res.data.state;
+          this.caseList = res.data.caseList.list;
+          this.search = Object.assign(this.search, res.data);
         } else {
-          this.showMsg(res.msg || res.message, 'error')
+          this.showMsg(res.msg || res.message, 'error');
         }
-      })
+      });
     },
     // 过滤树节点
     // filterNode(value, data) {
@@ -762,47 +770,47 @@ export default {
     // },
 
     filterNode(value, data, node) {
-      if (!value) return true
-      let parentNode = node.parent
-      let labels = [node.label]
-      let level = 1
+      if (!value) return true;
+      let parentNode = node.parent;
+      let labels = [node.label];
+      let level = 1;
       while (level < node.level) {
-        labels = [...labels, parentNode.label]
-        parentNode = parentNode.parent
-        level++
+        labels = [...labels, parentNode.label];
+        parentNode = parentNode.parent;
+        level++;
       }
-      return labels.some(label => label.indexOf(value) !== -1)
+      return labels.some(label => label.indexOf(value) !== -1);
     },
     // 选中的树节点
     handleNodeClick(data) {
-      this.moduleList = []
+      this.moduleList = [];
       // console.log(this.$refs.tree.getCheckedNodes())
-      this.nodeInfo = Object.assign({}, data)
-      this.getTreePath(data)
-      this.caseListPara.moduleId = data.data.id
+      this.nodeInfo = Object.assign({}, data);
+      this.getTreePath(data);
+      this.caseListPara.moduleId = data.data.id;
       if (data.data.level >= 5) {
-        this.getModuleLevel5List()
+        this.getModuleLevel5List();
       }
-      this.page.pageNumber = 1
-      this.getList()
+      this.page.pageNumber = 1;
+      this.getList();
     },
     // 修改更新
     submitForm(name) {
       this.api.updateDepartmentNode(this.search).then((res) => {
         if (res.code === '000000') {
           // 更新成功重刷数据
-          this.initViewData()
+          this.initViewData();
           // 清空输入
-          this.$refs[name].resetFields()
-          this.showMsg(res.msg || res.message, 'success')
+          this.$refs[name].resetFields();
+          this.showMsg(res.msg || res.message, 'success');
         } else {
-          this.showMsg(res.msg || res.message, 'error')
+          this.showMsg(res.msg || res.message, 'error');
         }
-      })
+      });
     },
     // 表格选中
     handleSelectionChange(val) {
-      this.multipleSelection = val
+      this.multipleSelection = val;
     },
     // 点击操作 增加、编辑
     handleOperate(type, row) {
@@ -819,35 +827,35 @@ export default {
         exportCase: () => this.exportCase(this.caseListPara),
         updateStatus: () => this.executeUpdateStatusRow('status', row),
         updateRes: () => this.executeUpdateResRow('res', row),
-        move: () => this.executeMoveRow('move')
-      }
-      obj[type].call(this)
+        move: () => this.executeMoveRow('move'),
+      };
+      obj[type].call(this);
     },
     // 执行：增加
     executeAddRow(type, row) {
       if (this.caseListPara.moduleId === null || this.caseListPara.moduleId === undefined || this.caseListPara.moduleId === '') {
-        this.showMsg('请选择模块', 'warning')
-        return
+        this.showMsg('请选择模块', 'warning');
+        return;
       }
-      this.modal.visiable = true
-      this.modal.title = '新建用例'
+      this.modal.visiable = true;
+      this.modal.title = '新建用例';
       this.$nextTick(() => {
-        this.$refs.operate.initViewData(type, this.caseListPara.moduleId)
-        this.drawBodyWrapper = document.querySelector('.el-dialog__body tbody')// 找element的标签
+        this.$refs.operate.initViewData(type, this.caseListPara.moduleId);
+        this.drawBodyWrapper = document.querySelector('.el-dialog__body tbody');// 找element的标签
         // console.log('drawBodyWrapper', this.drawBodyWrapper)
-        this.rowDrop()
-      })
+        this.rowDrop();
+      });
     },
     // 执行：编辑
     executeEditRow(row) {
-      this.modal.visiable = true
-      this.modal.title = '编辑用例'
+      this.modal.visiable = true;
+      this.modal.title = '编辑用例';
       this.$nextTick(() => {
-        this.$refs.operate.initViewData(row, this.caseListPara.moduleId)
-        this.drawBodyWrapper = document.querySelector('.el-dialog__body tbody')// 找element的标签
+        this.$refs.operate.initViewData(row, this.caseListPara.moduleId);
+        this.drawBodyWrapper = document.querySelector('.el-dialog__body tbody');// 找element的标签
         // console.log('drawBodyWrapper', this.drawBodyWrapper)
-        this.rowDrop()
-      })
+        this.rowDrop();
+      });
     },
     // 执行：复制编辑
     // executeCopyEditRow(row) {
@@ -858,142 +866,142 @@ export default {
     //   })
     // },
     executeCopyEditCaseRow(row) {
-      this.modalCopyTestCase.visiable = true
-      this.modalCopyTestCase.title = '复制用例'
+      this.modalCopyTestCase.visiable = true;
+      this.modalCopyTestCase.title = '复制用例';
       this.$nextTick(() => {
-        this.$refs.copyEditCase.initViewData(row)
+        this.$refs.copyEditCase.initViewData(row);
         // 解决先复制-后编辑问题，获取所有元素，如果是复制的话取最后一个tbody
-        var arr = document.querySelectorAll('.el-dialog__body tbody')
-        this.drawBodyWrapper = arr[arr.length - 1]
-        this.rowDropCopy()
-      })
+        const arr = document.querySelectorAll('.el-dialog__body tbody');
+        this.drawBodyWrapper = arr[arr.length - 1];
+        this.rowDropCopy();
+      });
     },
     executeWithCaseRow(row) {
-      this.modalCase.visiable = true
+      this.modalCase.visiable = true;
       this.$nextTick(() => {
-        this.$refs.assocaateCase.initViewData(row)
-      })
+        this.$refs.assocaateCase.initViewData(row);
+      });
     },
     // plan执行：编辑
     executeEditPlanRow(row) {
-      this.modalPlan.visiable = true
-      this.modalPlan.title = '编辑用例'
+      this.modalPlan.visiable = true;
+      this.modalPlan.title = '编辑用例';
       this.$nextTick(() => {
-        this.$refs.editPlan.initViewData(row)
-      })
+        this.$refs.editPlan.initViewData(row);
+      });
     },
     // 删除用例
     executeDelRow() {
-      const id = this.multipleSelection.map((item) => item.id)
+      const id = this.multipleSelection.map(item => item.id);
       if (id === null | id === '' || id === undefined || id.length === 0) {
-        this.showMsg('请选择测试用例', 'warning')
-        return
+        this.showMsg('请选择测试用例', 'warning');
+        return;
       }
       this.$confirm('确认删除所选用例', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
-        type: 'warning'
+        type: 'warning',
       })
         .then(() => {
-          this.api.delCase({ ids: id }).then(res => {
+          this.api.delCase({ ids: id }).then((res) => {
             if (res.code === '000000') {
-              this.showMsg(res.msg || res.message, 'success')
-              this.getList()
+              this.showMsg(res.msg || res.message, 'success');
+              this.getList();
             } else {
-              this.showMsg(res.msg || res.message, 'error')
+              this.showMsg(res.msg || res.message, 'error');
             }
-            this.multipleSelection = []
-          })
-        })
+            this.multipleSelection = [];
+          });
+        });
     },
     // 移动用例
     executeMoveRow() {
-      const ids = this.multipleSelection.map((item) => item.id)
+      const ids = this.multipleSelection.map(item => item.id);
       if (ids === null | ids === '' || ids === undefined || ids.length === 0) {
-        this.showMsg('请选择测试用例', 'warning')
-        return
+        this.showMsg('请选择测试用例', 'warning');
+        return;
       }
-      this.modalMoveCase.visiable = true
+      this.modalMoveCase.visiable = true;
       this.$nextTick(() => {
-        this.$refs.moveCase.initViewData(ids)
-      })
-      this.multipleSelection = []
+        this.$refs.moveCase.initViewData(ids);
+      });
+      this.multipleSelection = [];
     },
     // 移除用例
     executeDelCaseRow() {
-      const ids = this.multipleSelection.map((item) => item.id)
+      const ids = this.multipleSelection.map(item => item.id);
       if (ids === null | ids === '' || ids === undefined || ids.length === 0) {
-        this.showMsg('请选择测试用例', 'warning')
-        return
+        this.showMsg('请选择测试用例', 'warning');
+        return;
       }
       this.$confirm('确认移除所选用例', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
-        type: 'warning'
+        type: 'warning',
       })
         .then(() => {
           const para = {
             planId: this.$route.query.id,
             caseList: ids,
             type: 0,
-            user: this.userInfo.displayName
-          }
-          this.api.associateCase(para).then(res => {
+            user: this.$appData.userInfo.nickName,
+          };
+          this.api.associateCase(para).then((res) => {
             if (res.code === '000000') {
-              this.showMsg(res.msg || res.message, 'success')
-              this.initViewData()
+              this.showMsg(res.msg || res.message, 'success');
+              this.initViewData();
               // this.getList()
             } else {
-              this.showMsg(res.msg || res.message, 'error')
+              this.showMsg(res.msg || res.message, 'error');
             }
-          })
-        })
+          });
+        });
     },
     executeUpdateUserRow() {
-      const id = this.multipleSelection.map((item) => item.id)
+      const id = this.multipleSelection.map(item => item.id);
       if (id === null | id === '' || id === undefined || id.length === 0) {
-        this.showMsg('请选择测试用例', 'warning')
-        return
+        this.showMsg('请选择测试用例', 'warning');
+        return;
       }
-      this.modalUpdateCase.visiable = true
+      this.modalUpdateCase.visiable = true;
     },
     executeUpdateStatusRow() {
-      this.modalUpdateStatus.visiable = true
+      this.modalUpdateStatus.visiable = true;
     },
     executeUpdateResRow() {
-      const id = this.multipleSelection.map((item) => item.id)
+      const id = this.multipleSelection.map(item => item.id);
       if (id === null | id === '' || id === undefined || id.length === 0) {
-        this.showMsg('请选择测试用例', 'warning')
-        return
+        this.showMsg('请选择测试用例', 'warning');
+        return;
       }
-      this.modalUpdateRes.visiable = true
+      this.modalUpdateRes.visiable = true;
     },
     // 节点操作
     operateModule(type) {
-      this.modalModule.type = type
+      this.modalModule.type = type;
       if (type === 'del') {
         this.$confirm('是否删除', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
-          type: 'warning'
+          type: 'warning',
         }).then(() => {
           this.api.delModule({ id: this.nodeInfo.data.id }).then((res) => {
             if (res.code === '000000') {
-              this.showMsg(res.msg || res.message, 'success')
-              this.getModuleList()
+              this.showMsg(res.msg || res.message, 'success');
+              this.getModuleList();
             } else {
-              this.showMsg(res.msg || res.message, 'error')
+              this.showMsg(res.msg || res.message, 'error');
             }
-          })
-        })
+          });
+        });
       } else {
-        this.modalModule.visiable = true
+        this.modalModule.visiable = true;
         if (type === 'edit') {
-          this.modalModule.title = '重命名'
-          this.moduleInfo.name = this.nodeInfo.data.name
+          this.modalModule.title = '重命名';
+          this.moduleInfo.name = this.nodeInfo.data.name;
         } else {
-          this.modalModule.title = '新建模块名'
-          this.moduleInfo.name = ''
+          this.modalModule.title = '新建模块名';
+          this.moduleInfo.name = '';
         }
       }
     },
@@ -1001,305 +1009,306 @@ export default {
     saveModule() {
       const obj = {
         add: () => this.executeAddModuleRow(),
-        edit: () => this.executeEditModuleRow()
+        edit: () => this.executeEditModuleRow(),
         // del: () => this.executeDelModuleRow()
-      }
-      obj[this.modalModule.type].call(this)
+      };
+      obj[this.modalModule.type].call(this);
     },
     saveCase() {
       const para = {
         planId: this.$route.query.id,
         executeUser: this.modalUpdateCase.value,
-        caseList: this.multipleSelection.map((item) => item.id),
-        user: this.userInfo.displayName,
-        result: this.result
-      }
+        caseList: this.multipleSelection.map(item => item.id),
+        user: this.$appData.userInfo.nickName,
+        result: this.result,
+      };
       this.api.updateCaseInfo(para).then((res) => {
         if (res.code === '000000') {
-          this.showMsg(res.msg || res.message, 'success')
-          this.modalUpdateCase.visiable = false
-          this.modalUpdateRes.visiable = false
-          this.multipleSelection = []
-          this.getList()
+          this.showMsg(res.msg || res.message, 'success');
+          this.modalUpdateCase.visiable = false;
+          this.modalUpdateRes.visiable = false;
+          this.multipleSelection = [];
+          this.getList();
         } else {
-          this.showMsg(res.msg || res.message, 'error')
+          this.showMsg(res.msg || res.message, 'error');
         }
-      })
+      });
     },
     // module新增
     executeAddModuleRow() {
-      this.modalModule.visiable = true
+      this.modalModule.visiable = true;
       const para = {
         name: this.moduleInfo.name,
         parentId: this.nodeInfo.data.id,
-        user: this.userInfo.displayName,
-        level: this.nodeInfo.level
-      }
-      this.api.addModule(para).then((res) => {
+        user: this.$appData.userInfo.nickName,
+        level: this.nodeInfo.level,
+      };
+      this.$axiosUtil.post(this.$appConfig.API, this.$urlConst.ADD_MODULE, para).then((res) => {
+        console.log('module返回');
+
+        // this.api.addModule(para).then((res) => {
         if (res.code === '000000') {
-          this.showMsg(res.msg || res.message, 'success')
-          this.modalModule.visiable = false
-          this.getModuleList()
+          this.showMsg(res.msg || res.message, 'success');
+          this.modalModule.visiable = false;
+          this.getModuleList();
         } else {
-          this.showMsg(res.msg || res.message, 'error')
+          this.showMsg(res.msg || res.message, 'error');
         }
-      })
+      });
     },
     // module编辑
     executeEditModuleRow() {
-      this.modalModule.visiable = true
-      this.modalModule.title = '编辑'
+      this.modalModule.visiable = true;
+      this.modalModule.title = '编辑';
       const para = {
         name: this.moduleInfo.name,
         parentId: this.nodeInfo.data.parentId,
-        id: this.nodeInfo.data.id
-      }
+        id: this.nodeInfo.data.id,
+      };
       this.api.editModule(para).then((res) => {
         if (res.code === '000000') {
-          this.showMsg(res.msg || res.message, 'success')
-          this.modalModule.visiable = false
-          this.getModuleList()
+          this.showMsg(res.msg || res.message, 'success');
+          this.modalModule.visiable = false;
+          this.getModuleList();
         } else {
-          this.showMsg(res.msg || res.message, 'error')
+          this.showMsg(res.msg || res.message, 'error');
         }
-      })
+      });
     },
     // module删除
     executeDelModuleRow() {
       this.$confirm('是否删除', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
-        type: 'warning'
+        type: 'warning',
       }).then(() => {
         this.api.delModule({ id: this.nodeInfo.data.id }).then((res) => {
           if (res.code === '000000') {
-            this.showMsg(res.msg || res.message, 'success')
-            this.getModuleList()
+            this.showMsg(res.msg || res.message, 'success');
+            this.getModuleList();
           } else {
-            this.showMsg(res.msg || res.message, 'error')
+            this.showMsg(res.msg || res.message, 'error');
           }
-        })
-      })
+        });
+      });
     },
     // 取消
     resetForm(ucsMsg) {
-      this.$refs[name].resetFields()
+      this.$refs[name].resetFields();
     },
     // 同步部门信息
     updateDepartment() {
       this.api.getQaOrganizationList({}).then((res) => {
         if (res.code === '000000') {
-          this.initViewData()
-          this.showMsg(res.msg || res.message, 'success')
+          this.initViewData();
+          this.showMsg(res.msg || res.message, 'success');
         } else {
-          this.showMsg(res.msg || res.message, 'error')
+          this.showMsg(res.msg || res.message, 'error');
         }
-      })
+      });
     },
     // 初始获取数据
     getModuleList() {
-      const planId = this.$route.query.id
+      const planId = this.$route.query.id;
       this.$axiosUtil.get(this.$appConfig.API, this.$urlConst.GET_MODULE_TREE, planId).then((res) => {
         if (res.code === '000000') {
           if (res.data.length > 0) {
-            this.treeData = res.data
+            this.treeData = res.data;
           } else {
-            this.showMsg('暂未关联测试用例', 'warning')
+            this.showMsg('暂未关联测试用例', 'warning');
           }
         } else {
-          this.showMsg(res.msg || res.message, 'error')
+          this.showMsg(res.msg || res.message, 'error');
         }
-      })
+      });
     },
     getArray(data, id) {
-      let arr
-      for (var i in data) {
+      let arr;
+      for (const i in data) {
         if (data[i].id === id) {
-          arr = data[i]
-          arr.children = this.addedNode
-          break
+          arr = data[i];
+          arr.children = this.addedNode;
+          break;
         } else {
-          this.getArray(data[i].children, id)
+          this.getArray(data[i].children, id);
         }
       }
-      return arr
+      return arr;
     },
     getModuleLevel5List() {
-      this.api.getModuleLevel5List({ id: this.nodeInfo.data.id }).then(res => {
+      this.$axiosUtil.post(this.$appConfig.API, this.$urlConst.GET_NEXT_MODULES_BY_ID, { id: this.nodeInfo.data.id }).then((res) => {
         if (res.code === '000000') {
           if (res.data.length > 0) {
-            this.addedNode = res.data
-            this.getArray(this.treeData, this.nodeInfo.data.id)
+            this.addedNode = res.data;
+            this.getArray(this.treeData, this.nodeInfo.data.id);
           } else {
             // this.showMsg('数据为空')
           }
         } else {
-          this.showMsg(res.msg || res.message, 'error')
+          this.showMsg(res.msg || res.message, 'error');
         }
-      })
+      });
     },
     // 用例查询
     getCaseList() {
-      this.caseListPara.pageNo = this.page.pageNumber || 1
-      this.caseListPara.pageSize = this.page.pageSize || 10
-      this.caseListPara.showSubModule = this.search.showSubModule
-      this.caseListPara.name = this.search.name
-      this.caseListPara.type = this.search.type
-      this.caseListPara.user = this.search.user
-      this.caseListPara.priority = this.search.priority
-      this.$axiosUtil.get(this.$appConfig.API, this.$urlConst.GET_TESTCASE_LIST, this.caseListPara).then((res) => {
+      this.caseListPara.pageNo = this.page.pageNumber || 1;
+      this.caseListPara.pageSize = this.page.pageSize || 10;
+      this.caseListPara.showSubModule = this.search.showSubModule;
+      this.caseListPara.name = this.search.name;
+      this.caseListPara.type = this.search.type;
+      this.caseListPara.user = this.search.user;
+      this.caseListPara.priority = this.search.priority;
+      this.$axiosUtil.post(this.$appConfig.API, this.$urlConst.GET_TESTCASE_LIST, this.caseListPara).then((res) => {
         if (res.code === '000000') {
-          this.page.pageNumber = res.data.pageNum
-          this.page.pageSize = res.data.pageSize
-          this.page.totalDataCount = res.data.total
-          this.caseList = res.data.list
+          this.page.pageNumber = res.data.pageNum;
+          this.page.pageSize = res.data.pageSize;
+          this.page.totalDataCount = res.data.total;
+          this.caseList = res.data.list;
         } else {
-          this.showMsg(res.msg || res.message, 'error')
+          this.showMsg(res.msg || res.message, 'error');
         }
-      })
+      });
     },
     // 文件导入
     handleCommand(command) {
-      this.modalImport.visiable = true
-      this.modalImport.title = '上传用例文件'
+      this.modalImport.visiable = true;
+      this.modalImport.title = '上传用例文件';
       this.$nextTick(() => {
-        this.$refs.importFile.initViewData(command)
-      })
+        this.$refs.importFile.initViewData(command);
+      });
     },
     reset() { // 重置
-      this.search.name = ''
-      this.search.type = ''
-      this.search.user = ''
-      this.search.priority = ''
+      this.search.name = '';
+      this.search.type = '';
+      this.search.user = '';
+      this.search.priority = '';
     },
     exportCase(obj) {
-      this.loading = true
-      const FormDatas = new FormData()
+      this.loading = true;
+      const FormDatas = new FormData();
       if (obj.moduleId === null || obj.moduleId === '' || obj.moduleId === undefined) {
-        this.showMsg('请选择模块', 'warning')
-        this.loading = false
-        return
+        this.showMsg('请选择模块', 'warning');
+        this.loading = false;
+        return;
       }
-      Object.keys(obj).map(v => {
-        obj[v] = obj[v] ? obj[v] : ''
-        FormDatas.append(v, obj[v])
-      })
+      Object.keys(obj).map((v) => {
+        obj[v] = obj[v] ? obj[v] : '';
+        FormDatas.append(v, obj[v]);
+      });
       // 创建一个axios实例
       const instance = axios.create({
         // baseURL: HostName,
-        withCredentials: true
-      })
-      instance.post(`/testcase/testcase/exportTestCase`, FormDatas, { responseType: 'blob' }).then(res => {
-        const temp = res.data
+        withCredentials: true,
+      });
+      instance.post('/testcase/testcase/exportTestCase', FormDatas, { responseType: 'blob' }).then((res) => {
+        const temp = res.data;
         if (temp.type === 'application/json') {
           // 错误
-          this.showMsg('导出失败', 'error')
-          this.loading = false
+          this.showMsg('导出失败', 'error');
+          this.loading = false;
         } else {
           // 正常下载
           const blob = new Blob([res.data], {
-            type: 'application/xlsx;charset=utf-8'
-          })
-          const eleLink = document.createElement('a')
-          eleLink.download = '导出用例.xlsx'
-          eleLink.style.display = 'none'
+            type: 'application/xlsx;charset=utf-8',
+          });
+          const eleLink = document.createElement('a');
+          eleLink.download = '导出用例.xlsx';
+          eleLink.style.display = 'none';
           // 字符内容转变成blob地址
-          eleLink.href = URL.createObjectURL(blob)
+          eleLink.href = URL.createObjectURL(blob);
           // 触发点击
-          document.body.appendChild(eleLink)
-          eleLink.click()
+          document.body.appendChild(eleLink);
+          eleLink.click();
           // 然后移除
-          URL.revokeObjectURL(eleLink.href)
-          document.body.removeChild(eleLink)
-          this.loading = false
+          URL.revokeObjectURL(eleLink.href);
+          document.body.removeChild(eleLink);
+          this.loading = false;
         }
-      })
+      });
     },
     statusHandleCommand(item) {
-      this.status = item.status
-      this.statusTag = item.tag
+      this.status = item.status;
+      this.statusTag = item.tag;
 
       const para = {
         id: this.$route.query.id,
-        user: this.userInfo.displayName,
-        state: item.status
-      }
+        user: this.$appData.userInfo.nickName,
+        state: item.status,
+      };
       this.api.updateStatus(para).then((res) => {
         if (res.code === '000000') {
-          this.showMsg(res.msg || res.message, 'success')
+          this.showMsg(res.msg || res.message, 'success');
         } else {
-          this.showMsg(res.msg || res.message, 'error')
+          this.showMsg(res.msg || res.message, 'error');
         }
-      })
+      });
     },
     setCaseResult(result) {
-      this.result = result
+      this.result = result;
     },
     getTreePath(node) {
       if (node) {
         if (node.level === 1) {
-          this.moduleList.sort(function(a, b) {
-            return a.level - b.level
-          })
+          this.moduleList.sort((a, b) => a.level - b.level);
           if (this.moduleList.length > 4) {
-            const tempList = []
-            tempList.push(this.moduleList[0])
-            tempList.push({ level: '', name: '...' })
-            tempList.push(this.moduleList[this.moduleList.length - 2])
-            tempList.push(this.moduleList[this.moduleList.length - 1])
-            this.moduleList = tempList
+            const tempList = [];
+            tempList.push(this.moduleList[0]);
+            tempList.push({ level: '', name: '...' });
+            tempList.push(this.moduleList[this.moduleList.length - 2]);
+            tempList.push(this.moduleList[this.moduleList.length - 1]);
+            this.moduleList = tempList;
           }
-          return
+          return;
         }
-        const map = {}
-        map.level = node.data.level
-        map.name = node.data.name
-        this.moduleList.push(map)
-        this.getTreePath(node.parent)
+        const map = {};
+        map.level = node.data.level;
+        map.name = node.data.name;
+        this.moduleList.push(map);
+        this.getTreePath(node.parent);
       }
     },
     rowDrop() {
-      const tbody = this.drawBodyWrapper
-      const _this = this
+      const tbody = this.drawBodyWrapper;
+      const _this = this;
       Sortable.create(tbody, {
         onEnd({ newIndex, oldIndex }) {
-          const currRow = _this.$refs.operate.search.tcTestcaseStepList.splice(oldIndex, 1)[0]
-          _this.$refs.operate.search.tcTestcaseStepList.splice(newIndex, 0, currRow)
-        }
-      })
+          const currRow = _this.$refs.operate.search.tcTestcaseStepList.splice(oldIndex, 1)[0];
+          _this.$refs.operate.search.tcTestcaseStepList.splice(newIndex, 0, currRow);
+        },
+      });
     },
     rowDropCopy() {
-      const tbody = this.drawBodyWrapper
-      const _this = this
+      const tbody = this.drawBodyWrapper;
+      const _this = this;
       Sortable.create(tbody, {
         onEnd({ newIndex, oldIndex }) {
-          const currRow = _this.$refs.copyEditCase.search.tcTestcaseStepList.splice(oldIndex, 1)[0]
-          _this.$refs.copyEditCase.search.tcTestcaseStepList.splice(newIndex, 0, currRow)
-        }
-      })
+          const currRow = _this.$refs.copyEditCase.search.tcTestcaseStepList.splice(oldIndex, 1)[0];
+          _this.$refs.copyEditCase.search.tcTestcaseStepList.splice(newIndex, 0, currRow);
+        },
+      });
     },
     // 根据接口返回测试类型
     getCaseType(id, list) {
-      var res = '其他'
+      let res = '其他';
       for (let i = 0; i < list.length; i++) {
         if (list[i].id === id) {
-          res = list[i].name
+          res = list[i].name;
         }
       }
-      return res
+      return res;
     },
     // 根据接口返回测试标签
     getCaseTag(id, list) {
-      var res = '其他'
+      let res = '其他';
       for (let i = 0; i < list.length; i++) {
         if (list[i].id === parseInt(id)) {
-          res = list[i].name
+          res = list[i].name;
         }
       }
-      return res
-    }
-  }
-}
+      return res;
+    },
+  },
+};
 </script>
 <style lang="scss">
 .testlibrary-index {
