@@ -112,7 +112,7 @@
           width="70"
           show-overflow-tooltip
         ></el-table-column>
-        <el-table-column fixed="right" label="操作" width="200">
+        <el-table-column fixed="right" label="操作" width="160">
           <template slot-scope="{ row }">
             <el-button @click="handleOperate('edit',row)" type="primary" size="mini"
               >编辑</el-button
@@ -215,7 +215,7 @@ export default {
           this.showMsg(res.msg || res.message, 'error')
         }
       }).catch((error) => {
-        this.$message.error(error.msg);
+        this.$message.error(error.msg)
       })
       this.getPlanList()
     },
@@ -242,7 +242,7 @@ export default {
           this.showMsg(res.msg || res.message, 'error')
         }
       }).catch((error) => {
-        this.$message.error(error.msg);
+        this.$message.error(error.msg)
       })
     },
     // 点击操作 增加、编辑
@@ -279,7 +279,7 @@ export default {
         type: 'warning'
       })
         .then(() => {
-            this.$axiosUtil.del(this.$appConfig.API, this.$urlConst.DELETE_PLAN + '/' + row.id).then((res) => {
+          this.$axiosUtil.del(this.$appConfig.API, this.$urlConst.DELETE_PLAN + '/' + row.id).then((res) => {
             if (res.code === '000000') {
               this.showMsg(res.msg || res.message, 'success')
               this.getPlanCountAndList()

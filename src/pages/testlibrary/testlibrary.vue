@@ -139,7 +139,7 @@
                       <el-dropdown-item command="second">导入 思维导图(.xmind)</el-dropdown-item>
                     </el-dropdown-menu>
                   </el-dropdown>
-                  <el-button type="primary" plain @click="handleOperate('exportCase')"><i class="el-icon-download"></i> 导出用例</el-button>
+                  <el-button type="primary" size="small" plain @click="handleOperate('exportCase')"><i class="el-icon-download"></i> 导出用例</el-button>
                   <el-button type="primary" v-permission="'testlibrary/move'" size="small" plain
                              @click="handleOperate('move')"><i class="el-icon-position"></i> 移动用例
                   </el-button>
@@ -234,7 +234,7 @@
                                label="优先级"
                                show-overflow-tooltip>
                 <template slot-scope="{ row }">
-                  <el-tag :type="row.priority === 1 ? 'success' : row.priority === 2 ? 'primary' : 'danger'"
+                  <el-tag :type="row.priority === 1 ? 'success' : row.priority === 2 ? 'primary' : 'danger'" size="mini"
                           disable-transitions>{{row.priority === 1 ? '低' : row.priority === 2 ? '中' : '高'}}</el-tag>
                 </template>
               </el-table-column>
@@ -242,7 +242,7 @@
                                label="用例类型"
                                width="100">
                 <template slot-scope="{ row }">
-                  <el-tag type="info" disable-transitions>{{getCaseType(row.type,typeList)}}</el-tag>
+                  <el-tag type="info" size="mini" disable-transitions>{{getCaseType(row.type,typeList)}}</el-tag>
                 </template>
               </el-table-column>
               <el-table-column prop="tag"
@@ -260,7 +260,7 @@
                                width="80"
                                show-overflow-tooltip>
                 <template slot-scope="{ row }">
-                  <el-tag :type="row.status === 0 ? 'danger' : row.status === 1 ? 'success' : 'warning'"
+                  <el-tag :type="row.status === 0 ? 'danger' : row.status === 1 ? 'success' : 'warning'" size="mini"
                           disable-transitions>{{ row.status === 0 ? '删除' : row.status === 1 ? '正常' : '停用' }}</el-tag>
                 </template>
               </el-table-column>
@@ -286,9 +286,9 @@
               </el-table-column>
               <el-table-column fixed="right" label="操作" width="120">
                 <template slot-scope="{ row }">
-                  <el-button @click="handleOperate('editPlan', row)" type="primary" v-if="$route.query.id">编辑</el-button>
-                  <el-button @click="handleOperate('edit', row)" type="primary" v-else style="margin-left:5px">编辑</el-button>
-                  <el-button @click="handleOperate('copyEditCase', row)" type="primary" style="margin-left:5px" v-if="!$route.query.id">复制</el-button>
+                  <el-button @click="handleOperate('editPlan', row)" type="primary" size="mini" v-if="$route.query.id">编辑</el-button>
+                  <el-button @click="handleOperate('edit', row)" type="primary" size="mini" v-else style="margin-left:5px">编辑</el-button>
+                  <el-button @click="handleOperate('copyEditCase', row)" type="primary" size="mini" style="margin-left:5px" v-if="!$route.query.id">复制</el-button>
                   <!--<el-button @click="handleOperate('edit', row)" type="primary" v-else >删除</el-button>-->
                 </template>
               </el-table-column>

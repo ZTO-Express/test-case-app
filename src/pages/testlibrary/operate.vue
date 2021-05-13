@@ -47,12 +47,12 @@
               <template slot="header" slot-scope="{ row }" >
                 <div class="operation-header">
                   <span>操作</span>
-                  <el-button type="primary" icon="el-icon-plus" @click="addField"></el-button>
+                  <el-button type="primary" style="width: 24px;height: 23px;" size="mini" icon="el-icon-plus" @click="addField"></el-button>
                 </div>
               </template>
               <template slot-scope="{ row }">
                 <div>
-                  <el-button type="danger" icon="el-icon-delete" @click="deleteField(row)"></el-button>
+                  <el-button type="danger" size="mini" icon="el-icon-delete" @click="deleteField(row)"></el-button>
                 </div>
               </template>
             </el-table-column>
@@ -64,12 +64,12 @@
       </el-form-item>
       <el-form-item  label="文件">
         <el-upload ref="uploadFiles" :action="uploadUrl()" :data="uploadPara" :before-upload="beforeUploadFiles" :on-success="uploadFilesSuccess" :on-remove="delFile" :on-error="uploadFilesError" :file-list="uploadFileList" :on-preview="handlePreview">
-          <el-button type="primary" plain><i class="el-icon-upload"></i>上传文件</el-button> (上传文件最多5个、单个文件最大30M)
+          <el-button type="primary" size="small" plain><i class="el-icon-upload"></i>上传文件</el-button> (上传文件最多5个、单个文件最大30M)
         </el-upload>
       </el-form-item>
     </el-form>
     <div>
-      <el-button type="primary" @click="submit">保存</el-button>
+      <el-button type="primary" size="small" @click="submit">保存</el-button>
     </div>
   </div>
 </template>

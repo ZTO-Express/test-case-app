@@ -389,6 +389,8 @@ hr {
 .list-download-btn p{color:#888 !important; }
 
 .el-button--mini, .el-button--mini.is-round{padding:6px 12px !important}
+.el-table .el-button--mini{padding:3px 5px !important}
+
 
 /*安全中心*/
 .securty-center-item{background:#f9f8f9}
