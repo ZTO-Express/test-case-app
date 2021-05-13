@@ -59,6 +59,8 @@ const EDIT_TEST_CASE = '/testcase/testcase/editTestCase'
 const GET_CASE_DETAIL = '/testcase/testcase/getTestcaseStepListByCaseId'
 const COPY_EDIT_TESTCASE = '/testcase/testcase/copyEditTestCase'
 const DEL_TESTCASE = '/testcase/testcase/deleteTestCase'
+const MOVE_TESTCASE = '/testcase/testcase/moveTestCase'
+const ASSOCIATE_TESTCASE = '/testcase/plan/associateCase'
 
 const FILE_UPLOAD = '/testcase/file/upload'
 const FILE_DOWNLOAD = '/testcase/file/download'
@@ -126,5 +128,7 @@ export default {
   GET_CASE_DETAIL,
   FILE_DELETE,
   COPY_EDIT_TESTCASE,
-  DEL_TESTCASE
+  DEL_TESTCASE,
+  MOVE_TESTCASE,
+  ASSOCIATE_TESTCASE
 }

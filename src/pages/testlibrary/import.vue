@@ -26,7 +26,7 @@
                 <div class="btn-background">
                   <el-upload class="upload-demo"
                              ref="uploadFiles"
-                             action="/testcase/file/importExcel"
+                             :action="excelUpload()"
                              accept='.xlsx'
                              :limit=1
                              :data="uploadPara"
@@ -67,7 +67,7 @@
                 <div class="btn-background">
                   <el-upload class="upload-demo"
                              ref="uploadFiles"
-                             action="/testcase/file/importXmind"
+                             :action="xmindUpload()"
                              accept='.xmind'
                              :limit=1
                              :data="uploadPara"
@@ -124,7 +124,7 @@ export default {
   },
   methods: {
     init() {
-      this.uploadPara.user = this.userInfo.displayName
+      this.uploadPara.user = this.$appData.userInfo.nickName
     },
     initViewData(command) {
       this.activeTab = command
@@ -140,7 +140,7 @@ export default {
     },
     // 文件下载
     download(type) {
-      window.open(`/testcase/file/downloadTemplate?type=` + type)
+      window.open(this.$appConfig.API.baseUrl + `/testcase/file/downloadTemplate?type=` + type)
     },
     importExcel() {
 
@@ -213,7 +213,7 @@ export default {
       const para = {
         id: file.id
       }
-      this.api.delFile(para).then(res => {
+      this.$axiosUtil.del(this.$appConfig.API, this.$urlConst.FILE_DELETE, para).then((res) => {
         if (res.code === '000000') {
           console.log()
         } else {
@@ -231,6 +231,12 @@ export default {
     // 删除上传文件
     handleRemove(file, fileList) {
       this.uploadFileList = JSON.parse(JSON.stringify(fileList))
+    },
+    excelUpload() {
+      return this.$appConfig.API.baseUrl + '/testcase/file/importExcel'
+    },
+    xmindUpload() {
+      return this.$appConfig.API.baseUrl + '/testcase/file/importXmind'
     }
   }
 }

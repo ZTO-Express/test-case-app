@@ -23,7 +23,7 @@
   </div>
 </template>
 <script>
-import { mapGetters } from 'vuex'
+// import { mapGetters } from 'vuex'
 
 export default {
   name: 'global',
@@ -50,7 +50,7 @@ export default {
   components: {
   },
   computed: {
-    ...mapGetters(['userInfo'])
+    // ...mapGetters(['userInfo'])
   },
   watch: {
     filterText(val) {
@@ -64,7 +64,7 @@ export default {
     },
     // 初始获取数据
     getModuleList() {
-      this.api.getModuleList({}).then(res => {
+      this.$axiosUtil.get(this.$appConfig.API, this.$urlConst.GET_MODULE_TREE, {}).then((res) => {
         if (res.code === '000000') {
           if (res.data) {
             const arr = res.data
@@ -83,7 +83,7 @@ export default {
       this.moduleId = data.data.id
       this.moduleName = data.data.name
       if (data.data.level >= 5) {
-        this.api.getModuleLevel5List({ id: this.nodeInfo.data.id }).then(res => {
+        this.$axiosUtil.post(this.$appConfig.API, this.$urlConst.GET_NEXT_MODULES_BY_ID, { id: this.nodeInfo.data.id }).then((res) => {
           if (res.code === '000000') {
             if (res.data.length > 0) {
               this.addedNode = res.data
@@ -135,9 +135,9 @@ export default {
         const para = {
           ids: this.multipleSelection,
           moduleId: this.moduleId,
-          user: this.userInfo.displayName
+          user: this.$appData.userInfo.nickName
         }
-        this.api.moveCase(para).then(res => {
+        this.$axiosUtil.post(this.$appConfig.API, this.$urlConst.MOVE_TESTCASE, para).then((res) => {
           if (res.code === '000000') {
             this.$emit('update')
             this.showMsg(res.msg || res.message, 'success')
