@@ -19,7 +19,7 @@
       </el-form-item>
       <el-form-item prop="comment" label="操作步骤" >
         <div class="global-body">
-          <el-table :tableData="search.tcTestcaseStepList">
+          <el-table :data="search.tcTestcaseStepList">
             <el-table-column prop="stepNumber" width="50" label="编号">
               <template slot-scope="scope">
                 {{scope.$index + 1}}
@@ -63,7 +63,7 @@
         <el-input type="textarea" :rows="2" v-model="search.comment" placeholder="请输入备注" clearable maxlength=1024 />
       </el-form-item>
       <el-form-item  label="文件">
-        <el-upload ref="uploadFiles" action="/testcase/file/upload" :data="uploadPara" :before-upload="beforeUploadFiles" :on-success="uploadFilesSuccess" :on-remove="delFile" :on-error="uploadFilesError" :file-list="uploadFileList" :on-preview="handlePreview">
+        <el-upload ref="uploadFiles" :action="uploadUrl()" :data="uploadPara" :before-upload="beforeUploadFiles" :on-success="uploadFilesSuccess" :on-remove="delFile" :on-error="uploadFilesError" :file-list="uploadFileList" :on-preview="handlePreview">
           <el-button type="primary" plain><i class="el-icon-upload"></i>上传文件</el-button> (上传文件最多5个、单个文件最大30M)
         </el-upload>
       </el-form-item>
@@ -315,7 +315,7 @@ export default {
         this.uploadPara.caseId = this.search.id
         this.uploadPara.type = 1
       }
-      this.uploadPara.user = this.userInfo.displayName
+      this.uploadPara.user = this.$appData.userInfo.nickName
     },
     // 删除上传文件
     handleRemove(file, fileList) {
@@ -323,7 +323,11 @@ export default {
     },
     // 文件下载
     handlePreview(obj) {
-      window.open(`/testcase/file/download?id=${obj.id}`)
+      window.open(this.$appConfig.API.baseUrl + `/testcase/file/download?id=${obj.id}`)
+    },
+    uploadUrl() {
+      // 返回上传地址
+      return this.$appConfig.API.baseUrl + this.$urlConst.FILE_UPLOAD
     }
   }
 }

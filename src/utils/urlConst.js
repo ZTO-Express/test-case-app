@@ -57,6 +57,8 @@ const GET_NEXT_MODULES_BY_ID = '/testcase/module/getNextModulesById'
 const ADD_TEST_CASE = '/testcase/testcase/addTestCase'
 const EDIT_TEST_CASE = '/testcase/testcase/editTestCase'
 
+const FILE_UPLOAD = '/testcase/file/upload'
+
 export default {
   OPERATION_LOG_LIST,
   LOGOUT,
@@ -113,5 +115,6 @@ export default {
   GET_NEXT_MODULES_BY_ID,
   ADD_TEST_CASE,
   EDIT_TEST_CASE,
-  DELETE_MODULE
+  DELETE_MODULE,
+  FILE_UPLOAD
 }
