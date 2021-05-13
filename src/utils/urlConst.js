@@ -56,8 +56,13 @@ const DELETE_MODULE = '/testcase/module/deleteModule'
 const GET_NEXT_MODULES_BY_ID = '/testcase/module/getNextModulesById'
 const ADD_TEST_CASE = '/testcase/testcase/addTestCase'
 const EDIT_TEST_CASE = '/testcase/testcase/editTestCase'
+const GET_CASE_DETAIL = '/testcase/testcase/getTestcaseStepListByCaseId'
+const COPY_EDIT_TESTCASE = '/testcase/testcase/copyEditTestCase'
+const DEL_TESTCASE = '/testcase/testcase/deleteTestCase'
 
 const FILE_UPLOAD = '/testcase/file/upload'
+const FILE_DOWNLOAD = '/testcase/file/download'
+const FILE_DELETE = '/testcase/file/delete'
 
 export default {
   OPERATION_LOG_LIST,
@@ -116,5 +121,10 @@ export default {
   ADD_TEST_CASE,
   EDIT_TEST_CASE,
   DELETE_MODULE,
-  FILE_UPLOAD
+  FILE_UPLOAD,
+  FILE_DOWNLOAD,
+  GET_CASE_DETAIL,
+  FILE_DELETE,
+  COPY_EDIT_TESTCASE,
+  DEL_TESTCASE
 }

@@ -150,7 +150,7 @@ export default {
       const para = {
         id: row.id
       }
-      this.api.getCaseDetail(para).then(res => {
+      this.$axiosUtil.post(this.$appConfig.API, this.$urlConst.GET_CASE_DETAIL, para).then((res) => {
         if (res.code === '000000') {
           if (res.data === null || res.data.length === 0) {
             this.search.tcTestcaseStepList = []
@@ -170,7 +170,7 @@ export default {
       const para = {
         id: row.id
       }
-      this.api.getCaseFileList(para).then(res => {
+      this.$axiosUtil.post(this.$appConfig.API, this.$urlConst.GET_FILE_LIST_BY_CASE_ID, para).then((res) => {
         if (res.code === '000000') {
           this.uploadFileList = res.data
         } else {
@@ -275,7 +275,7 @@ export default {
       const para = {
         id: file.id
       }
-      this.api.delFile(para).then(res => {
+      this.$axiosUtil.del(this.$appConfig.API, this.$urlConst.FILE_DELETE, para).then((res) => {
         if (res.code === '000000') {
           this.showMsg('删除成功', 'success')
         } else {
@@ -323,7 +323,7 @@ export default {
     },
     // 文件下载
     handlePreview(obj) {
-      window.open(this.$appConfig.API.baseUrl + `/testcase/file/download?id=${obj.id}`)
+      window.open(this.$appConfig.API.baseUrl + this.$urlConst.FILE_DOWNLOAD + `?id=${obj.id}`)
     },
     uploadUrl() {
       // 返回上传地址

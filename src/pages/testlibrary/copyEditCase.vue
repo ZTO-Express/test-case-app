@@ -79,7 +79,7 @@
           <el-form-item prop="comment"
                         label="操作步骤">
             <div class="global-body">
-              <zto-table :tableData="search.tcTestcaseStepList">
+              <el-table :data="search.tcTestcaseStepList">
                 <el-table-column prop="stepNumber"
                                  width="50"
                                  label="编号">
@@ -138,7 +138,7 @@
                     </div>
                   </template>
                 </el-table-column>
-              </zto-table>
+              </el-table>
             </div>
           </el-form-item>
           <el-form-item prop="comment"
@@ -174,7 +174,7 @@
   </div>
 </template>
 <script>
-import { mapGetters } from 'vuex'
+// import { mapGetters } from 'vuex'
 import { validateLogin } from '@/config/validateRules'
 
 export default {
@@ -252,7 +252,7 @@ export default {
   components: {
   },
   computed: {
-    ...mapGetters(['userInfo'])
+    // ...mapGetters(['userInfo'])
   },
   watch: {
     filterText(val) {
@@ -293,7 +293,7 @@ export default {
       const para = {
         id: row.id
       }
-      this.api.getCaseDetail(para).then(res => {
+      this.$axiosUtil.post(this.$appConfig.API, this.$urlConst.GET_CASE_DETAIL, para).then((res) => {
         if (res.code === '000000') {
           if (res.data === null || res.data.length === 0) {
             this.search.tcTestcaseStepList = []
@@ -312,7 +312,7 @@ export default {
       const para = {
         id: row.id
       }
-      this.api.getCaseFileList(para).then(res => {
+      this.$axiosUtil.post(this.$appConfig.API, this.$urlConst.GET_FILE_LIST_BY_CASE_ID, para).then((res) => {
         if (res.code === '000000') {
           this.uploadFileList = res.data
         } else {
@@ -321,7 +321,7 @@ export default {
       })
     },
     getTypeListToTree() {
-      this.api.getTypeList().then(res => {
+      this.$axiosUtil.get(this.$appConfig.API, this.$urlConst.GET_TYPE_LIST).then((res) => {
         if (res.code === '000000') {
           this.typeList = res.data
         } else {
@@ -345,7 +345,7 @@ export default {
     },
     // 用例查询
     getCaseList() {
-      this.api.getCaseList(this.caseListPara).then(res => {
+      this.$axiosUtil.post(this.$appConfig.API, this.$urlConst.GET_TESTCASE_LIST, this.caseListPara).then((res) => {
         if (res.code === '000000') {
           this.page.currentPage = res.data.pageNum
           this.page.pageSize = res.data.pageSize
@@ -358,7 +358,7 @@ export default {
     },
     // 初始获取数据
     getModuleList() {
-      this.api.getModuleList({}).then(res => {
+      this.$axiosUtil.get(this.$appConfig.API, this.$urlConst.GET_MODULE_TREE, {}).then((res) => {
         if (res.code === '000000') {
           if (res.data) {
             let arr = []
@@ -386,7 +386,7 @@ export default {
       this.tempModuleId = data.data.id
 
       if (data.data.level >= 5) {
-        this.api.getModuleLevel5List({ id: this.nodeInfo.data.id }).then(res => {
+        this.$axiosUtil.post(this.$appConfig.API, this.$urlConst.GET_NEXT_MODULES_BY_ID, { id: this.nodeInfo.data.id }).then((res) => {
           if (res.code === '000000') {
             if (res.data.length > 0) {
               this.addedNode = res.data
@@ -436,7 +436,7 @@ export default {
       this.$refs['search'].validate(valid => {
         // 校验基础信息
         if (valid) {
-          this.search.user = this.userInfo.displayName
+          this.search.user = this.$appData.userInfo.nickName
           this.search.fileIds = this.uploadFileList.map((item) => { return item.id })
           const tempTestcaseStepList = []
           this.search.tcTestcaseStepList.forEach((item, index) => {
@@ -448,7 +448,7 @@ export default {
           this.search.tcTestcaseStepList = tempTestcaseStepList
           if (this.type === 'copyEdit') {
             this.search.moduleId = this.tempModuleId === '' ? this.search.moduleId : this.tempModuleId
-            this.api.copyEdit(this.search).then(res => {
+            this.$axiosUtil.post(this.$appConfig.API, this.$urlConst.COPY_EDIT_TESTCASE, this.search).then((res) => {
               if (res.code === '000000') {
                 this.showMsg(res.msg || res.message, 'success')
                 this.$emit('update')
@@ -490,7 +490,8 @@ export default {
       const para = {
         id: file.id
       }
-      this.api.delFile(para).then(res => {
+
+      this.$axiosUtil.post(this.$appConfig.API, this.$urlConst.FILE_DELETE, para).then((res) => {
         if (res.code === '000000') {
           this.showMsg('删除成功', 'success')
         } else {
@@ -530,7 +531,7 @@ export default {
         this.uploadPara.caseId = this.search.id
         this.uploadPara.type = 1
       }
-      this.uploadPara.user = this.userInfo.displayName
+      this.uploadPara.user = this.$appData.userInfo.nickName
     },
     // 删除上传文件
     handleRemove(file, fileList) {
@@ -541,7 +542,7 @@ export default {
       window.open(`/testcase/file/download?id=${obj.id}`)
     },
     getTypeListToTestCase() {
-      this.api.getTypeList().then(res => {
+      this.$axiosUtil.get(this.$appConfig.API, this.$urlConst.GET_TYPE_LIST).then((res) => {
         if (res.code === '000000') {
           this.typeList = res.data
         } else {

@@ -920,7 +920,7 @@ export default {
         type: 'warning'
       })
         .then(() => {
-          this.api.delCase({ ids: id }).then(res => {
+          this.$axiosUtil.post(this.$appConfig.API, this.$urlConst.DEL_TESTCASE, { ids: id }).then((res) => {
             if (res.code === '000000') {
               this.showMsg(res.msg || res.message, 'success')
               this.getList()
