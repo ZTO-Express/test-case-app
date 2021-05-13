@@ -37,6 +37,7 @@ const APPINFO_LIST = '/testcase/v1/appInfo/list' // appinfo
 /** ******************* 测试用例管理平台服务模块 *********************** */
 const GET_MODULE_TREE = '/testcase/module/getModuleTree'
 const GET_TESTCASE_LIST = '/testcase/testcase/getTestCaseList'
+const EXPORT_TEST_CASE = '/testcase/testcase/exportTestCase'
 const GET_PLAN_COUNT = '/testcase/plan/getPlanCount'
 const GET_PLAN_LIST = '/testcase/plan/planList'
 const DELETE_PLAN = '/testcase/plan/deletePlan'
@@ -104,6 +105,7 @@ export default {
 
   GET_MODULE_TREE,
   GET_TESTCASE_LIST,
+  EXPORT_TEST_CASE,
   GET_PLAN_COUNT,
   GET_PLAN_LIST,
   SAVE_PLAN,

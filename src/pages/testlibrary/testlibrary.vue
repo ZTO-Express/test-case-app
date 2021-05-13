@@ -139,7 +139,7 @@
                       <el-dropdown-item command="second">导入 思维导图(.xmind)</el-dropdown-item>
                     </el-dropdown-menu>
                   </el-dropdown>
-                  <!--<el-button type="primary" plain @click="handleOperate('exportCase')"><i class="el-icon-download"></i> 导出用例</el-button>-->
+                  <el-button type="primary" plain @click="handleOperate('exportCase')"><i class="el-icon-download"></i> 导出用例</el-button>
                   <el-button type="primary" v-permission="'testlibrary/move'" size="small" plain
                              @click="handleOperate('move')"><i class="el-icon-position"></i> 移动用例
                   </el-button>
@@ -459,14 +459,12 @@
   </div>
 </template>
 <script>
-// import { util } from '@/utils/util'
 import operate from './operate'
 import importFile from './import'
 import assocaateCase from './associateCase'
 import moveCase from './moveCase'
 import editPlan from './editPlan'
 import copyEditCase from './copyEditCase'
-// import { mapGetters } from 'vuex'
 import axios from 'axios'
 import Sortable from 'sortablejs'
 
@@ -601,6 +599,7 @@ export default {
         }
       ],
       loading: false,
+      currLevel: '',
       typeList: [],
       tagList: [],
       moduleList: [],
@@ -618,7 +617,6 @@ export default {
     }
   },
   computed: {
-    // ...mapGetters(['userInfo'])
   },
   components: {
     operate, editPlan, assocaateCase, importFile, moveCase, copyEditCase, Sortable
@@ -747,9 +745,7 @@ export default {
         this.getCaseList()
       }
     },
-    // 文件上传保存完之后子组件调用父组件方法
     getListAfterImport() {
-      // console.log('文件上传保存完之后回调方法')
       this.modalImport.visiable = false
       this.getCaseList()
       this.getModuleList()
@@ -780,12 +776,6 @@ export default {
         }
       })
     },
-    // 过滤树节点
-    // filterNode(value, data) {
-    //   if (!value) return true
-    //   return data.name.indexOf(value) !== -1
-    // },
-
     filterNode(value, data, node) {
       if (!value) return true
       let parentNode = node.parent
@@ -798,10 +788,9 @@ export default {
       }
       return labels.some(label => label.indexOf(value) !== -1)
     },
-    // 选中的树节点
     handleNodeClick(data) {
       this.moduleList = []
-      // console.log(this.$refs.tree.getCheckedNodes())
+      this.currLevel = data.data.level
       this.nodeInfo = Object.assign({}, data)
       this.getTreePath(data)
       this.caseListPara.moduleId = data.data.id
@@ -811,32 +800,15 @@ export default {
       this.page.pageNumber = 1
       this.getList()
     },
-    // 修改更新
-    submitForm(name) {
-      this.api.updateDepartmentNode(this.search).then((res) => {
-        if (res.code === '000000') {
-          // 更新成功重刷数据
-          this.initViewData()
-          // 清空输入
-          this.$refs[name].resetFields()
-          this.showMsg(res.msg || res.message, 'success')
-        } else {
-          this.showMsg(res.msg || res.message, 'error')
-        }
-      })
-    },
-    // 表格选中
     handleSelectionChange(val) {
       this.multipleSelection = val
     },
-    // 点击操作 增加、编辑
     handleOperate(type, row) {
       const obj = {
         add: () => this.executeAddRow(),
         edit: () => this.executeEditRow(row),
         del: () => this.executeDelRow(row),
         editPlan: () => this.executeEditPlanRow(row),
-        // copyEdit: () => this.executeCopyEditRow(row),
         copyEditCase: () => this.executeCopyEditCaseRow(row),
         withCase: () => this.executeWithCaseRow(row),
         delCase: () => this.executeDelCaseRow(row),
@@ -848,7 +820,6 @@ export default {
       }
       obj[type].call(this)
     },
-    // 执行：增加
     executeAddRow(type, row) {
       if (this.caseListPara.moduleId === null || this.caseListPara.moduleId === undefined || this.caseListPara.moduleId === '') {
         this.showMsg('请选择模块', 'warning')
@@ -859,35 +830,23 @@ export default {
       this.$nextTick(() => {
         this.$refs.operate.initViewData(type, this.caseListPara.moduleId)
         this.drawBodyWrapper = document.querySelector('.el-dialog__body tbody')// 找element的标签
-        // console.log('drawBodyWrapper', this.drawBodyWrapper)
         this.rowDrop()
       })
     },
-    // 执行：编辑
     executeEditRow(row) {
       this.modal.visiable = true
       this.modal.title = '编辑用例'
       this.$nextTick(() => {
         this.$refs.operate.initViewData(row, this.caseListPara.moduleId)
         this.drawBodyWrapper = document.querySelector('.el-dialog__body tbody')// 找element的标签
-        // console.log('drawBodyWrapper', this.drawBodyWrapper)
         this.rowDrop()
       })
     },
-    // 执行：复制编辑
-    // executeCopyEditRow(row) {
-    //   this.modal.visiable = true
-    //   this.modal.title = '复制用例22'
-    //   this.$nextTick(() => {
-    //     this.$refs.copyEditPlan.initViewData(row, this.caseListPara.moduleId)
-    //   })
-    // },
     executeCopyEditCaseRow(row) {
       this.modalCopyTestCase.visiable = true
       this.modalCopyTestCase.title = '复制用例'
       this.$nextTick(() => {
         this.$refs.copyEditCase.initViewData(row)
-        // 解决先复制-后编辑问题，获取所有元素，如果是复制的话取最后一个tbody
         var arr = document.querySelectorAll('.el-dialog__body tbody')
         this.drawBodyWrapper = arr[arr.length - 1]
         this.rowDropCopy()
@@ -899,7 +858,6 @@ export default {
         this.$refs.assocaateCase.initViewData(row)
       })
     },
-    // plan执行：编辑
     executeEditPlanRow(row) {
       this.modalPlan.visiable = true
       this.modalPlan.title = '编辑用例'
@@ -907,10 +865,9 @@ export default {
         this.$refs.editPlan.initViewData(row)
       })
     },
-    // 删除用例
     executeDelRow() {
       const id = this.multipleSelection.map((item) => item.id)
-      if (id === null | id === '' || id === undefined || id.length === 0) {
+      if (id === null || id === '' || id === undefined || id.length === 0) {
         this.showMsg('请选择测试用例', 'warning')
         return
       }
@@ -931,7 +888,6 @@ export default {
           })
         })
     },
-    // 移动用例
     executeMoveRow() {
       const ids = this.multipleSelection.map((item) => item.id)
       if (ids === null | ids === '' || ids === undefined || ids.length === 0) {
@@ -944,7 +900,6 @@ export default {
       })
       this.multipleSelection = []
     },
-    // 移除用例
     executeDelCaseRow() {
       const ids = this.multipleSelection.map((item) => item.id)
       if (ids === null | ids === '' || ids === undefined || ids.length === 0) {
@@ -976,7 +931,7 @@ export default {
     },
     executeUpdateUserRow() {
       const id = this.multipleSelection.map((item) => item.id)
-      if (id === null | id === '' || id === undefined || id.length === 0) {
+      if (id === null || id === '' || id === undefined || id.length === 0) {
         this.showMsg('请选择测试用例', 'warning')
         return
       }
@@ -987,13 +942,12 @@ export default {
     },
     executeUpdateResRow() {
       const id = this.multipleSelection.map((item) => item.id)
-      if (id === null | id === '' || id === undefined || id.length === 0) {
+      if (id === null || id === '' || id === undefined || id.length === 0) {
         this.showMsg('请选择测试用例', 'warning')
         return
       }
       this.modalUpdateRes.visiable = true
     },
-    // 节点操作
     operateModule(type) {
       this.modalModule.type = type
       if (type === 'del') {
@@ -1022,7 +976,6 @@ export default {
         }
       }
     },
-    // 节点保存
     saveModule() {
       const obj = {
         add: () => this.executeAddModuleRow(),
@@ -1051,7 +1004,6 @@ export default {
         }
       })
     },
-    // module新增
     executeAddModuleRow() {
       this.modalModule.visiable = true
       const para = {
@@ -1070,7 +1022,6 @@ export default {
         }
       })
     },
-    // module编辑
     executeEditModuleRow() {
       this.modalModule.visiable = true
       this.modalModule.title = '编辑'
@@ -1089,7 +1040,6 @@ export default {
         }
       })
     },
-    // module删除
     executeDelModuleRow() {
       this.$confirm('是否删除', {
         confirmButtonText: '确定',
@@ -1106,22 +1056,6 @@ export default {
         })
       })
     },
-    // 取消
-    resetForm(ucsMsg) {
-      this.$refs[name].resetFields()
-    },
-    // 同步部门信息
-    updateDepartment() {
-      this.api.getQaOrganizationList({}).then((res) => {
-        if (res.code === '000000') {
-          this.initViewData()
-          this.showMsg(res.msg || res.message, 'success')
-        } else {
-          this.showMsg(res.msg || res.message, 'error')
-        }
-      })
-    },
-    // 初始获取数据
     getModuleList() {
       const planId = this.$route.query.id
       this.$axiosUtil.get(this.$appConfig.API, this.$urlConst.GET_MODULE_TREE, planId).then((res) => {
@@ -1163,7 +1097,6 @@ export default {
         }
       })
     },
-    // 用例查询
     getCaseList() {
       this.caseListPara.pageNo = this.page.pageNumber || 1
       this.caseListPara.pageSize = this.page.pageSize || 10
@@ -1183,7 +1116,6 @@ export default {
         }
       })
     },
-    // 文件导入
     handleCommand(command) {
       this.modalImport.visiable = true
       this.modalImport.title = '上传用例文件'
@@ -1191,7 +1123,7 @@ export default {
         this.$refs.importFile.initViewData(command)
       })
     },
-    reset() { // 重置
+    reset() {
       this.search.name = ''
       this.search.type = ''
       this.search.user = ''
@@ -1199,6 +1131,11 @@ export default {
     },
     exportCase(obj) {
       this.loading = true
+      if (this.currLevel === 1) {
+        this.showMsg('不能导出根节点数据', 'warning')
+        this.loading = false
+        return
+      }
       const FormDatas = new FormData()
       if (obj.moduleId === null || obj.moduleId === '' || obj.moduleId === undefined) {
         this.showMsg('请选择模块', 'warning')
@@ -1209,35 +1146,32 @@ export default {
         obj[v] = obj[v] ? obj[v] : ''
         FormDatas.append(v, obj[v])
       })
-      // 创建一个axios实例
       const instance = axios.create({
-        // baseURL: HostName,
         withCredentials: true
       })
       instance.post(`/testcase/testcase/exportTestCase`, FormDatas, { responseType: 'blob' }).then(res => {
         const temp = res.data
         if (temp.type === 'application/json') {
-          // 错误
           this.showMsg('导出失败', 'error')
           this.loading = false
         } else {
-          // 正常下载
           const blob = new Blob([res.data], {
             type: 'application/xlsx;charset=utf-8'
           })
           const eleLink = document.createElement('a')
           eleLink.download = '导出用例.xlsx'
           eleLink.style.display = 'none'
-          // 字符内容转变成blob地址
           eleLink.href = URL.createObjectURL(blob)
-          // 触发点击
           document.body.appendChild(eleLink)
           eleLink.click()
-          // 然后移除
           URL.revokeObjectURL(eleLink.href)
           document.body.removeChild(eleLink)
           this.loading = false
         }
+      }).catch(error => {
+        console.log(error)
+        this.showMsg('导出失败', 'error')
+        this.loading = false
       })
     },
     statusHandleCommand(item) {
@@ -1301,7 +1235,6 @@ export default {
         }
       })
     },
-    // 根据接口返回测试类型
     getCaseType(id, list) {
       let res = '其他'
       for (let i = 0; i < list.length; i++) {
@@ -1311,7 +1244,6 @@ export default {
       }
       return res
     },
-    // 根据接口返回测试标签
     getCaseTag(id, list) {
       var res = '其他'
       for (let i = 0; i < list.length; i++) {
