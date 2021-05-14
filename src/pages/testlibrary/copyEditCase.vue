@@ -79,7 +79,7 @@
           <el-form-item prop="comment"
                         label="操作步骤">
             <div class="global-body">
-              <el-table :data="search.tcTestcaseStepList">
+              <el-table :data="search.tcTestcaseStepList" row-key="id">
                 <el-table-column prop="stepNumber"
                                  width="50"
                                  label="编号">
