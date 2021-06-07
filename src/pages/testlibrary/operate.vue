@@ -1,75 +1,142 @@
 <template>
   <div class="env-msg-gloaba">
-    <el-form ref="search"  :model="search" label-width="80px" :rules="baseInfoRules">
-      <el-form-item label="用例名称" prop="name">
-        <el-input v-model="search.name" placeholder="请输入用例名称" clearable maxlength=256 />
+    <el-form ref="search"
+             :model="search"
+             label-width="80px"
+             :rules="baseInfoRules">
+      <el-form-item label="用例名称"
+                    prop="name">
+        <el-input v-model="search.name"
+                  placeholder="请输入用例名称"
+                  clearable
+                  maxlength=256 />
       </el-form-item>
-      <el-form-item prop="priority" label="优先级">
-        <el-select placeholder="请选择优先级" v-model="search.priority" filterable>
-          <el-option :key="index" :label="item.label" :value="item.value" v-for="(item,index) in priorityList"></el-option>
+      <el-form-item prop="priority"
+                    label="优先级">
+        <el-select placeholder="请选择优先级"
+                   v-model="search.priority"
+                   filterable>
+          <el-option :key="index"
+                     :label="item.label"
+                     :value="item.value"
+                     v-for="(item,index) in priorityList"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item prop="type" label="用例类型">
-        <el-select placeholder="请选择用例类型" v-model="search.type" filterable>
-          <el-option :key="index" :label="item.name" :value="item.id" v-for="(item,index) in typeList"></el-option>
+      <el-form-item prop="type"
+                    label="用例类型">
+        <el-select placeholder="请选择用例类型"
+                   v-model="search.type"
+                   filterable>
+          <el-option :key="index"
+                     :label="item.name"
+                     :value="item.id"
+                     v-for="(item,index) in typeList"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item prop="precondition" label="前置条件">
-        <el-input type="textarea" :rows="2" v-model="search.precondition"  placeholder="请输入前置条件" />
+      <el-form-item prop="precondition"
+                    label="前置条件">
+        <el-input type="textarea"
+                  :rows="2"
+                  v-model="search.precondition"
+                  placeholder="请输入前置条件" />
       </el-form-item>
-      <el-form-item prop="comment" label="操作步骤" >
+      <el-form-item prop="comment"
+                    label="操作步骤">
         <div class="global-body">
-          <el-table :data="search.tcTestcaseStepList" row-key="id">
-            <el-table-column prop="stepNumber" width="50" label="编号">
+          <el-table :data="search.tcTestcaseStepList"
+                    row-key="id">
+            <el-table-column prop="stepNumber"
+                             width="50"
+                             label="编号">
               <template slot-scope="scope">
                 {{scope.$index + 1}}
               </template>
             </el-table-column>
             <el-table-column label="步骤描述">
               <template slot-scope="{ row }">
-                <el-form :model="row" :ref="'key_'+row.num" status-icon>
+                <el-form :model="row"
+                         :ref="'key_'+row.num"
+                         status-icon>
                   <el-form-item prop="stepDesc">
-                    <el-input type="textarea" placeholder="请输入步骤描述" v-model.trim="row.stepDesc" maxlength=1024 clearable />
+                    <el-input type="textarea"
+                              placeholder="请输入步骤描述"
+                              v-model.trim="row.stepDesc"
+                              maxlength=1024
+                              clearable />
                   </el-form-item>
                 </el-form>
               </template>
             </el-table-column>
-            <el-table-column prop="expectResult" label="预期结果">
+            <el-table-column prop="expectResult"
+                             label="预期结果">
               <template slot-scope="{ row }">
-                <el-form :model="row" :ref="'value_'+row.num" status-icon>
+                <el-form :model="row"
+                         :ref="'value_'+row.num"
+                         status-icon>
                   <el-form-item prop="value">{{row.value}}
-                    <el-input type="textarea" placeholder="请输入预期结果" v-model.trim="row.expectResult" maxlength=1024 clearable />
+                    <el-input type="textarea"
+                              placeholder="请输入预期结果"
+                              v-model.trim="row.expectResult"
+                              maxlength=1024
+                              clearable />
                   </el-form-item>
                 </el-form>
               </template>
             </el-table-column>
-            <el-table-column label="操作" width="80px">
-              <template slot="header" slot-scope="{ row }" >
+            <el-table-column label="操作"
+                             width="80px">
+              <template slot="header"
+                        slot-scope="{ row }">
                 <div class="operation-header">
                   <span>操作</span>
-                  <el-button type="primary" style="width: 24px;height: 23px;" size="mini" icon="el-icon-plus" @click="addField"></el-button>
+                  <el-button type="primary"
+                             style="width: 24px;height: 23px;"
+                             size="mini"
+                             icon="el-icon-plus"
+                             @click="addField"></el-button>
                 </div>
               </template>
               <template slot-scope="{ row }">
                 <div>
-                  <el-button type="danger" size="mini" icon="el-icon-delete" @click="deleteField(row)"></el-button>
+                  <el-button type="danger"
+                             size="mini"
+                             icon="el-icon-delete"
+                             @click="deleteField(row)"></el-button>
                 </div>
               </template>
             </el-table-column>
           </el-table>
         </div>
       </el-form-item>
-      <el-form-item prop="comment" label="备注" >
-        <el-input type="textarea" :rows="2" v-model="search.comment" placeholder="请输入备注" clearable maxlength=1024 />
+      <el-form-item prop="comment"
+                    label="备注">
+        <el-input type="textarea"
+                  :rows="2"
+                  v-model="search.comment"
+                  placeholder="请输入备注"
+                  clearable
+                  maxlength=1024 />
       </el-form-item>
-      <el-form-item  label="文件">
-        <el-upload ref="uploadFiles" :action="uploadUrl()" :data="uploadPara" :before-upload="beforeUploadFiles" :on-success="uploadFilesSuccess" :on-remove="delFile" :on-error="uploadFilesError" :file-list="uploadFileList" :on-preview="handlePreview">
-          <el-button type="primary" size="small" plain><i class="el-icon-upload"></i>上传文件</el-button> (上传文件最多5个、单个文件最大30M)
+      <el-form-item label="文件">
+        <el-upload ref="uploadFiles"
+                   :action="uploadUrl()"
+                   :data="uploadPara"
+                   :before-upload="beforeUploadFiles"
+                   :on-success="uploadFilesSuccess"
+                   :on-remove="delFile"
+                   :on-error="uploadFilesError"
+                   :file-list="uploadFileList"
+                   :on-preview="handlePreview">
+          <el-button type="primary"
+                     size="small"
+                     plain><i class="el-icon-upload"></i>上传文件</el-button> (上传文件最多5个、单个文件最大30M)
         </el-upload>
       </el-form-item>
     </el-form>
     <div>
-      <el-button type="primary" size="small" @click="submit">保存</el-button>
+      <el-button type="primary"
+                 size="small"
+                 @click="submit">保存</el-button>
     </div>
   </div>
 </template>
@@ -313,8 +380,8 @@ export default {
     beforeUploadFiles(file) {
       if (this.type === 'edit') {
         this.uploadPara.caseId = this.search.id
-        this.uploadPara.type = 1
       }
+      this.uploadPara.type = 1
       this.uploadPara.user = this.$appData.userInfo.nickName
     },
     // 删除上传文件
@@ -386,5 +453,4 @@ export default {
     }
   }
 }
-
 </style>

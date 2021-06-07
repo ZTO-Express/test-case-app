@@ -66,9 +66,10 @@
                  class="clearfix header">
               <div>
                 <div v-if="$route.query.id">
-                  <span>状态  </span>
+                  <span>状态 </span>
                   <el-dropdown @command="statusHandleCommand">
-                    <el-button :type="status === 0 ? 'primary' : status === 1 ? 'warning' : 'success'" size="mini"
+                    <el-button :type="status === 0 ? 'primary' : status === 1 ? 'warning' : 'success'"
+                               size="mini"
                                plain>
                       <span>{{status === 0 ? '未开始' : status === 1 ? '进行中' : '已完成'}}</span><i class="el-icon-arrow-down el-icon--right"></i>
                     </el-button>
@@ -81,7 +82,8 @@
                                         :label="item.name"
                                         :value="item.status"
                                         :command="item">
-                        <el-tag :type="item.tag" size="small">{{item.name}}</el-tag>
+                        <el-tag :type="item.tag"
+                                size="small">{{item.name}}</el-tag>
                       </el-dropdown-item>
                     </el-dropdown-menu>
                   </el-dropdown>
@@ -91,7 +93,10 @@
                 <div>
                   <el-breadcrumb separator-class="el-icon-arrow-right">
                     <el-breadcrumb-item>所有用例</el-breadcrumb-item>
-                    <el-breadcrumb-item v-for="(item, index) in moduleList" :label="item.name" :value="item.level" :key="index" >{{item.name}}</el-breadcrumb-item>
+                    <el-breadcrumb-item v-for="(item, index) in moduleList"
+                                        :label="item.name"
+                                        :value="item.level"
+                                        :key="index">{{item.name}}</el-breadcrumb-item>
                   </el-breadcrumb>
                 </div>
                 <br />
@@ -110,43 +115,65 @@
               </div>
               <div class="add">
                 <div v-if="$route.query.id">
-                  <el-button type="primary" v-permission="'testlibrary/updateUser'" plain
-                             size="mini" @click="handleOperate('updateUser')"><i
-                    class="el-icon-user"></i> 更改执行人
+                  <el-button type="primary"
+                             v-permission="'testlibrary/updateUser'"
+                             plain
+                             size="mini"
+                             @click="handleOperate('updateUser')"><i class="el-icon-user"></i> 更改执行人
                   </el-button>
-                  <el-button type="primary" v-permission="'testlibrary/updateRes'" plain size="mini"
+                  <el-button type="primary"
+                             v-permission="'testlibrary/updateRes'"
+                             plain
+                             size="mini"
                              @click="handleOperate('updateRes')"><i class="el-icon-finished"></i>
                     更改执行结果
                   </el-button>
-                  <el-button type="primary" v-permission="'testlibrary/withCase'" plain size="mini"
+                  <el-button type="primary"
+                             v-permission="'testlibrary/withCase'"
+                             plain
+                             size="mini"
                              @click="handleOperate('withCase')"><i class="el-icon-connection"></i>
                     关联用例
                   </el-button>
-                  <el-button type="danger" v-permission="'testlibrary/delCase'" size="mini"
-                             @click="handleOperate('delCase')"><i
-                    class="el-icon-document-remove"></i> 移除用例
+                  <el-button type="danger"
+                             v-permission="'testlibrary/delCase'"
+                             size="mini"
+                             @click="handleOperate('delCase')"><i class="el-icon-document-remove"></i> 移除用例
                   </el-button>
                 </div>
                 <div v-else>
-                  <el-dropdown v-permission="'testlibrary/upload'" @command="handleCommand"
+                  <el-dropdown v-permission="'testlibrary/upload'"
+                               @command="handleCommand"
                                style="margin-right: 10px">
-                    <el-button type="primary" size="small" style="height: 32px" plain>
-                      <i class="el-icon-upload2"></i> 导入用例<i
-                      class="el-icon-arrow-down el-icon--right"></i>
+                    <el-button type="primary"
+                               size="small"
+                               style="height: 32px"
+                               plain>
+                      <i class="el-icon-upload2"></i> 导入用例<i class="el-icon-arrow-down el-icon--right"></i>
                     </el-button>
                     <el-dropdown-menu slot="dropdown">
                       <el-dropdown-item command="first">导入 表格文件(.xlsx)</el-dropdown-item>
                       <el-dropdown-item command="second">导入 思维导图(.xmind)</el-dropdown-item>
                     </el-dropdown-menu>
                   </el-dropdown>
-                  <el-button type="primary" size="small" plain @click="handleOperate('exportCase')"><i class="el-icon-download"></i> 导出用例</el-button>
-                  <el-button type="primary" v-permission="'testlibrary/move'" size="small" plain
+                  <el-button type="primary"
+                             size="small"
+                             plain
+                             @click="handleOperate('exportCase')"><i class="el-icon-download"></i> 导出用例</el-button>
+                  <el-button type="primary"
+                             v-permission="'testlibrary/move'"
+                             size="small"
+                             plain
                              @click="handleOperate('move')"><i class="el-icon-position"></i> 移动用例
                   </el-button>
-                  <el-button type="danger" v-permission="'testlibrary/del'" size="small"
+                  <el-button type="danger"
+                             v-permission="'testlibrary/del'"
+                             size="small"
                              @click="handleOperate('del')"><i class="el-icon-delete"></i> 删除用例
                   </el-button>
-                  <el-button type="primary" size="small" v-permission="'testlibrary/add'"
+                  <el-button type="primary"
+                             size="small"
+                             v-permission="'testlibrary/add'"
                              @click="handleOperate('add')"><i class="el-icon-plus"></i> 新建用例
                   </el-button>
                 </div>
@@ -204,9 +231,11 @@
                 </el-select>
               </el-form-item>
               <el-form-item>
-                <el-button type="primary" size="small"
+                <el-button type="primary"
+                           size="small"
                            @click="searchList">查询</el-button>
-                <el-button size="small" @click="reset">重置</el-button>
+                <el-button size="small"
+                           @click="reset">重置</el-button>
               </el-form-item>
             </el-form>
             <el-table :data="caseList"
@@ -234,7 +263,8 @@
                                label="优先级"
                                show-overflow-tooltip>
                 <template slot-scope="{ row }">
-                  <el-tag :type="row.priority === 1 ? 'success' : row.priority === 2 ? 'primary' : 'danger'" size="mini"
+                  <el-tag :type="row.priority === 1 ? 'success' : row.priority === 2 ? 'primary' : 'danger'"
+                          size="mini"
                           disable-transitions>{{row.priority === 1 ? '低' : row.priority === 2 ? '中' : '高'}}</el-tag>
                 </template>
               </el-table-column>
@@ -242,17 +272,20 @@
                                label="用例类型"
                                width="100">
                 <template slot-scope="{ row }">
-                  <el-tag type="info" size="mini" disable-transitions>{{getCaseType(row.type,typeList)}}</el-tag>
+                  <el-tag type="info"
+                          size="mini"
+                          disable-transitions>{{getCaseType(row.type,typeList)}}</el-tag>
                 </template>
               </el-table-column>
               <el-table-column prop="tag"
                                label="用例标签"
                                width="150">
-                <template slot-scope="{ row }" v-if = "row.tag">
+                <template slot-scope="{ row }"
+                          v-if="row.tag">
                   <el-tag type="info"
-                  v-for="(tag,index) in row.tag.split(',')"
-                  :key="index"
-                  disable-transitions>{{getCaseTag(tag,tagList)}}</el-tag>
+                          v-for="(tag,index) in row.tag.split(',')"
+                          :key="index"
+                          disable-transitions>{{getCaseTag(tag,tagList)}}</el-tag>
                 </template>
               </el-table-column>
               <el-table-column prop="status"
@@ -260,7 +293,8 @@
                                width="80"
                                show-overflow-tooltip>
                 <template slot-scope="{ row }">
-                  <el-tag :type="row.status === 0 ? 'danger' : row.status === 1 ? 'success' : 'warning'" size="mini"
+                  <el-tag :type="row.status === 0 ? 'danger' : row.status === 1 ? 'success' : 'warning'"
+                          size="mini"
                           disable-transitions>{{ row.status === 0 ? '删除' : row.status === 1 ? '正常' : '停用' }}</el-tag>
                 </template>
               </el-table-column>
@@ -275,20 +309,32 @@
                                show-overflow-tooltip
                                v-if="$route.query.id">
                 <template slot-scope="{ row }">
-                  <el-tag
-                    :type="row.result === 0 ? 'primary' : row.result === 1 ? 'success'
+                  <el-tag :type="row.result === 0 ? 'primary' : row.result === 1 ? 'success'
                     : row.result === 2 ? 'danger' : row.result === 3 ? 'warning'
                     : 'info'"
-                    disable-transitions>{{row.result === 0 ? '未执行' : row.result === 1 ? '通过'
+                          disable-transitions>{{row.result === 0 ? '未执行' : row.result === 1 ? '通过'
                     : row.result === 2 ? '失败' : row.result === 3 ? '阻塞'
                     : '跳过'}}</el-tag>
                 </template>
               </el-table-column>
-              <el-table-column fixed="right" label="操作" width="120">
+              <el-table-column fixed="right"
+                               label="操作"
+                               width="120">
                 <template slot-scope="{ row }">
-                  <el-button @click="handleOperate('editPlan', row)" type="primary" size="mini" v-if="$route.query.id">编辑</el-button>
-                  <el-button @click="handleOperate('edit', row)" type="primary" size="mini" v-else style="margin-left:5px">编辑</el-button>
-                  <el-button @click="handleOperate('copyEditCase', row)" type="primary" size="mini" style="margin-left:5px" v-if="!$route.query.id">复制</el-button>
+                  <el-button @click="handleOperate('editPlan', row)"
+                             type="primary"
+                             size="mini"
+                             v-if="$route.query.id">编辑</el-button>
+                  <el-button @click="handleOperate('edit', row)"
+                             type="primary"
+                             size="mini"
+                             v-else
+                             style="margin-left:5px">编辑</el-button>
+                  <el-button @click="handleOperate('copyEditCase', row)"
+                             type="primary"
+                             size="mini"
+                             style="margin-left:5px"
+                             v-if="!$route.query.id">复制</el-button>
                   <!--<el-button @click="handleOperate('edit', row)" type="primary" v-else >删除</el-button>-->
                 </template>
               </el-table-column>
@@ -391,7 +437,7 @@
                      size="small"
                      filterable>
             <el-option :key="index"
-                       :label="item.displayName"
+                       :label="item.nickName"
                        :value="item.id"
                        v-for="(item,index) in userList"></el-option>
           </el-select>
@@ -426,34 +472,32 @@
         </el-form>
       </template>
     </modal>
-<!--上传用例文件-->
-    <modal
-      style="height: 100%"
-      :visible.sync="modalImport.visiable"
-      :title="modalImport.title"
-      width="50%"
-      confirmTitle="保存"
-      :showCancle="false"
-      :showConfirm="false"
-      :showReset="false"
-    >
+    <!--上传用例文件-->
+    <modal style="height: 100%"
+           :visible.sync="modalImport.visiable"
+           :title="modalImport.title"
+           width="50%"
+           confirmTitle="保存"
+           :showCancle="false"
+           :showConfirm="false"
+           :showReset="false">
       <template>
-        <importFile ref="importFile" @update="getListAfterImport" />
+        <importFile ref="importFile"
+                    @update="getListAfterImport" />
       </template>
     </modal>
     <!--移动用例-->
-    <modal
-      style="height: 100%"
-      :visible.sync="modalMoveCase.visiable"
-      :title="modalMoveCase.title"
-      width="50%"
-      confirmTitle="保存"
-      :showCancle="false"
-      :showConfirm="false"
-      :showReset="false"
-    >
+    <modal style="height: 100%"
+           :visible.sync="modalMoveCase.visiable"
+           :title="modalMoveCase.title"
+           width="50%"
+           confirmTitle="保存"
+           :showCancle="false"
+           :showConfirm="false"
+           :showReset="false">
       <template>
-        <moveCase ref="moveCase" @update="getListForWithCase" />
+        <moveCase ref="moveCase"
+                  @update="getListForWithCase" />
       </template>
     </modal>
   </div>
@@ -664,11 +708,11 @@ export default {
       const para = {
         planId: this.$route.query.id - 0,
         // executeUser: '',
-        caseList: this.multipleSelection.map((item) => item.id),
+        caseList: this.multipleSelection.map((item) => item.caseId),
         result: this.res,
         user: this.$appData.userInfo.nickName
       }
-      this.api.updateCaseInfo(para).then((res) => {
+      this.$axiosUtil.post(this.$appConfig.API, this.$urlConst.UPDATE_CASEINFO, para).then((res) => {
         if (res.code === '000000') {
           this.showMsg(res.msg || res.message, 'success')
           this.modalUpdateCase.visiable = false
@@ -901,7 +945,7 @@ export default {
       this.multipleSelection = []
     },
     executeDelCaseRow() {
-      const ids = this.multipleSelection.map((item) => item.id)
+      const ids = this.multipleSelection.map((item) => item.caseId)
       if (ids === null | ids === '' || ids === undefined || ids.length === 0) {
         this.showMsg('请选择测试用例', 'warning')
         return
@@ -918,7 +962,7 @@ export default {
             type: 0,
             user: this.$appData.userInfo.nickName
           }
-          this.api.associateCase(para).then(res => {
+          this.$axiosUtil.post(this.$appConfig.API, this.$urlConst.ASSOCIATE_TESTCASE, para).then((res) => {
             if (res.code === '000000') {
               this.showMsg(res.msg || res.message, 'success')
               this.initViewData()
@@ -988,11 +1032,11 @@ export default {
       const para = {
         planId: this.$route.query.id,
         executeUser: this.modalUpdateCase.value,
-        caseList: this.multipleSelection.map(item => item.id),
+        caseList: this.multipleSelection.map(item => item.caseId),
         user: this.$appData.userInfo.nickName,
         result: this.result
       }
-      this.api.updateCaseInfo(para).then((res) => {
+      this.$axiosUtil.post(this.$appConfig.API, this.$urlConst.UPDATE_CASEINFO, para).then((res) => {
         if (res.code === '000000') {
           this.showMsg(res.msg || res.message, 'success')
           this.modalUpdateCase.visiable = false
@@ -1183,7 +1227,7 @@ export default {
         user: this.$appData.userInfo.nickName,
         state: item.status
       }
-      this.api.updateStatus(para).then((res) => {
+      this.$axiosUtil.post(this.$appConfig.API, this.$urlConst.UPDATE_STATUS, para).then((res) => {
         if (res.code === '000000') {
           this.showMsg(res.msg || res.message, 'success')
         } else {

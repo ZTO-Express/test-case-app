@@ -79,7 +79,8 @@
           <el-form-item prop="comment"
                         label="操作步骤">
             <div class="global-body">
-              <el-table :data="search.tcTestcaseStepList" row-key="id">
+              <el-table :data="search.tcTestcaseStepList"
+                        row-key="id">
                 <el-table-column prop="stepNumber"
                                  width="50"
                                  label="编号">
@@ -437,7 +438,12 @@ export default {
         // 校验基础信息
         if (valid) {
           this.search.user = this.$appData.userInfo.nickName
-          this.search.fileIds = this.uploadFileList.map((item) => { return item.id })
+          // this.search.fileIds = this.uploadFileList.map((item) => { return item.id })
+          const tempfileIdsList = []
+          this.uploadFileList.forEach((item) => {
+            tempfileIdsList.push(Object.assign(item.id))
+          })
+          this.search.fileIds = tempfileIdsList
           const tempTestcaseStepList = []
           this.search.tcTestcaseStepList.forEach((item, index) => {
             if (item.stepDesc !== '' && item.stepDesc !== null) {

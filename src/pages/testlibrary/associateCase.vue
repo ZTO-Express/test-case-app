@@ -1,37 +1,77 @@
 <template>
   <div class="env-msg-gloaba">
-    <el-row :gutter="10" class="h100">
-      <el-col :xl="5" :lg="6" class="h100">
-        <div class="flex h100" id="treeinfos" style="height: 565px;width: 270px;min-width: 160px;overflow-x: auto">
-          <div class="uscMsg-tree-index flex-1" >
-            <el-input placeholder="输入关键字进行过滤" v-model="filterText" clearable style="margin-bottom: 8px;width: 60%"/>
-            <el-tree style="width: 450px" class="filter-tree" :data="treeData" :props="defaultProps" node-key="id" :default-expanded-keys="openkeys" :filter-node-method="filterNode"  ref="departmentTree" >
-            <span class="custom-tree-node" slot-scope="{ node, data }">
-              <div class="flex-wrap" @click="handleNodeClick(node)">
-                <span>{{ node.label }}</span>
-              </div>
-            </span>
-          </el-tree>
-        </div>
+    <el-row :gutter="10"
+            class="h100">
+      <el-col :xl="5"
+              :lg="6"
+              class="h100">
+        <div class="flex h100"
+             id="treeinfos"
+             style="height: 565px;width: 270px;min-width: 160px;overflow-x: auto">
+          <div class="uscMsg-tree-index flex-1">
+            <el-input placeholder="输入关键字进行过滤"
+                      v-model="filterText"
+                      clearable
+                      style="margin-bottom: 8px;width: 60%" />
+            <el-tree style="width: 450px"
+                     class="filter-tree"
+                     :data="treeData"
+                     :props="defaultProps"
+                     node-key="id"
+                     :default-expanded-keys="openkeys"
+                     :filter-node-method="filterNode"
+                     ref="departmentTree">
+              <span class="custom-tree-node"
+                    slot-scope="{ node, data }">
+                <div class="flex-wrap"
+                     @click="handleNodeClick(node)">
+                  <span>{{ node.label }}</span>
+                </div>
+              </span>
+            </el-tree>
+          </div>
         </div>
       </el-col>
-      <el-col :xl="19" :lg="18" class="h100">
-        <el-card class="box-card h100" shadow="hover">
-          <el-form ref="search" inline  :model="caseListPara" label-width="80px">
-            <el-form-item label="用例名称" prop="name">
+      <el-col :xl="19"
+              :lg="18"
+              class="h100">
+        <el-card class="box-card h100"
+                 shadow="hover">
+          <el-form ref="search"
+                   inline
+                   :model="caseListPara"
+                   label-width="80px">
+            <el-form-item label="用例名称"
+                          prop="name">
               <el-input v-model="caseListPara.name" />
             </el-form-item>
-            <el-form-item prop="type" label="用例类型">
-              <el-select placeholder="请选择" v-model="caseListPara.type" filterable style="width: 120px">
-                <el-option :key="index" :label="item.name" :value="item.id" v-for="(item,index) in typeList"></el-option>
+            <el-form-item prop="type"
+                          label="用例类型">
+              <el-select placeholder="请选择"
+                         v-model="caseListPara.type"
+                         filterable
+                         style="width: 120px">
+                <el-option :key="index"
+                           :label="item.name"
+                           :value="item.id"
+                           v-for="(item,index) in typeList"></el-option>
               </el-select>
             </el-form-item>
-            <el-form-item label="维护人" prop="user">
+            <el-form-item label="维护人"
+                          prop="user">
               <el-input v-model="caseListPara.user" />
             </el-form-item>
-            <el-form-item prop="priority" label="优先级">
-              <el-select placeholder="请选择" v-model="caseListPara.priority" clearable filterable style="width: 100px">
-                <el-option :key="index" :label="item.label" :value="item.value" v-for="(item,index) in priorityList"></el-option>
+            <el-form-item prop="priority"
+                          label="优先级">
+              <el-select placeholder="请选择"
+                         v-model="caseListPara.priority"
+                         clearable
+                         filterable
+                         style="width: 100px">
+                <el-option :key="index"
+                           :label="item.label"
+                           :value="item.value"
+                           v-for="(item,index) in priorityList"></el-option>
               </el-select>
             </el-form-item>
             <!-- <el-form-item prop="gid" label="显示">
@@ -40,35 +80,61 @@
               </el-select>
             </el-form-item> -->
             <el-form-item>
-              <el-button type="primary" size="small" @click="getCaseList">查询</el-button>
-              <el-button size="small" @click="reset">重置</el-button>
-              <el-button type="primary" size="small" @click="submit">添加</el-button>
+              <el-button type="primary"
+                         size="small"
+                         @click="getCaseList">查询</el-button>
+              <el-button size="small"
+                         @click="reset">重置</el-button>
+              <el-button type="primary"
+                         size="small"
+                         @click="submit">添加</el-button>
             </el-form-item>
           </el-form>
-          <el-table :data="caseList" @select="handleSelectionChange" @select-all="handleSelectionChange">
-              <el-table-column type="selection" width="35" label="全选" />
-              <el-table-column prop="id" label="ID" width="140" v-if="false" show-overflow-tooltip />
-              <el-table-column prop="name" label="用例名称" show-overflow-tooltip />
-            <el-table-column prop="updateUser"  label="维护人" width="120" show-overflow-tooltip />
-            <el-table-column prop="priority" width="80" label="优先级" show-overflow-tooltip>
+          <el-table :data="caseList"
+                    @select="handleSelectionChange"
+                    @select-all="handleSelectionChange">
+            <el-table-column type="selection"
+                             width="35"
+                             label="全选" />
+            <el-table-column prop="id"
+                             label="ID"
+                             width="140"
+                             v-if="false"
+                             show-overflow-tooltip />
+            <el-table-column prop="name"
+                             label="用例名称"
+                             show-overflow-tooltip />
+            <el-table-column prop="updateUser"
+                             label="维护人"
+                             width="120"
+                             show-overflow-tooltip />
+            <el-table-column prop="priority"
+                             width="80"
+                             label="优先级"
+                             show-overflow-tooltip>
               <template slot-scope="{ row }">
-                <el-tag
-                  :type="row.priority === 1 ? 'success' : row.priority === 2 ? 'primary' : 'danger'"
-                  disable-transitions>{{row.priority === 1 ? '低' : row.priority === 2 ? '中' : '高'}}</el-tag>
+                <el-tag :type="row.priority === 1 ? 'success' : row.priority === 2 ? 'primary' : 'danger'"
+                        disable-transitions>{{row.priority === 1 ? '低' : row.priority === 2 ? '中' : '高'}}</el-tag>
               </template>
             </el-table-column>
-            <el-table-column prop="type" label="用例类型" width="100" >
+            <el-table-column prop="type"
+                             label="用例类型"
+                             width="100">
               <template slot-scope="{ row }">
                 <!--<el-tag type="info" disable-transitions>{{ row.type === 1 ? '功能测试' : row.type === 2 ? '冒烟测试'-->
-                  <!--: row.type === 3 ? '性能测试' : row.type === 4 ? '自动化测试'-->
-                  <!--: row.type === 5 ? '接口测试' : row.type === 6 ? '安装部署'-->
-                  <!--: row.type === 7 ? '配置相关' : row.type === 8 ? '安全测试' : row.type === 10 ? '典型测试' : '其它'}}</el-tag>-->
-                <el-tag type="info" disable-transitions>{{getCaseType(row.type,typeList)}}</el-tag>
+                <!--: row.type === 3 ? '性能测试' : row.type === 4 ? '自动化测试'-->
+                <!--: row.type === 5 ? '接口测试' : row.type === 6 ? '安装部署'-->
+                <!--: row.type === 7 ? '配置相关' : row.type === 8 ? '安全测试' : row.type === 10 ? '典型测试' : '其它'}}</el-tag>-->
+                <el-tag type="info"
+                        disable-transitions>{{getCaseType(row.type,typeList)}}</el-tag>
               </template>
             </el-table-column>
           </el-table>
           <div class="footer-page">
-            <complete-pagination :total="page.total" :currentPage="page.currentPage" :pageSize="page.pageSize" @updatePage="updatePage" />
+            <complete-pagination :total="page.total"
+                                 :currentPage="page.currentPage"
+                                 :pageSize="page.pageSize"
+                                 @updatePage="updatePage" />
           </div>
         </el-card>
       </el-col>
@@ -148,7 +214,7 @@ export default {
     },
     // 用例查询
     getCaseList() {
-      this.api.getCaseList(this.caseListPara).then(res => {
+      this.$axiosUtil.post(this.$appConfig.API, this.$urlConst.GET_TESTCASE_LIST, this.caseListPara).then((res) => {
         if (res.code === '000000') {
           this.page.currentPage = res.data.pageNum
           this.page.pageSize = res.data.pageSize
@@ -161,7 +227,7 @@ export default {
     },
     // 初始获取数据
     getModuleList() {
-      this.api.getModuleList({}).then(res => {
+      this.$axiosUtil.get(this.$appConfig.API, this.$urlConst.GET_MODULE_TREE, {}).then((res) => {
         if (res.code === '000000') {
           if (res.data) {
             let arr = []
@@ -186,7 +252,7 @@ export default {
       this.nodeInfo = Object.assign({}, data)
       this.caseListPara.moduleId = data.data.id
       if (data.data.level >= 5) {
-        this.api.getModuleLevel5List({ id: this.nodeInfo.data.id }).then(res => {
+        this.$axiosUtil.post(this.$appConfig.API, this.$urlConst.GET_NEXT_MODULES_BY_ID, { id: this.nodeInfo.data.id }).then((res) => {
           if (res.code === '000000') {
             if (res.data.length > 0) {
               this.addedNode = res.data
@@ -241,9 +307,9 @@ export default {
         planId: this.$route.query.id,
         caseList: ids,
         type: 1,
-        user: this.userInfo.displayName
+        user: this.$appData.userInfo.nickName
       }
-      this.api.associateCase(para).then(res => {
+      this.$axiosUtil.post(this.$appConfig.API, this.$urlConst.ASSOCIATE_TESTCASE, para).then((res) => {
         if (res.code === '000000') {
           this.showMsg(res.msg || res.message, 'success')
           this.$emit('update')
@@ -272,7 +338,7 @@ export default {
       this.caseListPara.priority = ''
     },
     getTypeList() {
-      this.api.getTypeList().then(res => {
+      this.$axiosUtil.get(this.$appConfig.API, this.$urlConst.GET_TYPE_LIST).then((res) => {
         if (res.code === '000000') {
           this.typeList = res.data
         } else {
@@ -346,5 +412,4 @@ export default {
     }
   }
 }
-
 </style>
