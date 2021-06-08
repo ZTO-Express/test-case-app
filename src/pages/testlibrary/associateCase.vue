@@ -314,7 +314,7 @@ export default {
           this.showMsg(res.msg || res.message, 'success')
           this.$emit('update')
           const planId = this.$route.query.id
-          this.api.getModuleList({ planId }).then((res) => {
+          this.$axiosUtil.get(this.$appConfig.API, this.$urlConst.GET_MODULE_TREE, { planId }).then((res) => {
             if (res.code === '000000') {
               if (res.data.length > 0) {
                 this.treeData = res.data

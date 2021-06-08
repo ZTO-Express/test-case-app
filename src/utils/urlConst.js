@@ -64,6 +64,8 @@ const MOVE_TESTCASE = '/testcase/testcase/moveTestCase'
 const ASSOCIATE_TESTCASE = '/testcase/plan/associateCase'
 const UPDATE_CASEINFO = '/testcase/plan/batchEdit'
 const UPDATE_STATUS = '/testcase/plan/planState'
+const PLAN_CASE_DETAIL = '/testcase/plan/caseDetail'
+const PLAN_CASE_EDIT = '/testcase/plan/caseEdit'
 
 const FILE_UPLOAD = '/testcase/file/upload'
 const FILE_DOWNLOAD = '/testcase/file/download'
@@ -136,5 +138,7 @@ export default {
   MOVE_TESTCASE,
   ASSOCIATE_TESTCASE,
   UPDATE_CASEINFO,
-  UPDATE_STATUS
+  UPDATE_STATUS,
+  PLAN_CASE_DETAIL,
+  PLAN_CASE_EDIT
 }
