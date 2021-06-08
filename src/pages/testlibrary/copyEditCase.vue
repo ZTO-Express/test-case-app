@@ -153,7 +153,7 @@
           </el-form-item>
           <el-form-item label="文件">
             <el-upload ref="uploadFiles"
-                       action="/testcase/file/upload"
+                       :action="uploadUrl()"
                        :data="uploadPara"
                        :before-upload="beforeUploadFiles"
                        :on-success="uploadFilesSuccess"
@@ -535,8 +535,8 @@ export default {
     beforeUploadFiles(file) {
       if (this.type === 'edit') {
         this.uploadPara.caseId = this.search.id
-        this.uploadPara.type = 1
       }
+      this.uploadPara.type = 1
       this.uploadPara.user = this.$appData.userInfo.nickName
     },
     // 删除上传文件
@@ -555,6 +555,10 @@ export default {
           this.showMsg(res.msg || res.message)
         }
       })
+    },
+    uploadUrl() {
+      // 返回上传地址
+      return this.$appConfig.API.baseUrl + this.$urlConst.FILE_UPLOAD
     }
   }
 }

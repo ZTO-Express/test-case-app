@@ -61,6 +61,31 @@
           <el-input v-model="search.moduleName"
                     disabled />
         </el-form-item>
+        <el-form-item label="执行结果备注"
+                      prop="resultComment">
+          <textarea v-model.trim="search.resultComment"
+                    @paste="onPaste"
+                    cols="58"
+                    rows="5"
+                    maxlength="500"
+                    placeholder="添加执行结果备注，可粘贴图片上传为附件"
+                    size="small"></textarea>
+        </el-form-item>
+        <el-form-item label="执行结果附件"
+                      style="width: 100%">
+          <el-upload ref="uploadFiles"
+                     :action="uploadUrl()"
+                     :data="uploadPara"
+                     :before-upload="beforeUploadFiles"
+                     :on-success="uploadFilesSuccess"
+                     :on-remove="delFile"
+                     :on-error="uploadFilesError"
+                     :file-list="search.resultFileList"
+                     :on-preview="handlePreview">
+            <el-button type="primary"
+                       plain><i class="el-icon-upload"></i>上传附件</el-button>
+          </el-upload>
+        </el-form-item>
       </el-form>
       <div class="content">
         <el-tabs v-model="paneActiveName">
@@ -128,8 +153,8 @@
   </div>
 </template>
 <script>
-import { mapGetters } from 'vuex'
 import operate from './operate'
+import axios from 'axios'
 
 export default {
   name: 'global',
@@ -139,6 +164,7 @@ export default {
         planId: '',
         caseId: '',
         result: '',
+        resultComment: '',
         user: '',
         name: '',
         id: '',
@@ -185,14 +211,14 @@ export default {
         {
           label: '低', value: 1
         }
-      ]
+      ],
+      uploadPara: {
+        user: ''
+      }
     }
   },
   components: {
     operate
-  },
-  computed: {
-    ...mapGetters(['userInfo'])
   },
   methods: {
     initViewData(row) {
@@ -371,36 +397,91 @@ export default {
     },
     // 文件上传失败时的钩子
     uploadFilesError(err, file, fileList) {
-      this.showMsg('上传失败', 'warning')
+      this.showMsg('上传失败', 'error')
       console.log(err)
     },
-    // 文件上传成功时的钩子
-    uploadFilesSuccess(res) {
+    uploadFilesSuccess(res, file) {
       if (res.code === '000000') {
         this.showMsg(res.msg, 'success')
-        // 清空上传列表
-        this.uploadFileList = []
+        // var houzhui = file.name.split('.') // 获取上传文件的后缀
+        // var title = document.getElementsByClassName('el-icon-document')[this.search.resultFileList.length - 1]
+        // console.log(title)
+        // if (houzhui[1] === 'png' || houzhui[1] === 'jpg' || houzhui[1] === 'jpeg' || houzhui[1] === 'gif') {
+        //   console.log(JSON.stringify(title.classList))
+        //   console.log(typeof (title.classList))
+        //   title.classList = ''
+        //   title.classList.add('el-icon-picture-outline') // 图片，动图
+        //   console.log('到这里了吗？')
+        //   console.log(JSON.stringify(title.classList))
+        // } else {
+        //   title.classList.add('el-icon-document') // 其他默认文档
+        // }
+        this.search.resultFileList.push(res.data)
       } else {
-        this.showMsg(res.msg, 'warning')
+        this.showMsg(res.msg, 'error')
       }
     },
     // 上传文件之前的钩子，参数为上传的文件，若返回 false 或者返回 Promise 且被 reject，则停止上传
     beforeUploadFiles(file) {
-      return new Promise((resolve, reject) => {
-        // 上传大小 不大于 10M
-        const fileSize = file.size / 1024 / 1024
-        // 判断上传格式
-        const extensionList = ['jar']
-        const extensionArr = file.name.split('.')
-        const extension = extensionArr[extensionArr.length - 1]
-        if (extensionList.indexOf(extension) < 0) {
-          this.showMsg('只允许上传 .jar 文件', 'warning')
-          reject()
-        } else if (fileSize > 10) {
-          this.showMsg('上传超出 10M', 'warning')
-          reject()
+      this.uploadPara.caseId = this.search.caseId
+      this.uploadPara.planId = this.$route.query.id
+      this.uploadPara.planCaseId = this.search.id
+      this.uploadPara.type = 2
+      this.uploadPara.user = this.$appData.userInfo.nickName
+    },
+    // 删除文件
+    delFile(file, fileList) {
+      this.search.resultFileList = fileList
+      const para = {
+        id: file.id
+      }
+      this.api.delFile(para).then(res => {
+        if (res.code === '000000') {
+          this.showMsg('删除成功', 'success')
         } else {
-          resolve()
+          this.showMsg(res.msg || res.message, 'error')
+        }
+      })
+    },
+    // 文件下载
+    handlePreview(obj) {
+      // 后缀名
+      // var suffix = obj.name.split('.') // 获取上传文件的后缀
+      // console.log(JSON.stringify(obj))
+      // if (suffix[1] === 'png' || suffix[1] === 'jpg' || suffix[1] === 'jpeg' || suffix[1] === 'gif') {
+      //   // 打开图片预览
+      //   this.viewUrl = [`/testcase/file/download?id=${obj.id}`]
+      //   this.imgsVisible = true
+      // } else {
+      //   window.open(`/testcase/file/download?id=${obj.id}`)
+      // }
+      window.open(`/testcase/file/download?id=${obj.id}`)
+    },
+    handleFilesAdd(file) {
+      // 创建一个axios实例
+      const instance = axios.create({
+        // baseURL: HostName,
+        withCredentials: true
+      })
+      this.uploadPara.caseId = this.search.caseId
+      this.uploadPara.planId = this.$route.query.id
+      this.uploadPara.type = 2
+      console.log(this.uploadPara)
+      console.log(file)
+      const param = new FormData()
+      param.append('file', file)
+      param.append('user', this.$appData.userInfo.nickName)
+      param.append('caseId', this.search.caseId)
+      param.append('planId', this.$route.query.id)
+      param.append('planCaseId', this.search.id)
+      param.append('type', 2)
+      instance.post('/testcase/file/upload', param).then(res => {
+        // console.log(res)
+        if (res.data.code === '000000') {
+          this.showMsg('操作成功', 'success')
+          this.search.resultFileList.push(res.data.data)
+        } else {
+          this.showMsg(res.data.msg || res.data.message)
         }
       })
     },
@@ -429,6 +510,28 @@ export default {
         this.isPlain4 = false
       }
       this.search.result = result
+    },
+    onPaste(evt) {
+      console.log('on paste', evt)
+      const items = evt.clipboardData && evt.clipboardData.items
+      let file = null
+      if (items && items.length) {
+        // 检索剪切板items
+        for (var i = 0; i < items.length; i++) {
+          if (items[i].type.indexOf('image') !== -1) {
+            file = items[i].getAsFile()
+          }
+        }
+      }
+      if (!file) {
+        // this.$message.error('粘贴内容不是图片')
+        return
+      }
+      this.handleFilesAdd(file)
+    },
+    uploadUrl() {
+      // 返回上传地址
+      return this.$appConfig.API.baseUrl + this.$urlConst.FILE_UPLOAD
     }
   }
 }
