@@ -240,6 +240,7 @@ export default {
       }
       this.getTypeList(row)
       this.search.caseId = row.caseId
+      this.search.id = row.id
       const pri = this.priorityList.filter((item) => {
         if (item.value === row.priority) {
           return item
@@ -435,7 +436,7 @@ export default {
       const para = {
         id: file.id
       }
-      this.api.delFile(para).then(res => {
+      this.$axiosUtil.del(this.$appConfig.API, this.$urlConst.FILE_DELETE, para).then((res) => {
         if (res.code === '000000') {
           this.showMsg('删除成功', 'success')
         } else {
@@ -466,7 +467,7 @@ export default {
       this.uploadPara.caseId = this.search.caseId
       this.uploadPara.planId = this.$route.query.id
       this.uploadPara.type = 2
-      console.log(this.uploadPara)
+      console.log(this.search)
       console.log(file)
       const param = new FormData()
       param.append('file', file)
