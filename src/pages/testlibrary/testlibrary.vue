@@ -1191,7 +1191,7 @@ export default {
         FormDatas.append(v, obj[v])
       })
       const instance = axios.create({
-        withCredentials: true
+        // withCredentials: true
       })
       instance.post(`/testcase/testcase/exportTestCase`, FormDatas, { responseType: 'blob' }).then(res => {
         const temp = res.data
