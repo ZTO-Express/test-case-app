@@ -146,7 +146,8 @@ export default {
         bookingCount: ''
       },
       accountNo: '',
-      countType: '签到日期',
+      countType: '周期',
+      groupType: 0, // 图标类型，0是周期，1负责人
       echartMap: null, // 图表本身
       echartOption: { // 图表的配置项和数据
         grid: { x: '65' },
@@ -244,7 +245,7 @@ export default {
       const planYlist = []
 
       const param2 = {
-        'groupType': 0,
+        'groupType': this.groupType,
         'startDate': '2021-01-01',
         'endDate': '2021-05-13',
         'createUser': '超级管理员'
@@ -263,7 +264,7 @@ export default {
         // 这里要初始化数据，异步
         // 3.调用计划书接口
         const param3 = {
-          'groupType': 0,
+          'groupType': this.groupType,
           'startDate': '2021-01-01',
           'endDate': '2021-05-13'
         }
@@ -450,7 +451,14 @@ export default {
     },
 
     selectFilterChange() {
-      this.inJectEchartData()
+      console.log('countType==', this.countType)
+      if (this.countType === '周期') {
+        this.groupType = 0
+      } else {
+        this.groupType = 1
+      }
+      this.search()
+      // this.inJectEchartData()
     },
 
     openChargeDialog() {
