@@ -71,6 +71,11 @@ const FILE_UPLOAD = '/testcase/file/upload'
 const FILE_DOWNLOAD = '/testcase/file/download'
 const FILE_DELETE = '/testcase/file/delete'
 
+// 用例数折线
+const Super_Echarts = '/testcase/testcase/caseCount'
+const POST_LIST = '/testcase/plan/planAndCaseCount'
+const POST_Account_Name = '/testcase/plan/planCount'
+
 export default {
   OPERATION_LOG_LIST,
   LOGOUT,
@@ -140,5 +145,9 @@ export default {
   UPDATE_CASEINFO,
   UPDATE_STATUS,
   PLAN_CASE_DETAIL,
-  PLAN_CASE_EDIT
+  PLAN_CASE_EDIT,
+
+  Super_Echarts,
+  POST_LIST,
+  POST_Account_Name
 }
