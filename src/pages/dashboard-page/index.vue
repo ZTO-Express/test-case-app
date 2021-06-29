@@ -234,6 +234,9 @@ export default {
       //   'endDate': '2021-05-13',
       //   'createrUser': '超级管理员'
       // }
+      // 先清空一下
+      this.userJsonList = []
+      this.userX = []
       var startDate = this.searchDate && this.searchDate[0] ? moment(this.searchDate[0]).format('YYYY-MM-DD') : ''
       var endDate = this.searchDate && this.searchDate[1] ? moment(this.searchDate[1]).format('YYYY-MM-DD') : ''
       const param1 = {
