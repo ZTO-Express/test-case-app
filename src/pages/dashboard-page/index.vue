@@ -279,7 +279,9 @@ export default {
       const param3 = {
         'groupType': this.groupType,
         'startDate': startDate,
-        'endDate': endDate
+        'endDate': endDate,
+        'createrUser': this.searchForm.createUser
+
       }
       await this.$axiosUtil.post(this.$appConfig.API, this.$urlConst.PLAN_COUNT, param3).then((res) => {
         var arr = res.data
