@@ -28,7 +28,7 @@
                        placeholder="测试负责人">
               <el-option v-for="user in userList"
                          :key="user.userId"
-                         :label="user.chineseName + '(' + user.englishName + ')'"
+                         :label="user.nickName"
                          :value="user.userId">
               </el-option>
             </el-select>
@@ -216,20 +216,22 @@ export default {
     },
     getData() {
       const _data = {}
-      _data['startTime'] = this.searchDate && this.searchDate[0] ? moment(this.searchDate[0]).format('YYYY-MM-DD 00:00:00') : ''
-      _data['endTime'] = this.searchDate && this.searchDate[1] ? moment(this.searchDate[1]).format('YYYY-MM-DD 23:59:59') : ''
-      _data['memberId'] = this.$appData.userInfo.roles[0].roleName === '超级管理员' ? this.searchForm.userName : this.$appData.userInfo.userId
+      _data['startDate'] = this.searchDate && this.searchDate[0] ? moment(this.searchDate[0]).format('YYYY-MM-DD 00:00:00') : ''
+      _data['endDate'] = this.searchDate && this.searchDate[1] ? moment(this.searchDate[1]).format('YYYY-MM-DD 23:59:59') : ''
+      _data['createrUser'] = this.$appData.userInfo.roles[0].roleName === '超级管理员' ? this.$appData.userInfo.nickName : this.$appData.userInfo.nickName
       return _data
     },
-    search() {
+    async search() {
       // this.loading = !this.loading
       // 1.先调用获取用例数据接口
-      const param = {
-        'startDate': '2021-01-01',
-        'endDate': '2021-05-13',
-        'createrUser': '超级管理员'
-      }
-      this.$axiosUtil.post(this.$appConfig.API, this.$urlConst.POST_LIST, param).then((res) => {
+      // const param = {
+      //   'startDate': '2021-01-01',
+      //   'endDate': '2021-05-13',
+      //   'createrUser': '超级管理员'
+      // }
+      // console.log('111111', this.$appData.userInfo)
+      const param1 = this.getData()
+      this.$axiosUtil.post(this.$appConfig.API, this.$urlConst.POST_LIST, param1).then((res) => {
         // this.loading = !this.loading
         this.list.incomeAmount = res.data.totalCase
         this.list.chargeAmount = res.data.newCase
@@ -246,9 +248,9 @@ export default {
 
       const param2 = {
         'groupType': this.groupType,
-        'startDate': '2021-01-01',
-        'endDate': '2021-05-13',
-        'createUser': '超级管理员'
+        'startDate': param1.startDate,
+        'endDate': param1.endDate
+        // 'createUser': param1.createrUser
       }
       this.$axiosUtil.post(this.$appConfig.API, this.$urlConst.Super_Echarts, param2).then((res) => {
         this.echartOption.legend = {
@@ -265,8 +267,8 @@ export default {
         // 3.调用计划书接口
         const param3 = {
           'groupType': this.groupType,
-          'startDate': '2021-01-01',
-          'endDate': '2021-05-13'
+          'startDate': param1.startDate,
+          'endDate': param1.endDate
         }
         this.$axiosUtil.post(this.$appConfig.API, this.$urlConst.POST_Account_Name, param3).then((res) => {
           var arr = res.data
@@ -303,8 +305,8 @@ export default {
         this.echartOption.series = [
           {
             name: '计划数',
-            // data: [620, 711, 823, 934, 1445, 1456, 1178],
-            data: planYlist,
+            data: [6, 1],
+            // data: planYlist,
             type: 'line'
           },
           {
