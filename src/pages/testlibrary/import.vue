@@ -51,10 +51,9 @@
               <div style="margin-top:10px">
                 <span class="font1">1.下载思维导图模板</span>
                 <p class="font2">下载思维导图模板后，将用例内容按照格式填入
-                    <el-link :href="linkUrl"
-                         target="_blank"
-                         type="primary"
-                        >详细链接</el-link>
+                  <el-link :href="linkUrl"
+                           target="_blank"
+                           type="primary">详细链接</el-link>
                 </p>
                 <el-button type="primary"
                            size="small"
@@ -111,7 +110,8 @@ export default {
       },
       uploadFileList: [],
       loading: false,
-      linkUrl: 'http://w.ztosys.com/125010930'
+      // 修改成对应url,这里给个百度
+      linkUrl: 'https://www.baidu.com/'
     }
   },
   mounted() {
