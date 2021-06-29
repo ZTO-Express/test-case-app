@@ -231,7 +231,7 @@ export default {
       // }
       // console.log('111111', this.$appData.userInfo)
       const param1 = this.getData()
-      this.$axiosUtil.post(this.$appConfig.API, this.$urlConst.POST_LIST, param1).then((res) => {
+      await this.$axiosUtil.post(this.$appConfig.API, this.$urlConst.POST_LIST, param1).then((res) => {
         // this.loading = !this.loading
         this.list.incomeAmount = res.data.totalCase
         this.list.chargeAmount = res.data.newCase
@@ -252,78 +252,74 @@ export default {
         'endDate': param1.endDate
         // 'createUser': param1.createrUser
       }
-      this.$axiosUtil.post(this.$appConfig.API, this.$urlConst.Super_Echarts, param2).then((res) => {
+      await this.$axiosUtil.post(this.$appConfig.API, this.$urlConst.Super_Echarts, param2).then((res) => {
         this.echartOption.legend = {
           data: ['计划数', '用例数']
         }
 
         var arr = res.data
+        // var arr = [{ value: 1, key: '2021-06-01' }, { value: 0, key: '2021-06-02' }, { value: 0, key: '2021-06-03' }, { value: 0, key: '2021-06-04' }, { value: 0, key: '2021-06-05' }, { value: 0, key: '2021-06-06' }, { value: 12, key: '2021-06-07' }, { value: 60, key: '2021-06-08' }, { value: 0, key: '2021-06-09' }, { value: 2, key: '2021-06-10' }, { value: 0, key: '2021-06-11' }, { value: 0, key: '2021-06-12' }, { value: 0, key: '2021-06-13' }, { value: 0, key: '2021-06-14' }, { value: 0, key: '2021-06-15' }, { value: 0, key: '2021-06-16' }, { value: 0, key: '2021-06-17' }, { value: 0, key: '2021-06-18' }, { value: 0, key: '2021-06-19' }, { value: 0, key: '2021-06-20' }, { value: 0, key: '2021-06-21' }, { value: 0, key: '2021-06-22' }, { value: 0, key: '2021-06-23' }, { value: 0, key: '2021-06-24' }, { value: 0, key: '2021-06-25' }, { value: 0, key: '2021-06-26' }, { value: 0, key: '2021-06-27' }, { value: 0, key: '2021-06-28' }, { value: 1, key: '2021-06-29' }]
 
         for (var i = 0; i < arr.length; i++) {
           caseXlist.push(arr[i].key)
           caseYlist.push(arr[i].value)
         }
-        // 这里要初始化数据，异步
-        // 3.调用计划书接口
-        const param3 = {
-          'groupType': this.groupType,
-          'startDate': param1.startDate,
-          'endDate': param1.endDate
-        }
-        this.$axiosUtil.post(this.$appConfig.API, this.$urlConst.POST_Account_Name, param3).then((res) => {
-          var arr = res.data
-
-          for (var i = 0; i < arr.length; i++) {
-            planYlist.push(arr[i].value)
-          }
-        }).catch((error) => {
-          // this.loading = false
-          this.$message.error(error.respMessage)
-        })
-
-        this.echartOption.xAxis = {
-          type: 'category', // 还有其他的type，可以去官网喵两眼哦
-          data: caseXlist, // x轴数据
-          // data: res.result.lineDetail.xdata,
-          name: '日期', // x轴名称
-          // x轴名称样式
-          nameTextStyle: {
-            fontWeight: 600,
-            fontSize: 18
-          }
-        }
-
-        this.echartOption.yAxis = {
-          type: 'value',
-          name: '个数', // y轴名称
-          // y轴名称样式
-          nameTextStyle: {
-            fontWeight: 600,
-            fontSize: 18
-          }
-        }
-        this.echartOption.series = [
-          {
-            name: '计划数',
-            data: [6, 1],
-            // data: planYlist,
-            type: 'line'
-          },
-          {
-            name: '用例数',
-            // : [820, 932, 901, 934, 1290, 1330, 1320],
-            data: caseYlist,
-            type: 'line'
-          }
-
-        ]
-
-        // 数据初始化之后才初始化echat
-        this.initEchart()
       }).catch((error) => {
         // this.loading = false
         this.$message.error(error.respMessage)
       })
+      // 3.调用计划书接口
+      const param3 = {
+        'groupType': this.groupType,
+        'startDate': param1.startDate,
+        'endDate': param1.endDate
+      }
+      await this.$axiosUtil.post(this.$appConfig.API, this.$urlConst.POST_Account_Name, param3).then((res) => {
+        var arr = res.data
+
+        for (var i = 0; i < arr.length; i++) {
+          planYlist.push(arr[i].value)
+        }
+      }).catch((error) => {
+        // this.loading = false
+        this.$message.error(error.respMessage)
+      })
+      this.echartOption.xAxis = {
+        type: 'category', // 还有其他的type，可以去官网喵两眼哦
+        data: caseXlist, // x轴数据
+        // data: res.result.lineDetail.xdata,
+        name: '日期', // x轴名称
+        // x轴名称样式
+        nameTextStyle: {
+          fontWeight: 600,
+          fontSize: 18
+        }
+      }
+      this.echartOption.yAxis = {
+        type: 'value',
+        name: '个数', // y轴名称
+        // y轴名称样式
+        nameTextStyle: {
+          fontWeight: 600,
+          fontSize: 18
+        }
+      }
+      this.echartOption.series = [
+        {
+          name: '计划数',
+          // data: [6, 1],
+          data: planYlist,
+          type: 'line'
+        },
+        {
+          name: '用例数',
+          // data: [820, 932, 901, 934, 1290, 1330, 1320],
+          data: caseYlist,
+          type: 'line'
+        }
+      ]
+      // 数据初始化之后才初始化echat
+      this.initEchart()
     },
     clear() {
       this.searchDate = [
