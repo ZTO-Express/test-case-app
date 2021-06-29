@@ -137,6 +137,8 @@ export default {
       userList: [],
       // 负责人X轴
       userX: [],
+      // 负责人json数组
+      userJsonList: [],
       accountNoList: [],
       list: {
         incomeAmount: '',
@@ -268,13 +270,18 @@ export default {
 
         var arr = res.data
         // var arr = [{ value: 1, key: '2021-06-01' }, { value: 0, key: '2021-06-02' }, { value: 0, key: '2021-06-03' }, { value: 0, key: '2021-06-04' }, { value: 0, key: '2021-06-05' }, { value: 0, key: '2021-06-06' }, { value: 12, key: '2021-06-07' }, { value: 60, key: '2021-06-08' }, { value: 0, key: '2021-06-09' }, { value: 2, key: '2021-06-10' }, { value: 0, key: '2021-06-11' }, { value: 0, key: '2021-06-12' }, { value: 0, key: '2021-06-13' }, { value: 0, key: '2021-06-14' }, { value: 0, key: '2021-06-15' }, { value: 0, key: '2021-06-16' }, { value: 0, key: '2021-06-17' }, { value: 0, key: '2021-06-18' }, { value: 0, key: '2021-06-19' }, { value: 0, key: '2021-06-20' }, { value: 0, key: '2021-06-21' }, { value: 0, key: '2021-06-22' }, { value: 0, key: '2021-06-23' }, { value: 0, key: '2021-06-24' }, { value: 0, key: '2021-06-25' }, { value: 0, key: '2021-06-26' }, { value: 0, key: '2021-06-27' }, { value: 0, key: '2021-06-28' }, { value: 1, key: '2021-06-29' }]
-
         for (var i = 0; i < arr.length; i++) {
           caseXlist.push(arr[i].key)
           caseYlist.push(arr[i].value)
           // 如果是负责人的话，拼装userX
           if (this.groupType === 1) {
             this.userX.push(arr[i].key)
+            // 负责人json数组
+            var jsonObj = {}
+            jsonObj.name = arr[i].key
+            jsonObj.case = arr[i].value
+            jsonObj.plan = 0
+            this.userJsonList.push(jsonObj)
           }
         }
       }).catch((error) => {
@@ -296,12 +303,25 @@ export default {
           planYlist.push(arr[i].value)
           // 如果是负责人的话，拼装userX
           if (this.groupType === 1) {
-            // 去重
+            // 去重 X轴
             if (this.userX.indexOf(arr[i].key) === -1) {
               this.userX.push(arr[i].key)
+              // json数组添加只有plan没有case的json对象
+              var jsonObj = {}
+              jsonObj.name = arr[i].key
+              jsonObj.case = 0
+              jsonObj.plan = arr[i].value
+              this.userJsonList.push(jsonObj)
+            }
+            // json数据处理,先遍历
+            for (var y = 0; y < this.userJsonList.length; y++) {
+              if (this.userJsonList[y].name === arr[i].key) { // 存在设置，不存在重新定义对象，case为0，plan取值
+                this.userJsonList[y].plan = arr[i].value
+              }
             }
           }
         }
+        console.log('userJsonList==', JSON.stringify(this.userJsonList))
       }).catch((error) => {
         // this.loading = false
         this.$message.error(error.respMessage)
@@ -318,6 +338,28 @@ export default {
             fontSize: 18
           }
         }
+        // 当负责人，单独处理xlist,ylist,从json数组里面去取
+        var caselist = []
+        var planlist = []
+        for (var i = 0; i < this.userJsonList.length; i++) {
+          planlist.push(this.userJsonList[i].plan)
+          caselist.push(this.userJsonList[i].case)
+        }
+        console.log('planlist==', planlist)
+        this.echartOption.series = [
+          {
+            name: '计划数',
+            // data: [6, 1],
+            data: planlist,
+            type: 'line'
+          },
+          {
+            name: '用例数',
+            // data: [820, 932, 901, 934, 1290, 1330, 1320],
+            data: caselist,
+            type: 'line'
+          }
+        ]
         // 拼装负责人图的X轴
       } else {
         this.echartOption.xAxis = {
@@ -331,6 +373,20 @@ export default {
             fontSize: 18
           }
         }
+        this.echartOption.series = [
+          {
+            name: '计划数',
+            // data: [6, 1],
+            data: planYlist,
+            type: 'line'
+          },
+          {
+            name: '用例数',
+            // data: [820, 932, 901, 934, 1290, 1330, 1320],
+            data: caseYlist,
+            type: 'line'
+          }
+        ]
       }
       this.echartOption.yAxis = {
         type: 'value',
@@ -341,20 +397,7 @@ export default {
           fontSize: 18
         }
       }
-      this.echartOption.series = [
-        {
-          name: '计划数',
-          // data: [6, 1],
-          data: planYlist,
-          type: 'line'
-        },
-        {
-          name: '用例数',
-          // data: [820, 932, 901, 934, 1290, 1330, 1320],
-          data: caseYlist,
-          type: 'line'
-        }
-      ]
+
       // 数据初始化之后才初始化echat
       this.initEchart()
     },
