@@ -72,9 +72,9 @@ const FILE_DOWNLOAD = '/testcase/file/download'
 const FILE_DELETE = '/testcase/file/delete'
 
 // 用例数折线
-const Super_Echarts = '/testcase/testcase/caseCount'
-const POST_LIST = '/testcase/plan/planAndCaseCount'
-const POST_Account_Name = '/testcase/plan/planCount'
+const CASE_COUNT = '/testcase/testcase/caseCount'
+const PLANANDCASE_COUNT = '/testcase/plan/planAndCaseCount'
+const PLAN_COUNT = '/testcase/plan/planCount'
 
 export default {
   OPERATION_LOG_LIST,
@@ -147,7 +147,7 @@ export default {
   PLAN_CASE_DETAIL,
   PLAN_CASE_EDIT,
 
-  Super_Echarts,
-  POST_LIST,
-  POST_Account_Name
+  CASE_COUNT,
+  PLANANDCASE_COUNT,
+  PLAN_COUNT
 }

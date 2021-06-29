@@ -23,13 +23,14 @@
           </el-form-item>
           <el-form-item v-show="this.$appData.userInfo.roles[0].roleName == '超级管理员'">
             <el-select v-model="searchForm.userName"
+                       @change="selectChanged"
                        filterable
                        clearable
                        placeholder="测试负责人">
               <el-option v-for="user in userList"
                          :key="user.userId"
                          :label="user.nickName"
-                         :value="user.userId">
+                         :value="user.nickName">
               </el-option>
             </el-select>
           </el-form-item>
@@ -131,7 +132,7 @@ export default {
         moment(new Date()).format('YYYY-MM-DD')
       ],
       searchForm: {
-        userId: ''
+        createUser: ''
       },
       userList: [],
       accountNoList: [],
@@ -218,7 +219,7 @@ export default {
       const _data = {}
       _data['startDate'] = this.searchDate && this.searchDate[0] ? moment(this.searchDate[0]).format('YYYY-MM-DD 00:00:00') : ''
       _data['endDate'] = this.searchDate && this.searchDate[1] ? moment(this.searchDate[1]).format('YYYY-MM-DD 23:59:59') : ''
-      _data['createrUser'] = this.$appData.userInfo.roles[0].roleName === '超级管理员' ? this.$appData.userInfo.nickName : this.$appData.userInfo.nickName
+      // _data['createrUser'] = this.$appData.userInfo.roles[0].roleName === '超级管理员' ? '' : this.$appData.userInfo.nickName
       return _data
     },
     async search() {
@@ -229,9 +230,15 @@ export default {
       //   'endDate': '2021-05-13',
       //   'createrUser': '超级管理员'
       // }
-      // console.log('111111', this.$appData.userInfo)
-      const param1 = this.getData()
-      await this.$axiosUtil.post(this.$appConfig.API, this.$urlConst.POST_LIST, param1).then((res) => {
+      var startDate = this.searchDate && this.searchDate[0] ? moment(this.searchDate[0]).format('YYYY-MM-DD') : ''
+      var endDate = this.searchDate && this.searchDate[1] ? moment(this.searchDate[1]).format('YYYY-MM-DD') : ''
+      const param1 = {
+        'startDate': startDate,
+        'endDate': endDate,
+        'createrUser': this.searchForm.createUser
+      }
+
+      await this.$axiosUtil.post(this.$appConfig.API, this.$urlConst.PLANANDCASE_COUNT, param1).then((res) => {
         // this.loading = !this.loading
         this.list.incomeAmount = res.data.totalCase
         this.list.chargeAmount = res.data.newCase
@@ -248,11 +255,11 @@ export default {
 
       const param2 = {
         'groupType': this.groupType,
-        'startDate': param1.startDate,
-        'endDate': param1.endDate
-        // 'createUser': param1.createrUser
+        'startDate': startDate,
+        'endDate': endDate,
+        'createUser': this.searchForm.createUser
       }
-      await this.$axiosUtil.post(this.$appConfig.API, this.$urlConst.Super_Echarts, param2).then((res) => {
+      await this.$axiosUtil.post(this.$appConfig.API, this.$urlConst.CASE_COUNT, param2).then((res) => {
         this.echartOption.legend = {
           data: ['计划数', '用例数']
         }
@@ -271,10 +278,10 @@ export default {
       // 3.调用计划书接口
       const param3 = {
         'groupType': this.groupType,
-        'startDate': param1.startDate,
-        'endDate': param1.endDate
+        'startDate': startDate,
+        'endDate': endDate
       }
-      await this.$axiosUtil.post(this.$appConfig.API, this.$urlConst.POST_Account_Name, param3).then((res) => {
+      await this.$axiosUtil.post(this.$appConfig.API, this.$urlConst.PLAN_COUNT, param3).then((res) => {
         var arr = res.data
 
         for (var i = 0; i < arr.length; i++) {
@@ -284,15 +291,29 @@ export default {
         // this.loading = false
         this.$message.error(error.respMessage)
       })
-      this.echartOption.xAxis = {
-        type: 'category', // 还有其他的type，可以去官网喵两眼哦
-        data: caseXlist, // x轴数据
-        // data: res.result.lineDetail.xdata,
-        name: '日期', // x轴名称
-        // x轴名称样式
-        nameTextStyle: {
-          fontWeight: 600,
-          fontSize: 18
+      if (this.countType === '负责人') {
+        this.echartOption.xAxis = {
+          type: 'category', // 还有其他的type，可以去官网喵两眼哦
+          data: caseXlist, // x轴数据
+          // data: res.result.lineDetail.xdata,
+          name: '负责人', // x轴名称
+          // x轴名称样式
+          nameTextStyle: {
+            fontWeight: 600,
+            fontSize: 18
+          }
+        }
+      } else {
+        this.echartOption.xAxis = {
+          type: 'category', // 还有其他的type，可以去官网喵两眼哦
+          data: caseXlist, // x轴数据
+          // data: res.result.lineDetail.xdata,
+          name: '日期', // x轴名称
+          // x轴名称样式
+          nameTextStyle: {
+            fontWeight: 600,
+            fontSize: 18
+          }
         }
       }
       this.echartOption.yAxis = {
@@ -467,8 +488,12 @@ export default {
       }
       this.dialogVisiblePlayerCharge = !this.dialogVisiblePlayerCharge
       this.dialogTypePlayerCharge = { data }
+    },
+    selectChanged(value) {
+      // console.log(value)
+      // 接口调入入参的createUser变更
+      this.searchForm.createUser = value
     }
-
   }
 }
 </script>
