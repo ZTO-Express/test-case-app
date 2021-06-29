@@ -135,6 +135,8 @@ export default {
         createUser: ''
       },
       userList: [],
+      // 负责人X轴
+      userX: [],
       accountNoList: [],
       list: {
         incomeAmount: '',
@@ -235,7 +237,7 @@ export default {
       const param1 = {
         'startDate': startDate,
         'endDate': endDate,
-        'createrUser': this.searchForm.createUser
+        'createUser': this.searchForm.createUser
       }
 
       await this.$axiosUtil.post(this.$appConfig.API, this.$urlConst.PLANANDCASE_COUNT, param1).then((res) => {
@@ -249,9 +251,9 @@ export default {
         this.$message.error(error.respMessage)
       })
       // 2. 调用用例接口
-      const caseXlist = []
-      const caseYlist = []
-      const planYlist = []
+      var caseXlist = []
+      var caseYlist = []
+      var planYlist = []
 
       const param2 = {
         'groupType': this.groupType,
@@ -270,6 +272,10 @@ export default {
         for (var i = 0; i < arr.length; i++) {
           caseXlist.push(arr[i].key)
           caseYlist.push(arr[i].value)
+          // 如果是负责人的话，拼装userX
+          if (this.groupType === 1) {
+            this.userX.push(arr[i].key)
+          }
         }
       }).catch((error) => {
         // this.loading = false
@@ -280,7 +286,7 @@ export default {
         'groupType': this.groupType,
         'startDate': startDate,
         'endDate': endDate,
-        'createrUser': this.searchForm.createUser
+        'createUser': this.searchForm.createUser
 
       }
       await this.$axiosUtil.post(this.$appConfig.API, this.$urlConst.PLAN_COUNT, param3).then((res) => {
@@ -288,6 +294,13 @@ export default {
 
         for (var i = 0; i < arr.length; i++) {
           planYlist.push(arr[i].value)
+          // 如果是负责人的话，拼装userX
+          if (this.groupType === 1) {
+            // 去重
+            if (this.userX.indexOf(arr[i].key) === -1) {
+              this.userX.push(arr[i].key)
+            }
+          }
         }
       }).catch((error) => {
         // this.loading = false
@@ -296,7 +309,7 @@ export default {
       if (this.countType === '负责人') {
         this.echartOption.xAxis = {
           type: 'category', // 还有其他的type，可以去官网喵两眼哦
-          data: caseXlist, // x轴数据
+          data: this.userX, // x轴数据
           // data: res.result.lineDetail.xdata,
           name: '负责人', // x轴名称
           // x轴名称样式
@@ -305,6 +318,7 @@ export default {
             fontSize: 18
           }
         }
+        // 拼装负责人图的X轴
       } else {
         this.echartOption.xAxis = {
           type: 'category', // 还有其他的type，可以去官网喵两眼哦
