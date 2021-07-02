@@ -160,12 +160,22 @@
                              size="small"
                              plain
                              @click="handleOperate('exportCase')"><i class="el-icon-download"></i> 导出用例</el-button>
-                  <el-button type="primary"
-                             v-permission="'testlibrary/move'"
-                             size="small"
-                             plain
-                             @click="handleOperate('move')"><i class="el-icon-position"></i> 移动用例
-                  </el-button>
+                  <el-dropdown v-permission="'testlibrary/move'"
+                               @command="handleCommand2"
+                               style="margin-right: 10px">
+                    <el-button type="primary"
+                               size="small"
+                               style="height: 32px"
+                               plain>
+                      <i class="el-icon-position"></i> 移动/复制用例<i class="el-icon-arrow-down el-icon--right"></i>
+                    </el-button>
+                    <el-dropdown-menu slot="dropdown">
+                      <el-dropdown-item style="min-width: 140px"
+                                        command="move"><i class="el-icon-position"></i>批量 移动用例</el-dropdown-item>
+                      <el-dropdown-item style="min-width: 140px"
+                                        command="copy"><i class="el-icon-document-copy"></i>批量 复制用例</el-dropdown-item>
+                    </el-dropdown-menu>
+                  </el-dropdown>
                   <el-button type="danger"
                              v-permission="'testlibrary/del'"
                              size="small"
@@ -500,12 +510,28 @@
                   @update="getListForWithCase" />
       </template>
     </modal>
+
+    <!--复制用例-->
+    <modal style="height: 100%"
+           :visible.sync="modalCopyCase.visiable"
+           :title="modalCopyCase.title"
+           width="50%"
+           confirmTitle="保存"
+           :showCancle="false"
+           :showConfirm="false"
+           :showReset="false">
+      <template>
+        <copyCase ref="copyCase"
+                  @update="getListForWithCase" />
+      </template>
+    </modal>
   </div>
 </template>
 <script>
 import operate from './operate'
 import importFile from './import'
 import assocaateCase from './associateCase'
+import copyCase from './copyCase'
 import moveCase from './moveCase'
 import editPlan from './editPlan'
 import copyEditCase from './copyEditCase'
@@ -580,6 +606,10 @@ export default {
       modalMoveCase: {
         visiable: false,
         title: '移动用例'
+      },
+      modalCopyCase: {
+        visiable: false,
+        title: '复制用例'
       },
       moduleInfo: {
         name: ''
@@ -663,7 +693,7 @@ export default {
   computed: {
   },
   components: {
-    operate, editPlan, assocaateCase, importFile, moveCase, copyEditCase, Sortable
+    operate, editPlan, assocaateCase, importFile, moveCase, copyEditCase, Sortable, copyCase
   },
   watch: {
     filterText(val) {
@@ -782,6 +812,7 @@ export default {
       this.modalPlan.visiable = false
       this.modalCase.visiable = false
       this.modalMoveCase.visiable = false
+      this.modalCopyCase.visiable = false
       if (this.$route.query.id) {
         this.getPlanDetail()
         this.getModuleList()
@@ -860,7 +891,8 @@ export default {
         exportCase: () => this.exportCase(this.caseListPara),
         updateStatus: () => this.executeUpdateStatusRow('status', row),
         updateRes: () => this.executeUpdateResRow('res', row),
-        move: () => this.executeMoveRow('move')
+        move: () => this.executeMoveRow('move'),
+        copy: () => this.executeCopyRow()
       }
       obj[type].call(this)
     },
@@ -931,6 +963,19 @@ export default {
             this.multipleSelection = []
           })
         })
+    },
+    // 复制用例
+    executeCopyRow() {
+      const ids = this.multipleSelection.map((item) => item.id)
+      if (ids === null || ids === '' || ids === undefined || ids.length === 0) {
+        this.showMsg('请选择测试用例', 'warning')
+        return
+      }
+      this.modalCopyCase.visiable = true
+      this.$nextTick(() => {
+        this.$refs.copyCase.initViewData(ids)
+      })
+      this.multipleSelection = []
     },
     executeMoveRow() {
       const ids = this.multipleSelection.map((item) => item.id)
@@ -1165,6 +1210,11 @@ export default {
       this.modalImport.title = '上传用例文件'
       this.$nextTick(() => {
         this.$refs.importFile.initViewData(command)
+      })
+    },
+    handleCommand2(command) {
+      this.$nextTick(() => {
+        this.handleOperate(command)
       })
     },
     reset() {

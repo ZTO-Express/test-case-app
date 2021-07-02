@@ -61,6 +61,8 @@ const GET_CASE_DETAIL = '/testcase/testcase/getTestcaseStepListByCaseId'
 const COPY_EDIT_TESTCASE = '/testcase/testcase/copyEditTestCase'
 const DEL_TESTCASE = '/testcase/testcase/deleteTestCase'
 const MOVE_TESTCASE = '/testcase/testcase/moveTestCase'
+const COPY_TESTCASE = '/testcase/testcase/copyTestCase'
+
 const ASSOCIATE_TESTCASE = '/testcase/plan/associateCase'
 const UPDATE_CASEINFO = '/testcase/plan/batchEdit'
 const UPDATE_STATUS = '/testcase/plan/planState'
@@ -141,6 +143,7 @@ export default {
   COPY_EDIT_TESTCASE,
   DEL_TESTCASE,
   MOVE_TESTCASE,
+  COPY_TESTCASE,
   ASSOCIATE_TESTCASE,
   UPDATE_CASEINFO,
   UPDATE_STATUS,

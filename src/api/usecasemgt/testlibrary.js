@@ -116,5 +116,11 @@ export default {
     url: ' /testcase/plan/batchEdit',
     method: 'POST',
     body: params
+  }),
+  // 用例复制
+  copyCase: params => httpService.accessAPI({
+    url: '/testcase/testcase/copyTestCase',
+    method: 'POST',
+    body: params
   })
 }
