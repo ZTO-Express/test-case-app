@@ -32,9 +32,8 @@
           <el-form-item>
             <el-button @click="search"
                        type="primary"
-                       :loading="loading">搜索</el-button>
-            <el-button @click="clear"
-                       icon="el-icon-close">重置</el-button>
+                       :loading="loading">查询</el-button>
+            <el-button @click="clear">重置</el-button>
           </el-form-item>
         </el-form>
       </el-card>

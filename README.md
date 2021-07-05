@@ -26,7 +26,10 @@
 ## Build Setup
 
 ```bash
-# 克隆项目
+# 克隆前端项目
+git clone http://****
+
+# 克隆后端项目
 git clone http://****
 
 # 安装依赖
