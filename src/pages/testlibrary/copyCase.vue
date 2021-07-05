@@ -33,7 +33,7 @@
       </div>
     </div>
     <div>
-      <el-button type="primary"
+      <el-button type="primary" size="mini"
                  @click="submit">保存</el-button>
     </div>
   </div>

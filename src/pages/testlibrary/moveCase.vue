@@ -18,7 +18,7 @@
       </div>
     </div>
     <div>
-      <el-button type="primary" @click="submit">保存</el-button>
+      <el-button type="primary" size="mini" @click="submit">保存</el-button>
     </div>
   </div>
 </template>

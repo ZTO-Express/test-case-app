@@ -126,6 +126,7 @@
                     <div class="operation-header">
                       <span>操作</span>
                       <el-button type="primary"
+                                 size="mini"
                                  style=""
                                  icon="el-icon-plus"
                                  @click="addField"></el-button>
@@ -134,6 +135,7 @@
                   <template slot-scope="{ row }">
                     <div>
                       <el-button type="danger"
+                                 size="mini"
                                  icon="el-icon-delete"
                                  @click="deleteField(row)"></el-button>
                     </div>
@@ -161,7 +163,7 @@
                        :on-error="uploadFilesError"
                        :file-list="uploadFileList"
                        :on-preview="handlePreview">
-              <el-button type="primary"
+              <el-button type="primary" size="mini"
                          plain><i class="el-icon-upload"></i>上传文件</el-button> (上传文件最多5个、单个文件最大30M)
             </el-upload>
           </el-form-item>

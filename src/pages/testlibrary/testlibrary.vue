@@ -158,6 +158,7 @@
                   </el-dropdown>
                   <el-button type="primary"
                              size="small"
+                             style="margin-right: 10px"
                              plain
                              @click="handleOperate('exportCase')"><i class="el-icon-download"></i> 导出用例</el-button>
                   <el-dropdown v-permission="'testlibrary/move'"
@@ -319,7 +320,7 @@
                                show-overflow-tooltip
                                v-if="$route.query.id">
                 <template slot-scope="{ row }">
-                  <el-tag :type="row.result === 0 ? 'primary' : row.result === 1 ? 'success'
+                  <el-tag size="mini" :type="row.result === 0 ? 'primary' : row.result === 1 ? 'success'
                     : row.result === 2 ? 'danger' : row.result === 3 ? 'warning'
                     : 'info'"
                           disable-transitions>{{row.result === 0 ? '未执行' : row.result === 1 ? '通过'
@@ -454,7 +455,6 @@
         </el-form>
       </template>
     </modal>
-    <!--更改执行结果-->
     <modal :visible.sync="modalUpdateRes.visiable"
            :title="modalUpdateRes.title"
            width="30%"

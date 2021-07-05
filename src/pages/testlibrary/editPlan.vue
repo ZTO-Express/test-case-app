@@ -8,38 +8,35 @@
         <el-form-item label="用例执行结果">
           <el-button v-model="search.result"
                      :plain="this.isPlain0"
+                     size="mini"
                      type="primary"
                      value="0"
                      @click.prevent="setCaseResult(0)">未执行</el-button>
           <el-button v-model="search.result"
                      :plain="this.isPlain1"
+                     size="mini"
                      type="success"
                      value="1"
                      @click.prevent="setCaseResult(1)">通过</el-button>
           <el-button v-model="search.result"
                      :plain="this.isPlain2"
+                     size="mini"
                      type="danger"
                      value="2"
                      @click.prevent="setCaseResult(2)">失败</el-button>
           <el-button v-model="search.result"
                      :plain="this.isPlain3"
+                     size="mini"
                      type="warning"
                      value="3"
                      @click.prevent="setCaseResult(3)">阻塞</el-button>
           <el-button v-model="search.result"
                      :plain="this.isPlain4"
+                     size="mini"
                      type="info"
                      value="4"
                      @click.prevent="setCaseResult(4)">跳过</el-button>
-          <!--<el-button v-model="search.result" :plain="item.isPlain" v-for="(item, index) in resultList" :key="index" :label="item.value" :type="item.tag"-->
-          <!--:value="item.value" @click.prevent="setCaseResult(item.value)">{{item.label}}-->
-          <!--</el-button>-->
         </el-form-item>
-        <!--<el-form-item label="用例执行结果">-->
-        <!--<el-radio-group fill='#d4237a' v-model="search.result">-->
-        <!--<el-radio-button style="margin-right: 20px;border: white" v-for="(item, index) in resultList" :key="index" :label="item.value" :value="item.value" :type="item.tag">{{item.label}}</el-radio-button>-->
-        <!--</el-radio-group>-->
-        <!--</el-form-item>-->
         <el-form-item label="用例名称"
                       style="width: 100%"
                       prop="name">
@@ -82,7 +79,7 @@
                      :on-error="uploadFilesError"
                      :file-list="search.resultFileList"
                      :on-preview="handlePreview">
-            <el-button type="primary"
+            <el-button type="primary" size="mini"
                        plain><i class="el-icon-upload"></i>上传附件</el-button>
           </el-upload>
         </el-form-item>
