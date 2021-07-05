@@ -1,10 +1,5 @@
 <template>
   <div class="statistics-center-tendency">
-    <el-row>
-      <!-- <player-charge-dialog :visible.sync="dialogVisiblePlayerCharge"
-                            :dialogType="dialogTypePlayerCharge"
-                            @submit="search()" /> -->
-    </el-row>
     <el-row class="search-box">
       <el-card>
         <el-form ref="searchForm"
@@ -36,11 +31,10 @@
           </el-form-item>
           <el-form-item>
             <el-button @click="search"
-                       icon="el-icon-search"
                        type="primary"
                        :loading="loading">搜索</el-button>
             <el-button @click="clear"
-                       icon="el-icon-close">清空</el-button>
+                       icon="el-icon-close">重置</el-button>
           </el-form-item>
         </el-form>
       </el-card>
@@ -50,7 +44,7 @@
       <el-col :span="6"
               v-show="this.$appData.userInfo.roles[0].roleName == '超级管理员'">
         <el-card>
-          <i class="icon icon-haikezhangguizhushou_dingdan"
+          <i class="icon icon-warehouse-o"
              style="color:#23b7e5"></i>
           <div class="count-box">
             <p>{{list.incomeAmount}}</p>
@@ -61,7 +55,7 @@
       <el-col :span="6"
               v-show="this.$appData.userInfo.roles[0].roleName == '超级管理员'">
         <el-card>
-          <i class="icon icon-haikezhangguizhushou_dingdan"
+          <i class="icon icon-add-o"
              style="color:#23b7e5"></i>
           <div class="count-box">
             <p>{{list.chargeAmount}}</p>
@@ -72,7 +66,7 @@
       <el-col :span="6"
               v-show="this.$appData.userInfo.roles[0].roleName == '超级管理员'">
         <el-card>
-          <i class="icon icon-jiaoyijilu-copy-copy"
+          <i class="icon icon-view-list-o"
              style="color:#4CAF50"></i>
           <div class="count-box">
             <p>{{list.playerCount}}</p>
@@ -83,7 +77,7 @@
       <el-col :span="6"
               v-show="this.$appData.userInfo.roles[0].roleName == '超级管理员'">
         <el-card>
-          <i class="icon icon-jiaoyijilu-copy-copy"
+          <i class="icon icon-add-o"
              style="color:#4CAF50"></i>
           <div class="count-box">
             <p>{{list.bookingCount}}</p>
@@ -135,9 +129,7 @@ export default {
         createUser: ''
       },
       userList: [],
-      // 负责人X轴
       userX: [],
-      // 负责人json数组
       userJsonList: [],
       accountNoList: [],
       list: {
@@ -186,11 +178,7 @@ export default {
   },
   computed: {},
   mounted() {
-    if (this.$appData.userInfo.roles[0].roleName === '超级管理员') {
-      this.initUserList()
-    } else {
-      this.getAccountInfo()
-    }
+    this.initUserList()
     this.search()
   },
   methods: {
@@ -203,38 +191,12 @@ export default {
         }
       })
     },
-    getAccountInfo() {
-      // const param = {}
-      // param.pageSize = 1
-      // param.pageNo = 1
-      // param.memberId = this.$appData.userInfo.userId
-      // this.$axiosUtil.post(this.$appConfig.API, this.$urlConst.QUERY_ACCOUNT_LIST, param).then((res) => {
-      //   this.accountNoList = res.data.accountDtoList
-      // }).catch((error) => {
-      //   this.$message.error(error.msg)
-      // })
-    },
     initEchart() { // 初始化图表
       const echartMap = document.getElementById('echartMap')
       this.echartMap = echarts.init(echartMap)
       this.echartMap.setOption(this.echartOption)
     },
-    getData() {
-      const _data = {}
-      _data['startDate'] = this.searchDate && this.searchDate[0] ? moment(this.searchDate[0]).format('YYYY-MM-DD 00:00:00') : ''
-      _data['endDate'] = this.searchDate && this.searchDate[1] ? moment(this.searchDate[1]).format('YYYY-MM-DD 23:59:59') : ''
-      // _data['createrUser'] = this.$appData.userInfo.roles[0].roleName === '超级管理员' ? '' : this.$appData.userInfo.nickName
-      return _data
-    },
     async search() {
-      // this.loading = !this.loading
-      // 1.先调用获取用例数据接口
-      // const param = {
-      //   'startDate': '2021-01-01',
-      //   'endDate': '2021-05-13',
-      //   'createrUser': '超级管理员'
-      // }
-      // 先清空一下
       this.userJsonList = []
       this.userX = []
       var startDate = this.searchDate && this.searchDate[0] ? moment(this.searchDate[0]).format('YYYY-MM-DD') : ''
@@ -246,13 +208,11 @@ export default {
       }
 
       await this.$axiosUtil.post(this.$appConfig.API, this.$urlConst.PLANANDCASE_COUNT, param1).then((res) => {
-        // this.loading = !this.loading
         this.list.incomeAmount = res.data.totalCase
         this.list.chargeAmount = res.data.newCase
         this.list.playerCount = res.data.totalPlan
         this.list.bookingCount = res.data.newPlan
       }).catch((error) => {
-        // this.loading = false
         this.$message.error(error.respMessage)
       })
       // 2. 调用用例接口
@@ -276,10 +236,8 @@ export default {
         for (var i = 0; i < arr.length; i++) {
           caseXlist.push(arr[i].key)
           caseYlist.push(arr[i].value)
-          // 如果是负责人的话，拼装userX
           if (this.groupType === 1) {
             this.userX.push(arr[i].key)
-            // 负责人json数组
             var jsonObj = {}
             jsonObj.name = arr[i].key
             jsonObj.case = arr[i].value
@@ -288,10 +246,8 @@ export default {
           }
         }
       }).catch((error) => {
-        // this.loading = false
         this.$message.error(error.respMessage)
       })
-      // 3.调用计划书接口
       const param3 = {
         'groupType': this.groupType,
         'startDate': startDate,
@@ -304,19 +260,15 @@ export default {
 
         for (var i = 0; i < arr.length; i++) {
           planYlist.push(arr[i].value)
-          // 如果是负责人的话，拼装userX
           if (this.groupType === 1) {
-            // 去重 X轴
             if (this.userX.indexOf(arr[i].key) === -1) {
               this.userX.push(arr[i].key)
-              // json数组添加只有plan没有case的json对象
               var jsonObj = {}
               jsonObj.name = arr[i].key
               jsonObj.case = 0
               jsonObj.plan = arr[i].value
               this.userJsonList.push(jsonObj)
             }
-            // json数据处理,先遍历
             for (var y = 0; y < this.userJsonList.length; y++) {
               if (this.userJsonList[y].name === arr[i].key) { // 存在设置，不存在重新定义对象，case为0，plan取值
                 this.userJsonList[y].plan = arr[i].value
@@ -326,16 +278,12 @@ export default {
         }
         console.log('userJsonList==', JSON.stringify(this.userJsonList))
       }).catch((error) => {
-        // this.loading = false
         this.$message.error(error.respMessage)
       })
       if (this.countType === '负责人') {
         this.echartOption.xAxis = {
           type: 'category', // 还有其他的type，可以去官网喵两眼哦
           data: this.userX, // x轴数据
-          // data: res.result.lineDetail.xdata,
-          name: '负责人', // x轴名称
-          // x轴名称样式
           nameTextStyle: {
             fontWeight: 600,
             fontSize: 18
@@ -352,13 +300,11 @@ export default {
         this.echartOption.series = [
           {
             name: '计划数',
-            // data: [6, 1],
             data: planlist,
             type: 'line'
           },
           {
             name: '用例数',
-            // data: [820, 932, 901, 934, 1290, 1330, 1320],
             data: caselist,
             type: 'line'
           }
@@ -368,8 +314,6 @@ export default {
         this.echartOption.xAxis = {
           type: 'category', // 还有其他的type，可以去官网喵两眼哦
           data: caseXlist, // x轴数据
-          // data: res.result.lineDetail.xdata,
-          name: '日期', // x轴名称
           // x轴名称样式
           nameTextStyle: {
             fontWeight: 600,
@@ -379,13 +323,11 @@ export default {
         this.echartOption.series = [
           {
             name: '计划数',
-            // data: [6, 1],
             data: planYlist,
             type: 'line'
           },
           {
             name: '用例数',
-            // data: [820, 932, 901, 934, 1290, 1330, 1320],
             data: caseYlist,
             type: 'line'
           }
@@ -393,8 +335,6 @@ export default {
       }
       this.echartOption.yAxis = {
         type: 'value',
-        name: '个数', // y轴名称
-        // y轴名称样式
         nameTextStyle: {
           fontWeight: 600,
           fontSize: 18
@@ -411,149 +351,15 @@ export default {
       ]
       this.searchForm = {}
     },
-    formatEchartData(data) { // 格式化请求数据
-      if (!data || !data.userNameContent || !data.signInDateContent) return
-      const dateArr = []
-      const userNameArr = []
-      // const countArr = []
-      const dateCountArr = []
-      const userNameCountArr = []
-      data.signInDateContent.forEach(item => {
-        dateArr.push(item.signInDate)
-        dateCountArr.push(item.dateSignInCount)
-      })
-      data.userNameContent.forEach(item => {
-        userNameArr.push(item.userName)
-        userNameCountArr.push(item.userNameSignInCount)
-      })
-      // if (this.countType === '签到日期') {
-      //   countArr = dateCountArr;
-      // } else {
-      //   countArr = userNameCountArr;
-      // }
-      this.list = data.count // 卡片统计信息赋值
-      this.echartData = { // 统计图表赋值
-        xData: {
-          signInDate: dateArr,
-          userName: userNameArr
-        },
-        yData: {
-          signInDate: dateCountArr,
-          userName: userNameCountArr
-        }
-      }
-      this.inJectEchartData()
-    },
-    inJectEchartData() { // 注入数据更新图表
-      const xAxis = []
-      const series = []
-      if (this.countType === '签到名单') {
-        xAxis.push({
-          type: 'category', // 类型为类目
-          boundaryGap: false, // 分割线跟类目对齐
-          data: this.echartData.xData.userName && this.echartData.xData.userName.length > 0 ? this.echartData.xData.userName
-            : [],
-          axisLine: {
-            lineStyle: {
-              color: '#aeafb0'
-            }
-          }
-        })
-        series.push(
-          { // Y轴系列数据
-            name: '签到次数',
-            type: 'line',
-            smooth: true,
-            itemStyle: {
-              normal: {
-                color: '#1f8cf2',
-                lineStyle: {
-                  color: '#1f8cf2'
-                }
-              }
-            },
-            data: this.echartData.yData.userName && this.echartData.yData.userName.length > 0 ? this.echartData.yData.userName
-              : [0]
-          }
-        )
-      }
-      if (this.countType === '签到日期') {
-        xAxis.push({
-          type: 'category', // 类型为类目
-          boundaryGap: false, // 分割线跟类目对齐
-          data: this.echartData.xData.signInDate && this.echartData.xData.signInDate.length > 0 ? this.echartData.xData.signInDate
-            : [this.$formatters.formatTime(new Date())],
-          axisLine: {
-            lineStyle: {
-              color: '#aeafb0'
-            }
-          }
-        })
-        series.push(
-          { // Y轴系列数据
-            name: '签到人数',
-            type: 'line',
-            smooth: true,
-            itemStyle: {
-              normal: {
-                color: '#1f8cf2',
-                lineStyle: {
-                  color: '#1f8cf2'
-                }
-              }
-            },
-            data: this.echartData.yData.signInDate && this.echartData.yData.signInDate.length > 0 ? this.echartData.yData.signInDate
-              : [0]
-          }
-        )
-      }
-
-      // if (false) { // 是否开启默认筛选
-      //   this.echartOption.legend = { // 默认筛选按钮配置
-      //     data: ['名单', '日期']
-      //   }
-      // }
-
-      this.echartOption.xAxis = xAxis
-      this.echartOption.series = series
-      this.echartOption.yAxis = {
-        axisLine: {
-          lineStyle: {
-            color: '#aeafb0'
-          }
-        },
-        splitLine: {
-          lineStyle: {
-            color: '#f3f4f9'
-          }
-        }
-      }
-      this.echartMap.setOption(this.echartOption)
-    },
-
     selectFilterChange() {
-      console.log('countType==', this.countType)
       if (this.countType === '周期') {
         this.groupType = 0
       } else {
         this.groupType = 1
       }
       this.search()
-      // this.inJectEchartData()
-    },
-
-    openChargeDialog() {
-      const data = {
-        'accountNo': this.accountNoList[0].accountNo,
-        'chineseName': this.$appData.userInfo.nickName,
-        'userId': this.$appData.userInfo.userId
-      }
-      this.dialogVisiblePlayerCharge = !this.dialogVisiblePlayerCharge
-      this.dialogTypePlayerCharge = { data }
     },
     selectChanged(value) {
-      // console.log(value)
-      // 接口调入入参的createUser变更
       this.searchForm.createUser = value
     }
   }
