@@ -1,7 +1,7 @@
 <template>
     <div align="left">
         <div align="right">
-            <el-button type="success" size="small" v-permission="'user-page-list/add'" icon="el-icon-plus" @click="create()">新增操作员</el-button>
+            <el-button type="primary" size="small" v-permission="'user-page-list/add'" icon="el-icon-plus" @click="create()">新增操作员</el-button>
         </div>
         <br/>
         <el-card class="box-card">
@@ -165,63 +165,63 @@
     </div>
 </template>
 <script>
-import moment from 'moment';
-import permAction from '../../../action/permAction';
+import moment from 'moment'
+import permAction from '../../../action/permAction'
 
 export default {
   data() {
     return {
       createPwdExp: [
         {
-          required: true, min: 6, max: 50, message: '密码长度必须6-50位', trigger: 'blur',
+          required: true, min: 6, max: 50, message: '密码长度必须6-50位', trigger: 'blur'
         },
         { pattern: /(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]+/, message: '密码必须包含字母与数字', trigger: 'blur' },
-        { pattern: /.*[^\w\d]+.*/, message: '密码必须包含其他字符', trigger: 'blur' },
+        { pattern: /.*[^\w\d]+.*/, message: '密码必须包含其他字符', trigger: 'blur' }
       ],
       updatePwdExp: [
         { pattern: /(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]+/, message: '密码必须包含字母与数字', trigger: 'blur' },
-        { pattern: /.*[^\w\d]+.*/, message: '密码必须包含其他字符', trigger: 'blur' },
+        { pattern: /.*[^\w\d]+.*/, message: '密码必须包含其他字符', trigger: 'blur' }
       ],
       rules: {
         roleCode: [
-          { required: true, message: '请指定角色', trigger: 'blur' },
+          { required: true, message: '请指定角色', trigger: 'blur' }
         ],
         userName: [
           { required: true, message: '登录名不能为空', trigger: 'blur' },
           {
-            required: true, min: 4, max: 16, message: '长度必须4-16', trigger: 'blur',
+            required: true, min: 4, max: 16, message: '长度必须4-16', trigger: 'blur'
           },
           { pattern: /^[a-zA-Z0-9_-]{4,16}$/, message: '用户名不合法', trigger: 'blur' },
-          { pattern: /^.*[^\d].*$/, message: '不能是纯数字', trigger: 'blur' },
+          { pattern: /^.*[^\d].*$/, message: '不能是纯数字', trigger: 'blur' }
         ],
         nickName: [
           { required: true, message: '姓名不能为空', trigger: 'blur' },
           {
-            min: 2, max: 10, message: '姓名长度必须2-10位', trigger: 'blur',
-          },
+            min: 2, max: 10, message: '姓名长度必须2-10位', trigger: 'blur'
+          }
         ],
         userPwd: null,
         mobile: [
           { required: true, message: '手机号码不能为空', trigger: 'blur' },
-          { pattern: /^1[3|4|5|7|8|9][0-9]\d{8}$/, message: '手机号不合法', trigger: 'blur' },
+          { pattern: /^1[3|4|5|7|8|9][0-9]\d{8}$/, message: '手机号不合法', trigger: 'blur' }
         ],
         email: [
           { required: true, message: '邮箱不能为空', trigger: 'blur' },
           {
             pattern: /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/,
             message: 'email不合法',
-            trigger: 'blur',
-          },
+            trigger: 'blur'
+          }
 
-        ],
+        ]
       },
       textMap: {
         update: '编辑操作员',
-        create: '新增操作员',
+        create: '新增操作员'
       },
       statusMap: {
         2: '启用',
-        3: '停用',
+        3: '停用'
       },
       temp: {
         appId: this.$appConfig.appId,
@@ -232,8 +232,8 @@ export default {
           {
             roleCode: '',
             roleName: '',
-            isSystemRole: '',
-          },
+            isSystemRole: ''
+          }
         ],
         nickName: '',
         mobile: '',
@@ -241,13 +241,13 @@ export default {
         email: '',
         createTime: null,
         status: '',
-        userStatus: '',
+        userStatus: ''
       },
       listQuery: {
         page: 1,
         size: 10,
         total: 0,
-        sort: '',
+        sort: ''
       },
       list: [],
       oriList: [],
@@ -256,79 +256,79 @@ export default {
       opts2: [],
       dialogFormVisible: false,
       dialogStatus: null,
-      selectRole: '',
-    };
+      selectRole: ''
+    }
   },
   created() {
-    this.getRoleList();
+    this.getRoleList()
   },
   components: {},
   computed: {},
   methods: {
     closeDialog() {
-      this.$refs.dataForm.resetFields();
+      this.$refs.dataForm.resetFields()
     },
     handleCurrentChange(val) {
-      this.listQuery.page = val;
-      this.getList();
+      this.listQuery.page = val
+      this.getList()
     },
     compare(val1, val2) {
-      return val2.createTime - val1.createTime;
+      return val2.createTime - val1.createTime
     },
     sortList() {
-      this.list.sort(this.compare);
+      this.list.sort(this.compare)
     },
     getRoleList() {
       permAction.findRoles(this.$appData.userInfo.userId).then((response) => {
-        const [...temp] = response.data;
-        this.opts = response.data;
-        this.opts2 = temp;
+        const [...temp] = response.data
+        this.opts = response.data
+        this.opts2 = temp
         // todo use array filter
         // 过滤停用角色
         for (let i = 0; i < this.opts2.length; i += 1) {
           if (this.opts2[i].status === '0' || this.opts2[i].roleCode === this.$appData.userInfo.roles[0].roleCode) {
-            this.opts2.splice(i, 1);
+            this.opts2.splice(i, 1)
           }
         }
-        this.getList();
+        this.getList()
       }).catch((error) => {
         this.$message({
           type: 'error',
-          message: error.respMessage,
-        });
-      });
+          message: error.respMessage
+        })
+      })
     },
     getList() {
       permAction.findUsers().then((rep) => {
-        this.list = [];
-        this.oriList = rep.data;
+        this.list = []
+        this.oriList = rep.data
         if (this.selectRole === '') {
           this.opts.forEach((opt) => {
             this.oriList.forEach((user) => {
               if (user.roles[0].roleCode === opt.roleCode) {
-                this.list.unshift(user);
+                this.list.unshift(user)
               }
-            });
-          });
+            })
+          })
         } else {
           this.oriList.forEach((user) => {
             if (user.roles[0].roleCode === this.selectRole) {
-              this.list.unshift(user);
+              this.list.unshift(user)
             }
-          });
+          })
         }
-        this.sortList();
-        this.listQuery.total = this.list.length;
+        this.sortList()
+        this.listQuery.total = this.list.length
         this.list = this.list.slice(
           this.listQuery.size * (this.listQuery.page - 1),
           this.listQuery.size * this.listQuery.page,
-        );
+        )
       }).catch((error) => {
         this.$message({
           type: 'error',
-          message: error.respMessage,
-        });
-      });
+          message: error.respMessage
+        })
+      })
     },
     create() {
       this.temp = {
@@ -340,8 +340,8 @@ export default {
           {
             roleCode: '',
             roleName: '',
-            isSystemRole: '',
-          },
+            isSystemRole: ''
+          }
         ],
         nickName: '',
         mobile: '',
@@ -349,84 +349,84 @@ export default {
         email: '',
         createTime: null,
         status: '2',
-        userStatus: '2',
-      };
-      this.placeholder = '不少于6位的字母、数字和其他字符的组合';
-      this.dialogStatus = 'create';
-      this.rules.userPwd = this.createPwdExp;
+        userStatus: '2'
+      }
+      this.placeholder = '不少于6位的字母、数字和其他字符的组合'
+      this.dialogStatus = 'create'
+      this.rules.userPwd = this.createPwdExp
       this.$nextTick(() => {
-        this.$refs.dataForm.clearValidate();
-      });
+        this.$refs.dataForm.clearValidate()
+      })
 
-      this.getRoleList();
-      this.dialogFormVisible = true;
+      this.getRoleList()
+      this.dialogFormVisible = true
     },
     save() {
       debugger
       this.$refs.dataForm.validate((valid) => {
         if (valid) {
           permAction.updateUser(this.temp, this.dialogStatus).then((response) => {
-            this.dialogFormVisible = false;
-            this.$refs.dataForm.resetFields();
+            this.dialogFormVisible = false
+            this.$refs.dataForm.resetFields()
             this.$message({
               type: 'success',
-              message: this.textMap[this.dialogStatus] + '成功',
-            });
-            this.getList();
-            return true;
+              message: this.textMap[this.dialogStatus] + '成功'
+            })
+            this.getList()
+            return true
           }).catch((error) => {
             this.$message({
               type: 'error',
-              message: error.respMessage,
-            });
-            return false;
-          });
+              message: error.respMessage
+            })
+            return false
+          })
         }
-        return false;
-      });
+        return false
+      })
     },
     edit(row) {
-      this.placeholder = '修改密码输入新密码即可';
-      this.dialogStatus = 'update';
-      this.rules.userPwd = this.updatePwdExp;
+      this.placeholder = '修改密码输入新密码即可'
+      this.dialogStatus = 'update'
+      this.rules.userPwd = this.updatePwdExp
       this.$nextTick(() => {
-        this.$refs.dataForm.clearValidate();
-      });
+        this.$refs.dataForm.clearValidate()
+      })
       this.list.forEach((user) => {
         if (user.userId === row.userId) {
-          Object.assign(this.temp, user);
+          Object.assign(this.temp, user)
         }
-      });
-      this.temp.roleCode = this.temp.roles[0].roleCode;
-      this.temp.userStatus = this.temp.status;
-      this.getRoleList();
-      this.dialogFormVisible = true;
+      })
+      this.temp.roleCode = this.temp.roles[0].roleCode
+      this.temp.userStatus = this.temp.status
+      this.getRoleList()
+      this.dialogFormVisible = true
     },
     del(row) {
       this.$confirm('确定要删除该操作员吗？', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
-        type: 'warning',
+        type: 'warning'
       }).then(() => {
         permAction.deleteUser(row).then((response) => {
           this.$message({
             type: 'success',
-            message: '删除成功!',
-          });
-          this.getList();
-          return true;
+            message: '删除成功!'
+          })
+          this.getList()
+          return true
         }).catch((error) => {
           this.$message({
             type: 'error',
-            message: error.respMessage,
-          });
-          return false;
-        });
-      }).catch(() => false);
+            message: error.respMessage
+          })
+          return false
+        })
+      }).catch(() => false)
     },
     parsetime(time) {
-      return moment(time).format('YYYY.MM.DD HH:mm:ss');
-    },
-  },
-};
+      return moment(time).format('YYYY.MM.DD HH:mm:ss')
+    }
+  }
+}
 </script>

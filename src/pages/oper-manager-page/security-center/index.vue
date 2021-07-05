@@ -8,7 +8,7 @@
     <qrcode-verify-code :qrcodeText="qrcodeText" :trigger="qrcodeVerifyCodeTrigger" @next="qrcodeVerifyCodeNext"></qrcode-verify-code>
 
     <span class="font-a">{{
-        '安全状态良好，建议定期修改密码，保护账号及资金安全。'
+        '安全状态良好，建议定期修改密码。'
       }}</span>
     <div class="securty-center-item">
       <div class="securty-center-item-status">
@@ -65,11 +65,11 @@
 </template>
 
 <script>
-import resetPassword from '../../../components/reset-password/index.vue';
-import authVerify from '../../../components/auth-verify/index.vue';
-import bindMobile from './bind-mobile.vue';
-import qrcodeApp from './qrcode-app.vue';
-import qrcodeVerifyCode from './qrcode-verify-code.vue';
+import resetPassword from '../../../components/reset-password/index.vue'
+import authVerify from '../../../components/auth-verify/index.vue'
+import bindMobile from './bind-mobile.vue'
+import qrcodeApp from './qrcode-app.vue'
+import qrcodeVerifyCode from './qrcode-verify-code.vue'
 
 export default {
   components: {
@@ -77,7 +77,7 @@ export default {
     authVerify,
     bindMobile,
     qrcodeApp,
-    qrcodeVerifyCode,
+    qrcodeVerifyCode
   },
   data() {
     return {
@@ -102,48 +102,48 @@ export default {
       bindMobileSessionData: {
         steps: {
           auth_verify: this.triggerAuthVerifyFormBindMobile,
-          '': this.triggerBindMobile,
-        },
+          '': this.triggerBindMobile
+        }
       },
       bindDynamicSessionData: {
         steps: {
           auth_verify: this.triggerAuthVerifyFormBindGoogle,
           google_qr_gen: this.triggerGoogleQrcode,
-          '': this.triggerAuthVerifyUseDynamic,
-        },
+          '': this.triggerAuthVerifyUseDynamic
+        }
       },
       useInfo: this.$appData.userInfo,
       bindDynamicStatus: false,
-      qrcodeText: '',
-    };
+      qrcodeText: ''
+    }
   },
   computed: {
 
   },
   mounted() {
     if (window.screen.width < 768) {
-      if (!this.$sessionUtil.get("security-center-refreash")) {
-        this.$sessionUtil.set("security-center-refreash", "true");
-        window.location.reload();
+      if (!this.$sessionUtil.get('security-center-refreash')) {
+        this.$sessionUtil.set('security-center-refreash', 'true')
+        window.location.reload()
       }
     }
 
     // this.isDynamicCodeConfigured();
-    this.dynamicCodeGuide(); // 登录页进来判断是否绑定过
+    this.dynamicCodeGuide() // 登录页进来判断是否绑定过
   },
   methods: {
     bindMobileSession() {
       this.$axiosUtil.post(this.$appConfig.API, this.$urlConst.BIND_MOBILE_AUTHORIZATION).then((response) => {
-        this.nextStep(this.bindMobileSessionData, response.data);
+        this.nextStep(this.bindMobileSessionData, response.data)
       }).catch((error) => {
-        this.$message({ type: 'error', showClose: true, message: error.respMessage });
-      });
+        this.$message({ type: 'error', showClose: true, message: error.respMessage })
+      })
     },
     triggerAuthVerifyFormBindMobile() {
-      this.triggerAuthVerify(this.bindMobileSessionData);
+      this.triggerAuthVerify(this.bindMobileSessionData)
     },
     triggerAuthVerifyFormBindGoogle() {
-      this.triggerAuthVerify(this.bindDynamicSessionData);
+      this.triggerAuthVerify(this.bindDynamicSessionData)
     },
     triggerAuthVerify(sessionData) {
       this.authVerifyNext = (authForm, success) => {
@@ -151,169 +151,169 @@ export default {
           this.$axiosUtil.post(this.$appConfig.API, this.$urlConst.SMS_CAPTCHA_VERIFY, {
             captcha: authForm.verifyCode,
             mobile: this.$appData.userInfo.mobile,
-            auth_token: sessionData.auth_token,
+            auth_token: sessionData.auth_token
           }).then((response) => {
-            success();
-            this.nextStep(sessionData, response.data);
+            success()
+            this.nextStep(sessionData, response.data)
           }).catch((error) => {
-            this.$message({ type: 'error', showClose: true, message: error.respMessage });
-          });
+            this.$message({ type: 'error', showClose: true, message: error.respMessage })
+          })
         } else if (authForm.verifyType === 'dynamic') {
           this.$axiosUtil.post(this.$appConfig.API, this.$urlConst.GOOGLE_CAPTCHA, {
             captcha: authForm.verifyCode,
-            auth_token: sessionData.auth_token,
+            auth_token: sessionData.auth_token
           }).then((response) => {
-            success();
-            this.nextStep(sessionData, response.data);
+            success()
+            this.nextStep(sessionData, response.data)
           }).catch((error) => {
-            this.$message({ type: 'error', showClose: true, message: error.respMessage });
-          });
+            this.$message({ type: 'error', showClose: true, message: error.respMessage })
+          })
         }
-      };
-      this.authType = 'all';
-      this.authVerifySessionId = sessionData.session_name + sessionData.auth_next_step;
-      this.authVerifyTrigger = !this.authVerifyTrigger;
+      }
+      this.authType = 'all'
+      this.authVerifySessionId = sessionData.session_name + sessionData.auth_next_step
+      this.authVerifyTrigger = !this.authVerifyTrigger
     },
     triggerBindMobile() {
-      this.bindMobileNext = this.bindMobile;
-      this.bindMobileTrigger = !this.bindMobileTrigger;
+      this.bindMobileNext = this.bindMobile
+      this.bindMobileTrigger = !this.bindMobileTrigger
     },
     bindMobile(form, success) {
       this.$axiosUtil.post(this.$appConfig.API, this.$urlConst.BIND_MOBILE, {
         auth_token: this.bindMobileSessionData.auth_token,
         mobile: form.newMobile,
-        captcha: form.verifyCode,
+        captcha: form.verifyCode
       }).then((response) => {
-        this.$set(this.$appData.userInfo, 'mobile', form.newMobile);
-        success();
-        this.$message({ type: 'success', showClose: true, message: '新号码更换成功' });
+        this.$set(this.$appData.userInfo, 'mobile', form.newMobile)
+        success()
+        this.$message({ type: 'success', showClose: true, message: '新号码更换成功' })
       }).catch((error) => {
         if (error.respCode === 'F40109') {
-          this.$message({ type: 'error', showClose: true, message: '该号码已绑定其他账号，请解绑后再试' });
+          this.$message({ type: 'error', showClose: true, message: '该号码已绑定其他账号，请解绑后再试' })
         } else {
-          this.$message({ type: 'error', showClose: true, message: error.respMessage });
+          this.$message({ type: 'error', showClose: true, message: error.respMessage })
         }
-      });
+      })
     },
     bindDynamicSession() {
-      this.unDynamicCode = false;
+      this.unDynamicCode = false
       this.$axiosUtil.post(this.$appConfig.API, this.$urlConst.GOOGLE_AUTH_BIND_AUTHORIZATION).then((response) => {
-        this.nextStep(this.bindDynamicSessionData, response.data);
+        this.nextStep(this.bindDynamicSessionData, response.data)
       }).catch((error) => {
-        this.$message({ type: 'error', showClose: true, message: error.respMessage });
-      });
+        this.$message({ type: 'error', showClose: true, message: error.respMessage })
+      })
     },
     triggerGoogleQrcode() {
       this.qrcodeAppNext = () => {
         this.$axiosUtil.post(this.$appConfig.API, this.$urlConst.GOOGLE_AUTH_QRCODE, {
           user_name: this.$appData.userInfo.email,
           user_id: this.$appData.userInfo.userId,
-          auth_token: this.bindDynamicSessionData.auth_token,
+          auth_token: this.bindDynamicSessionData.auth_token
         }).then((response) => {
-          this.qrcodeText = response.data.optauthUrl;
+          this.qrcodeText = response.data.optauthUrl
           this.qrcodeVerifyCodeNext = () => {
-            this.nextStep(this.bindDynamicSessionData, response.data);
-          };
-          this.qrcodeVerifyCodeTrigger = !this.qrcodeVerifyCodeTrigger;
+            this.nextStep(this.bindDynamicSessionData, response.data)
+          }
+          this.qrcodeVerifyCodeTrigger = !this.qrcodeVerifyCodeTrigger
         }).catch((error) => {
-          this.$message({ type: 'error', showClose: true, message: error.respMessage });
-        });
-      };
-      this.qrcodeAppTrigger = !this.qrcodeAppTrigger;
+          this.$message({ type: 'error', showClose: true, message: error.respMessage })
+        })
+      }
+      this.qrcodeAppTrigger = !this.qrcodeAppTrigger
     },
     triggerAuthVerifyUseDynamic() {
-      this.authType = 'dynamic';
-      this.authVerifyBtnValue = '立即验证';
-      this.authTitle = '验证动态口令码';
+      this.authType = 'dynamic'
+      this.authVerifyBtnValue = '立即验证'
+      this.authTitle = '验证动态口令码'
       this.authVerifyNext = (authForm, success) => {
         this.$axiosUtil.post(this.$appConfig.API, this.$urlConst.GOOGLE_AUTH_BIND, {
           captcha: authForm.verifyCode,
           auth_token: this.bindDynamicSessionData.auth_token,
-          word_token: this.bindDynamicSessionData.wordToken,
+          word_token: this.bindDynamicSessionData.wordToken
         }).then((response) => {
-          this.isDynamicCodeConfigured();
-          success();
-          
-          this.$appData.dynamicCode = '1';
-          this.$message({ type: 'success', showClose: true, message: '动态口令码绑定成功' });
+          this.isDynamicCodeConfigured()
+          success()
+
+          this.$appData.dynamicCode = '1'
+          this.$message({ type: 'success', showClose: true, message: '动态口令码绑定成功' })
         }).catch((error) => {
-          this.$message({ type: 'error', showClose: true, message: error.respMessage });
-        });
-      };
-      this.authVerifySessionId = this.bindDynamicSessionData.session_name + this.bindDynamicSessionData.auth_next_step;
-      this.authVerifyTrigger = !this.authVerifyTrigger;
+          this.$message({ type: 'error', showClose: true, message: error.respMessage })
+        })
+      }
+      this.authVerifySessionId = this.bindDynamicSessionData.session_name + this.bindDynamicSessionData.auth_next_step
+      this.authVerifyTrigger = !this.authVerifyTrigger
     },
 
     resetPassword(form, success) {
       this.$action.authAction.updateUserPwd(form.originPassword, form.newPassword).then((response) => {
-        success();
-        this.$message({ type: 'success', showClose: true, message: '登录密码修改成功' });
+        success()
+        this.$message({ type: 'success', showClose: true, message: '登录密码修改成功' })
       }).catch((error) => {
         if (error.respCode === 'F40307') {
-          this.$message({ type: 'error', showClose: true, message: '原密码错误' });
+          this.$message({ type: 'error', showClose: true, message: '原密码错误' })
         } else {
-          this.$message({ type: 'error', showClose: true, message: error.respMessage });
+          this.$message({ type: 'error', showClose: true, message: error.respMessage })
         }
-      });
+      })
     },
     nextStep(sessionData, respData) {
       Object.assign(sessionData, {
         session_name: '',
         auth_token: '',
-        auth_next_step: '',
-      });
-      Object.assign(sessionData, respData);
+        auth_next_step: ''
+      })
+      Object.assign(sessionData, respData)
 
-      let nextStep = sessionData.steps[sessionData.auth_next_step];
+      let nextStep = sessionData.steps[sessionData.auth_next_step]
       if (!nextStep) {
-        nextStep = sessionData.steps[''];
+        nextStep = sessionData.steps['']
       }
 
       if (nextStep) {
-        nextStep();
+        nextStep()
       }
     },
     isDynamicCodeConfigured() {
       this.$axiosUtil.post(this.$appConfig.API, this.$urlConst.IS_DYNAMIC_CODE_CONFIGURED, {
-        user_name: this.$appData.userInfo.userName,
+        user_name: this.$appData.userInfo.userName
       }).then((response) => {
-        this.dialogVisible = true;
+        this.dialogVisible = true
 
         if (response.data === '1') {
-          this.bindDynamicStatus = true;
+          this.bindDynamicStatus = true
         }
       }).catch((error) => {
-        this.$message({ type: 'error', showClose: true, message: error.respMessage });
-      });
+        this.$message({ type: 'error', showClose: true, message: error.respMessage })
+      })
     },
     sendSms(mobile, smsSuccess) {
       this.$axiosUtil.post(this.$appConfig.API, this.$urlConst.SMS_CAPTCHA, {
-        mobile,
+        mobile
       }).then((response) => {
-        smsSuccess();
+        smsSuccess()
       }).catch((error) => {
-        this.$message({ type: 'error', showClose: true, message: error.respMessage });
-      });
+        this.$message({ type: 'error', showClose: true, message: error.respMessage })
+      })
     },
     triggerResetPassword() {
-      this.resetPasswordNext = this.resetPassword;
+      this.resetPasswordNext = this.resetPassword
 
-      this.resetPasswordTrigger = !this.resetPasswordTrigger;
+      this.resetPasswordTrigger = !this.resetPasswordTrigger
     },
     goAnchor(selector) {
       this.$el.querySelector(selector).scrollIntoView()
     },
     dynamicCodeGuide() {
-      if(this.$appData.dynamicCode === '0'){
-        this.unDynamicCode = true;
-        this.goAnchor('#dynamicPos');
+      if (this.$appData.dynamicCode === '0') {
+        this.unDynamicCode = true
+        this.goAnchor('#dynamicPos')
       }
     },
     maskClose() {
-      this.unDynamicCode = false;
+      this.unDynamicCode = false
     }
-  },
-};
+  }
+}
 </script>
 
 <style scoped="">
@@ -407,7 +407,7 @@ export default {
     font-weight: bold;
     color: #fff;
     width: 320px;
-    position: relative; 
+    position: relative;
     left: -340px;
     bottom: 30px;
   }
