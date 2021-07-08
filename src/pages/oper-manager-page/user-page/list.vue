@@ -157,8 +157,8 @@
                 </el-form-item>
 
                 <el-form-item align="left">
-                    <el-button type="primary" @click="save()">确定</el-button>
-                    <el-button @click="dialogFormVisible = false">取消</el-button>
+                    <el-button type="primary" size="mini" @click="save()">确定</el-button>
+                    <el-button size="mini" @click="dialogFormVisible = false">取消</el-button>
                 </el-form-item>
             </el-form>
         </el-dialog>
