@@ -223,7 +223,7 @@ export default {
         'groupType': this.groupType,
         'startDate': startDate,
         'endDate': endDate,
-        'createUser': this.searchForm.createUser
+        'createUser': this.$appData.userInfo.roles[0].roleName === '超级管理员' ? this.searchForm.createUser : this.$appData.userInfo.nickName
       }
       await this.$axiosUtil.post(this.$appConfig.API, this.$urlConst.CASE_COUNT, param2).then((res) => {
         this.echartOption.legend = {
@@ -251,8 +251,7 @@ export default {
         'groupType': this.groupType,
         'startDate': startDate,
         'endDate': endDate,
-        'createUser': this.searchForm.createUser
-
+        'createUser': this.$appData.userInfo.roles[0].roleName === '超级管理员' ? this.searchForm.createUser : this.$appData.userInfo.nickName
       }
       await this.$axiosUtil.post(this.$appConfig.API, this.$urlConst.PLAN_COUNT, param3).then((res) => {
         var arr = res.data
