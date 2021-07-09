@@ -299,12 +299,12 @@ export default {
           {
             name: '计划数',
             data: planlist,
-            type: 'line'
+            type: 'scatter'
           },
           {
             name: '用例数',
             data: caselist,
-            type: 'line'
+            type: 'scatter'
           }
         ]
         // 拼装负责人图的X轴
