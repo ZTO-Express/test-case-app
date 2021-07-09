@@ -87,4 +87,13 @@ npm install
 
 # 本地开发 启动项目
 npm run dev
+
+# 部署到服务器
+修改配置文件：.env.production中的localhost替换成服务器your-ip
+VUE_APP_BASE_SSO_URL=http://localhost:8081
+VUE_APP_BASE_API_URL=http://localhost:8081
+打包：npm run build 将dist文件夹上传至服务器
+搭建nginx
+访问地址：http://your-ip
+
 ```
