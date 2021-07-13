@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <Configuration>
+    <Properties>
+      <Property name="logPath">zto-testcase-logs</Property>
+    </Properties>
+   <Appenders>
+     <Console name="Console" target="SYSTEM_OUT">
+       <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+     </Console>
+     <RollingFile name="FILE" fileName="${logPath}/testcase.log" filePattern="${logPath}/testcase-%d{yyyy-MM-dd-HH}.log">
+       <PatternLayout pattern="%date %5level [%thread] (%file:%line) - %m%n"/>
+       <Policies>
+         <TimeBasedTriggeringPolicy/>
+       </Policies>
+     </RollingFile>
+   </Appenders>
+   <Loggers>
+     <logger name="com.zto.testcase.mapper" level="info" />
+     <Root level="info">
+       <AppenderRef ref="Console"/>
+       <AppenderRef ref="FILE"/>
+     </Root>
+   </Loggers>
+</Configuration>

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zto.testcase.mapper.testcase.PermissionMapper" >
+  <resultMap id="BaseResultMap" type="com.zto.testcase.model.Permission" >
+    <id column="ID" property="id" jdbcType="BIGINT" />
+    <result column="APP_ID" property="appId" jdbcType="VARCHAR" />
+    <result column="ROLE_CODE" property="roleCode" jdbcType="VARCHAR" />
+    <result column="UI_META_ID" property="uiMetaId" jdbcType="VARCHAR" />
+    <result column="OPERATION_SHOW_TYPE" property="operationShowType" jdbcType="INTEGER" />
+    <result column="FIELD_PERMISSION_TYPE" property="fieldPermissionType" jdbcType="INTEGER" />
+    <result column="CREATED_DATE" property="createdDate" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_DATE" property="updateDate" jdbcType="TIMESTAMP" />
+
+    <association property="sysUimetadata" javaType="com.zto.testcase.model.SysUimetadata">
+      <result column="_MENU_CODE" jdbcType="VARCHAR" property="menuCode" />
+      <result column="_CONTROL_ID" jdbcType="VARCHAR" property="controlId" />
+      <result column="_CONTROL_NAME" jdbcType="VARCHAR" property="controlName" />
+      <result column="_CONTROL_TYPE" jdbcType="VARCHAR" property="controlType" />
+    </association>
+  </resultMap>
+
+  <insert id="insert" parameterType="com.zto.testcase.model.Permission" >
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into sys_permissioninfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="appId != null" >
+        APP_ID,
+      </if>
+      <if test="roleCode != null" >
+        ROLE_CODE,
+      </if>
+      <if test="uiMetaId != null" >
+        UI_META_ID,
+      </if>
+      <if test="operationShowType != null" >
+        OPERATION_SHOW_TYPE,
+      </if>
+      <if test="fieldPermissionType != null" >
+        FIELD_PERMISSION_TYPE,
+      </if>
+        CREATED_DATE
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="appId != null" >
+        #{appId,jdbcType=VARCHAR},
+      </if>
+      <if test="roleCode != null" >
+        #{roleCode,jdbcType=VARCHAR},
+      </if>
+      <if test="uiMetaId != null" >
+        #{uiMetaId,jdbcType=VARCHAR},
+      </if>
+      <if test="operationShowType != null" >
+        #{operationShowType,jdbcType=INTEGER},
+      </if>
+      <if test="fieldPermissionType != null" >
+        #{fieldPermissionType,jdbcType=INTEGER},
+      </if>
+      sysdate()
+    </trim>
+  </insert>
+
+  <select id="select" resultMap="BaseResultMap" parameterType="com.zto.testcase.model.Permission" >
+    select t1.*,
+    t2.MENU_CODE as _MENU_CODE,
+    t2.CONTROL_ID as _CONTROL_ID,
+    t2.CONTROL_NAME as _CONTROL_NAME,
+    t2.CONTROL_TYPE as _CONTROL_TYPE
+    from sys_permissioninfo t1
+    INNER join sys_uimetadata t2 on t1.UI_META_ID = t2.ID
+    <where>
+      <if test="appId != null" >
+        AND t1.APP_ID = #{appId,jdbcType=VARCHAR}
+      </if>
+      <if test="roleCode != null" >
+        AND t1.ROLE_CODE = #{roleCode,jdbcType=VARCHAR}
+      </if>
+      <if test="uiMetaId != null" >
+        AND t1.UI_META_ID = #{uiMetaId,jdbcType=VARCHAR}
+      </if>
+      <if test="operationShowType != null" >
+        AND t1.OPERATION_SHOW_TYPE = #{operationShowType,jdbcType=INTEGER}
+      </if>
+      <if test="fieldPermissionType != null" >
+        AND t1.FIELD_PERMISSION_TYPE = #{fieldPermissionType,jdbcType=INTEGER}
+      </if>
+      <if test="id != null" >
+        AND t1.ID = #{id,jdbcType=BIGINT}
+      </if>
+      and t2.ISDELETED = 0
+    </where>
+  </select>
+
+  <update id="updateById" parameterType="com.zto.testcase.model.Permission" >
+    update sys_permissioninfo
+    <set >
+      <if test="roleCode != null" >
+        ROLE_CODE = #{roleCode,jdbcType=VARCHAR},
+      </if>
+      <if test="uiMetaId != null" >
+        UI_META_ID = #{uiMetaId,jdbcType=VARCHAR},
+      </if>
+      <if test="operationShowType != null" >
+        OPERATION_SHOW_TYPE = #{operationShowType,jdbcType=INTEGER},
+      </if>
+      <if test="fieldPermissionType != null" >
+        FIELD_PERMISSION_TYPE = #{fieldPermissionType,jdbcType=INTEGER},
+      </if>
+        UPDATE_DATE = sysdate()
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+    and APP_ID = #{appId,jdbcType=VARCHAR}
+  </update>
+
+  <delete id="deleteById" parameterType="com.zto.testcase.model.Permission" >
+   delete from sys_permissioninfo
+    where ID = #{id,jdbcType=BIGINT}
+    and APP_ID = #{appId,jdbcType=VARCHAR}
+  </delete>
+
+  <delete id="deleteByRoleCode" parameterType="com.zto.testcase.model.Permission" >
+    delete from sys_permissioninfo
+    where ROLE_CODE = #{roleCode,jdbcType=BIGINT}
+    and APP_ID = #{appId,jdbcType=VARCHAR}
+  </delete>
+
+  <delete id="deleteByUiMetaId" parameterType="com.zto.testcase.model.Permission" >
+    delete from sys_permissioninfo
+    where UI_META_ID = #{uiMetaId,jdbcType=BIGINT}
+    and APP_ID = #{appId,jdbcType=VARCHAR}
+  </delete>
+
+</mapper>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.zto.testcase.mapper.testcase.BusinessMapper">
+
+  <!--<select id="getBusinessLineList" resultType="com.zto.testcase.model.BusinessLinePO">-->
+  <!--SELECT-->
+  <!--l.id,-->
+  <!--l.bname,-->
+  <!--l.t_id as tid,-->
+  <!--t.tname-->
+  <!--FROM sys_business_line l-->
+  <!--LEFT JOIN pt_sys_team t ON t.id = l.t_id-->
+  <!--WHERE l.status = 1 ORDER BY l.id ASC-->
+  <!--</select>-->
+
+  <select id="getBusinessLineTree" resultType="com.zto.testcase.model.BusinessLinePO">
+		SELECT
+			l.id as id,
+			l.bname,
+			l.level,
+			l.parent_id as parentid
+		FROM sys_business_line l
+		WHERE l.status = 1 ORDER BY l.id ASC
+	</select>
+
+  <!--<select id="getBusinessLineTreeNew" resultType="com.zto.testcase.model.BusinessLinePO">-->
+  <!--SELECT-->
+  <!--l.id as id,-->
+  <!--l.bname,-->
+  <!--l.level,-->
+  <!--l.parent_id as parentid-->
+  <!--FROM pt_sys_business_line l-->
+  <!--WHERE l.status = 1 ORDER BY l.id ASC-->
+  <!--</select>-->
+
+  <!--<select id="getBusinessLineById" resultType="com.zto.testcase.model.BusinessLinePO">-->
+  <!--SELECT-->
+  <!--l.id as id,-->
+  <!--l.bname,-->
+  <!--l.level,-->
+  <!--l.parent_id as parentid-->
+  <!--FROM pt_sys_business_line l-->
+  <!--WHERE id = #{id}-->
+  <!--</select>-->
+
+  <!--<select id="findChildBusinessLinePOByParentId" resultType="com.zto.testcase.model.BusinessLinePO">-->
+  <!--SELECT-->
+  <!--l.id as id,-->
+  <!--l.bname,-->
+  <!--l.level,-->
+  <!--l.parent_id as parentid-->
+  <!--FROM pt_sys_business_line l-->
+  <!--WHERE parent_id in-->
+  <!--<foreach collection="list" item="item" open="(" separator=","-->
+  <!--close=")">-->
+  <!--#{item}-->
+  <!--</foreach>-->
+  <!--</select>-->
+
+
+  <!--<select id="findByParentIds" parameterType="java.util.List" resultType="java.lang.Long">-->
+  <!--select id from pt_sys_business_line-->
+  <!--where parent_id in-->
+  <!--<foreach collection="list" close=")" index="index" item="item" open="(" separator=",">-->
+  <!--#{item}-->
+  <!--</foreach>-->
+  <!--</select>-->
+
+  <select id="getProjectListByBid" resultType="com.zto.testcase.model.ProjectPO">
+		SELECT
+			id,
+			pname
+		FROM sys_project
+		WHERE 1 = 1 AND status = 1 AND b_id = #{id}
+	</select>
+
+	<resultMap id="VersionResultMap" type="com.zto.testcase.model.SysVersion">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="tp_id" jdbcType="INTEGER" property="tpId" />
+		<result column="p_id" jdbcType="INTEGER" property="pid" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="status" jdbcType="TINYINT" property="status" />
+		<result column="develop_start_date" jdbcType="DATE" property="developStartDate" />
+		<result column="develop_end_date" jdbcType="DATE" property="developEndDate" />
+		<result column="test_start_date" jdbcType="DATE" property="testStartDate" />
+		<result column="test_end_date" jdbcType="DATE" property="testEndDate" />
+		<result column="jpv_id" jdbcType="BIGINT" property="jpvId" />
+		<result column="str_id" jdbcType="INTEGER" property="strId" />
+		<result column="type" jdbcType="INTEGER" property="type" />
+		<result column="need_modify" jdbcType="INTEGER" property="needModify" />
+		<result column="editable" jdbcType="INTEGER" property="editable" />
+		<result column="ext_id" jdbcType="INTEGER" property="extId" />
+		<result column="case_tag" jdbcType="VARCHAR" property="caseTag" />
+		<result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+		<result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+	</resultMap>
+	<sql id="Version_Column_List">
+    id, tp_id, p_id, name, status, create_time, update_time, jpv_id,
+    str_id, type, need_modify, editable, ext_id, develop_start_date, develop_end_date,
+    test_start_date, test_end_date, case_tag
+  </sql>
+
+	<select id="getVersionByPid" parameterType="java.lang.Integer" resultMap="VersionResultMap">
+        select
+			  	<include refid="Version_Column_List" />
+			  from sys_version
+				where p_id = #{pId}
+				and status=1
+        order by id desc
+    </select>
+
+</mapper>

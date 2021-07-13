@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zto.testcase.mapper.testcase.TcTestCaseModuleMapper" >
+  <resultMap id="BaseResultMap" type="com.zto.testcase.model.TcTestCaseModule" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="parent_id" property="parentId" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="comment" property="comment" jdbcType="VARCHAR" />
+    <result column="pkey" property="pkey" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="update_user" property="updateUser" jdbcType="VARCHAR" />
+    <result column="level" property="level" jdbcType="INTEGER" />
+    <result column="sort" property="sort" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, parent_id, name, comment, status, create_time, update_time, create_user, update_user,pkey,level,sort
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from tc_testcase_module
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="getRootModule" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tc_testcase_module
+        where parent_id = 0
+    </select>
+
+
+    <select id="getModuleByCondition" resultMap="BaseResultMap" parameterType="com.zto.testcase.model.TcTestCaseModule">
+        select
+        <include refid="Base_Column_List"/>
+        from tc_testcase_module
+        where 1=1
+        <if test="id !=null">
+            and id=#{id,jdbcType=INTEGER}
+        </if>
+        <if test="parentId !=null">
+            and parent_id=#{parentId,jdbcType=INTEGER}
+        </if>
+        <if test="name !=null">
+            and name=#{name,jdbcType=VARCHAR}
+        </if>
+        <if test="status !=null">
+            and status=#{status,jdbcType=TINYINT}
+        </if>
+        <if test="level !=null">
+            and level=#{level,jdbcType=INTEGER}
+        </if>
+        <if test="createUser !=null">
+            and create_user=#{createUser,jdbcType=VARCHAR}
+        </if>
+        <if test="updateUser !=null">
+            and update_user=#{updateUser,jdbcType=VARCHAR}
+        </if>
+        <if test="createTime !=null">
+            and create_time=#{createTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="updateUser !=null">
+            and update_time=#{updateTime,jdbcType=TIMESTAMP}
+        </if>
+
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tc_testcase_module
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.zto.testcase.model.TcTestCaseModule">
+    insert into tc_testcase_module (id, parent_id, name,
+      comment, status, create_time,
+      update_time, create_user, update_user
+      )
+    values (#{id,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
+      #{comment,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP},
+      #{updateTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, #{updateUser,jdbcType=VARCHAR}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.zto.testcase.model.TcTestCaseModule">
+        insert into tc_testcase_module
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="parentId != null">
+                parent_id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="comment != null">
+                comment,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="createUser != null">
+                create_user,
+            </if>
+            <if test="updateUser != null">
+                update_user,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="parentId != null">
+                #{parentId,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="comment != null">
+                #{comment,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=TINYINT},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createUser != null">
+                #{createUser,jdbcType=VARCHAR},
+            </if>
+            <if test="updateUser != null">
+                #{updateUser,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.zto.testcase.model.TcTestCaseModule">
+        update tc_testcase_module
+        <set>
+            <if test="parentId != null">
+                parent_id = #{parentId,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="comment != null">
+                comment = #{comment,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=TINYINT},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createUser != null">
+                create_user = #{createUser,jdbcType=VARCHAR},
+            </if>
+            <if test="updateUser != null">
+                update_user = #{updateUser,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.zto.testcase.model.TcTestCaseModule">
+    update tc_testcase_module
+    set parent_id = #{parentId,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      comment = #{comment,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      update_user = #{updateUser,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+    <!-- selectAllData -->
+    <select id="selectAllData" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tc_testcase_module
+        where status = 1
+        order by id
+    </select>
+
+    <!-- selectAllData -->
+    <select id="selectAllDataWithLevel" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tc_testcase_module
+        where status = 1
+        <if test="customLevel != null">
+          and level &lt;= #{customLevel}
+        </if>
+        order by id
+    </select>
+
+    <!-- addModule -->
+    <insert id="addModule" parameterType="com.zto.testcase.model.TcTestCaseModule" useGeneratedKeys="true"
+            keyProperty="id" keyColumn="id">
+    insert into tc_testcase_module (
+      id, parent_id, name,status,
+       create_time, update_time, create_user, update_user,level,pkey
+      )
+    values (#{id,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},1, now(),
+      now(), #{user,jdbcType=VARCHAR}, #{user,jdbcType=VARCHAR},#{level,jdbcType=VARCHAR}+1,#{pkey,jdbcType=VARCHAR}
+      )
+  </insert>
+
+    <select id="querySubModule" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tc_testcase_module
+        where parent_id = #{id,jdbcType=INTEGER} and status = 1
+    </select>
+
+    <!-- deleteModule -->
+    <update id="deleteModule">
+	 update tc_testcase_module set status = 0
+	 where id = #{id,jdbcType=INTEGER}
+  </update>
+
+    <update id="editModule" parameterType="com.zto.testcase.model.TcTestCaseModule">
+        update tc_testcase_module
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="getChildModuleId" resultType="java.lang.Integer">
+        select id
+        from tc_testcase_module
+        where parent_id = #{moduleId}
+    </select>
+
+    <select id="getChildModuleIdByProc" resultType="java.lang.Integer">
+        SELECT
+          id
+        FROM
+          tc_testcase_module T,
+          (SELECT @LIST := getParentId_bas_basic_tree(#{moduleId})) x
+        WHERE find_in_set(id, @LIST)
+    </select>
+
+    <select id="repeatList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tc_testcase_module
+        where status = 1 and level = #{level,jdbcType=INTEGER}+1 and name =  #{name,jdbcType=VARCHAR} and parent_id=#{parentId,jdbcType=INTEGER}
+    </select>
+
+    <select id="editRepeatList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tc_testcase_module
+        where status = 1 and parent_id in (
+        	select parent_id from tc_testcase_module where id = #{id,jdbcType=INTEGER}
+        )
+		and id != #{id,jdbcType=INTEGER} and name =  #{name,jdbcType=VARCHAR}
+    </select>
+
+    <select id="getNextModulesById" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tc_testcase_module
+        where status = 1 and parent_id=#{id}
+    </select>
+
+  <select id="selectByPkey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from tc_testcase_module
+    where pkey = #{pkey,jdbcType=VARCHAR}
+  </select>
+
+    <select id="selectByPlanId" resultType="com.zto.testcase.model.TcTestCaseModule">
+        select
+            m.id,
+            m.parent_id,
+            m.name,
+            m.comment,
+            m.status,
+            m.create_time,
+            m.update_time,
+            m.create_user,
+            m.update_user,
+            m.pkey,
+            m.level,
+            m.sort
+        from tc_testcase_module m
+        left join tc_testcase c on c.module_id = m.id
+		left join tc_plan_case_result r on r.case_id = c.id
+		where r.plan_id = #{planId}
+    </select>
+
+    <select id="getIntegrationTestToQa" resultType="com.zto.testcase.model.TcTestCaseModule" parameterType="java.lang.Integer">
+        select id,name
+        from tc_testcase_module
+        where parent_id = #{parentId}
+    </select>
+</mapper>

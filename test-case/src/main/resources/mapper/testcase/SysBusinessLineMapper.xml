@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zto.testcase.mapper.testcase.SysBusinessLineMapper">
+  <resultMap id="BaseResultMap" type="com.zto.testcase.model.SysBusinessLine">
+    <id column="bid" jdbcType="INTEGER" property="bid" />
+    <result column="bname" jdbcType="VARCHAR" property="bname" />
+    <result column="id" jdbcType="BIGINT" property="id" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="parent_id" jdbcType="INTEGER" property="parentId" />
+    <result column="user_count" jdbcType="INTEGER" property="userCount" />
+    <result column="level" jdbcType="INTEGER" property="level" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="visibility" jdbcType="TINYINT" property="visibility" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="t_id" jdbcType="INTEGER" property="tId" />
+    <result column="notify_email_to" jdbcType="VARCHAR" property="notifyEmailTo" />
+    <result column="notify_email_cc" jdbcType="VARCHAR" property="notifyEmailCc" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    bid, bname, id, `type`, parent_id, user_count, `level`, create_time, update_time, 
+    visibility, `status`, t_id, notify_email_to, notify_email_cc
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_business_line
+    where bid = #{bid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sys_business_line
+    where bid = #{bid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="bid" keyProperty="bid" parameterType="com.zto.testcase.model.SysBusinessLine" useGeneratedKeys="true">
+    insert into sys_business_line (bname, id, `type`,
+      parent_id, user_count, `level`, 
+      create_time, update_time, visibility, 
+      `status`, t_id, notify_email_to, 
+      notify_email_cc)
+    values (#{bname,jdbcType=VARCHAR}, #{id,jdbcType=BIGINT}, #{type,jdbcType=INTEGER}, 
+      #{parentId,jdbcType=INTEGER}, #{userCount,jdbcType=INTEGER}, #{level,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{visibility,jdbcType=TINYINT}, 
+      #{status,jdbcType=TINYINT}, #{tId,jdbcType=INTEGER}, #{notifyEmailTo,jdbcType=VARCHAR}, 
+      #{notifyEmailCc,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="bid" keyProperty="bid" parameterType="com.zto.testcase.model.SysBusinessLine" useGeneratedKeys="true">
+    insert into sys_business_line
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="bname != null">
+        bname,
+      </if>
+      <if test="id != null">
+        id,
+      </if>
+      <if test="type != null">
+        `type`,
+      </if>
+      <if test="parentId != null">
+        parent_id,
+      </if>
+      <if test="userCount != null">
+        user_count,
+      </if>
+      <if test="level != null">
+        `level`,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="visibility != null">
+        visibility,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+      <if test="tId != null">
+        t_id,
+      </if>
+      <if test="notifyEmailTo != null">
+        notify_email_to,
+      </if>
+      <if test="notifyEmailCc != null">
+        notify_email_cc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="bname != null">
+        #{bname,jdbcType=VARCHAR},
+      </if>
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="parentId != null">
+        #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="userCount != null">
+        #{userCount,jdbcType=INTEGER},
+      </if>
+      <if test="level != null">
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="visibility != null">
+        #{visibility,jdbcType=TINYINT},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="tId != null">
+        #{tId,jdbcType=INTEGER},
+      </if>
+      <if test="notifyEmailTo != null">
+        #{notifyEmailTo,jdbcType=VARCHAR},
+      </if>
+      <if test="notifyEmailCc != null">
+        #{notifyEmailCc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zto.testcase.model.SysBusinessLine">
+    update sys_business_line
+    <set>
+      <if test="bname != null">
+        bname = #{bname,jdbcType=VARCHAR},
+      </if>
+      <if test="id != null">
+        id = #{id,jdbcType=BIGINT},
+      </if>
+      <if test="type != null">
+        `type` = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="parentId != null">
+        parent_id = #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="userCount != null">
+        user_count = #{userCount,jdbcType=INTEGER},
+      </if>
+      <if test="level != null">
+        `level` = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="visibility != null">
+        visibility = #{visibility,jdbcType=TINYINT},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="tId != null">
+        t_id = #{tId,jdbcType=INTEGER},
+      </if>
+      <if test="notifyEmailTo != null">
+        notify_email_to = #{notifyEmailTo,jdbcType=VARCHAR},
+      </if>
+      <if test="notifyEmailCc != null">
+        notify_email_cc = #{notifyEmailCc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where bid = #{bid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zto.testcase.model.SysBusinessLine">
+    update sys_business_line
+    set bname = #{bname,jdbcType=VARCHAR},
+      id = #{id,jdbcType=BIGINT},
+      `type` = #{type,jdbcType=INTEGER},
+      parent_id = #{parentId,jdbcType=INTEGER},
+      user_count = #{userCount,jdbcType=INTEGER},
+      `level` = #{level,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      visibility = #{visibility,jdbcType=TINYINT},
+      `status` = #{status,jdbcType=TINYINT},
+      t_id = #{tId,jdbcType=INTEGER},
+      notify_email_to = #{notifyEmailTo,jdbcType=VARCHAR},
+      notify_email_cc = #{notifyEmailCc,jdbcType=VARCHAR}
+    where bid = #{bid,jdbcType=INTEGER}
+  </update>
+  <select id="selectByParentId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sys_business_line
+    where parent_id = #{parentId,jdbcType=INTEGER}
+    and `status` = 1
+  </select>
+</mapper>

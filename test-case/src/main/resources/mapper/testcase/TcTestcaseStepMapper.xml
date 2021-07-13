@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zto.testcase.mapper.testcase.TcTestcaseStepMapper" >
+  <resultMap id="BaseResultMap" type="com.zto.testcase.model.TcTestcaseStep" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="step_number" property="stepNumber" jdbcType="INTEGER" />
+    <result column="step_desc" property="stepDesc" jdbcType="VARCHAR" />
+    <result column="expect_result" property="expectResult" jdbcType="VARCHAR" />
+    <result column="case_id" property="caseId" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="update_user" property="updateUser" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, step_number, step_desc, expect_result, case_id, create_time, update_time, create_user, 
+    update_user
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tc_testcase_step
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tc_testcase_step
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zto.testcase.model.TcTestcaseStep" >
+    insert into tc_testcase_step (id, step_number, step_desc, 
+      expect_result, case_id, create_time, 
+      update_time, create_user, update_user
+      )
+    values (#{id,jdbcType=INTEGER}, #{stepNumber,jdbcType=INTEGER}, #{stepDesc,jdbcType=VARCHAR}, 
+      #{expectResult,jdbcType=VARCHAR}, #{caseId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, #{updateUser,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zto.testcase.model.TcTestcaseStep" >
+    insert into tc_testcase_step
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="stepNumber != null" >
+        step_number,
+      </if>
+      <if test="stepDesc != null" >
+        step_desc,
+      </if>
+      <if test="expectResult != null" >
+        expect_result,
+      </if>
+      <if test="caseId != null" >
+        case_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="updateUser != null" >
+        update_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="stepNumber != null" >
+        #{stepNumber,jdbcType=INTEGER},
+      </if>
+      <if test="stepDesc != null" >
+        #{stepDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="expectResult != null" >
+        #{expectResult,jdbcType=VARCHAR},
+      </if>
+      <if test="caseId != null" >
+        #{caseId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null" >
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zto.testcase.model.TcTestcaseStep" >
+    update tc_testcase_step
+    <set >
+      <if test="stepNumber != null" >
+        step_number = #{stepNumber,jdbcType=INTEGER},
+      </if>
+      <if test="stepDesc != null" >
+        step_desc = #{stepDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="expectResult != null" >
+        expect_result = #{expectResult,jdbcType=VARCHAR},
+      </if>
+      <if test="caseId != null" >
+        case_id = #{caseId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null" >
+        update_user = #{updateUser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zto.testcase.model.TcTestcaseStep" >
+    update tc_testcase_step
+    set step_number = #{stepNumber,jdbcType=INTEGER},
+      step_desc = #{stepDesc,jdbcType=VARCHAR},
+      expect_result = #{expectResult,jdbcType=VARCHAR},
+      case_id = #{caseId,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      update_user = #{updateUser,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <!-- addTcTestcaseStep -->
+   <insert id="addTcTestcaseStep" parameterType="com.zto.testcase.model.TcTestcaseStep" >
+    insert into tc_testcase_step (id, step_number, step_desc, 
+      expect_result, case_id, create_time, 
+      update_time, create_user, update_user
+      )
+    values (#{id,jdbcType=INTEGER}, #{stepNumber,jdbcType=INTEGER}, #{stepDesc,jdbcType=VARCHAR}, 
+      #{expectResult,jdbcType=VARCHAR}, #{caseId,jdbcType=INTEGER}, now(), 
+      now(), #{user,jdbcType=VARCHAR}, #{user,jdbcType=VARCHAR}
+      )
+  </insert>
+  
+  <insert id="copyAddTcTestcaseStep" parameterType="com.zto.testcase.model.TcTestcaseStep" >
+    insert into tc_testcase_step (id, step_number, step_desc, 
+      expect_result, case_id, create_time, 
+      update_time, create_user, update_user
+      )
+    values (#{id,jdbcType=INTEGER}, #{stepNumber,jdbcType=INTEGER}, #{stepDesc,jdbcType=VARCHAR}, 
+      #{expectResult,jdbcType=VARCHAR}, #{caseId,jdbcType=INTEGER}, now(), 
+      now(), #{createUser,jdbcType=VARCHAR}, #{updateUser,jdbcType=VARCHAR}
+      )
+  </insert>
+  
+  
+  <!-- <update id="updateByPrimaryKeySelective" parameterType="com.zto.testcase.model.TcTestcaseStep" >
+    update tc_testcase_step
+    <set >
+      <if test="stepNumber != null" >
+        step_number = #{stepNumber,jdbcType=INTEGER},
+      </if>
+      <if test="stepDesc != null" >
+        step_desc = #{stepDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="expectResult != null" >
+        expect_result = #{expectResult,jdbcType=VARCHAR},
+      </if>
+      <if test="caseId != null" >
+        case_id = #{caseId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null" >
+        update_user = #{updateUser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where case_id = #{caseId,jdbcType=INTEGER}
+  </update> -->
+  
+  <delete id="deleteTestcaseStep" parameterType="java.lang.Integer" >
+    delete from tc_testcase_step
+    where case_id = #{caseId,jdbcType=INTEGER}
+  </delete>
+
+  <select id="getTestcaseStepListByCaseId" resultMap="BaseResultMap" parameterType="java.lang.Integer" resultType="com.zto.testcase.model.TcTestcaseStep">
+    select
+    <include refid="Base_Column_List" />
+    from tc_testcase_step
+    where case_id = #{caseId,jdbcType=INTEGER}
+    order by step_number
+  </select>
+
+  <delete id="deleteByCaseId" parameterType="java.lang.Integer">
+    delete from tc_testcase_step
+    where case_id = #{caseId,jdbcType=INTEGER}
+  </delete>
+</mapper>

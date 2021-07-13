@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zto.testcase.mapper.testcase.RoleInfoMapper">
+  <resultMap id="BaseResultMap" type="com.zto.testcase.model.RoleInfo">
+    <id column="ID" jdbcType="INTEGER" property="id"/>
+    <result column="APP_ID" jdbcType="VARCHAR" property="appId"/>
+    <result column="ROLE_CODE" jdbcType="VARCHAR" property="roleCode"/>
+    <result column="ROLE_NAME" jdbcType="VARCHAR" property="roleName"/>
+    <result column="SYSTEM_ROLE" jdbcType="VARCHAR" property="systemRole"/>
+    <result column="STATUS" jdbcType="VARCHAR" property="status"/>
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime"/>
+    <result column="CREATOR_CHAIN" jdbcType="VARCHAR" property="creatorChain"/>
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>findByUserId
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="("
+                    separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+        ID, APP_ID, ROLE_CODE, ROLE_NAME, SYSTEM_ROLE,STATUS,CREATE_TIME,UPDATE_TIME
+    </sql>
+  <select id="selectByExample" parameterType="com.zto.testcase.dto.RoleInfoExample"
+    resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List"/>
+    from sys_rolesinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause"/>
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from sys_rolesinfo
+        where ID = #{id,jdbcType=INTEGER}
+    </delete>
+  <insert id="insert" parameterType="com.zto.testcase.model.RoleInfo">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into sys_rolesinfo (ID, APP_ID, ROLE_CODE,
+    ROLE_NAME, SYSTEM_ROLE, STATUS, CREATE_TIME, CREATOR_CHAIN)
+    values (#{id,jdbcType=INTEGER}, #{appId,jdbcType=VARCHAR}, #{roleCode,jdbcType=VARCHAR},
+    #{roleName,jdbcType=VARCHAR}, #{systemRole,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR},
+    #{createTime,jdbcType=TIMESTAMP}, #{creatorChain,jdbcType=VARCHAR} )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zto.testcase.model.RoleInfo">
+    insert into sys_rolesinfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="appId != null">
+        APP_ID,
+      </if>
+      <if test="roleCode != null">
+        ROLE_CODE,
+      </if>
+      <if test="roleName != null">
+        ROLE_NAME,
+      </if>
+      <if test="systemRole != null">
+        SYSTEM_ROLE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="appId != null">
+        #{appId,jdbcType=VARCHAR},
+      </if>
+      <if test="roleCode != null">
+        #{roleCode,jdbcType=VARCHAR},
+      </if>
+      <if test="roleName != null">
+        #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="systemRole != null">
+        #{systemRole,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zto.testcase.dto.RoleInfoExample"
+    resultType="java.lang.Long">
+    select count(*) from sys_rolesinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause"/>
+    </if>
+  </select>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zto.testcase.model.RoleInfo">
+    update sys_rolesinfo
+    <set>
+      <if test="appId != null">
+        APP_ID = #{appId,jdbcType=VARCHAR},
+      </if>
+      <if test="roleCode != null">
+        ROLE_CODE = #{roleCode,jdbcType=VARCHAR},
+      </if>
+      <if test="roleName != null">
+        ROLE_NAME = #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="systemRole != null">
+        SYSTEM_ROLE = #{systemRole,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zto.testcase.model.RoleInfo">
+        update sys_rolesinfo
+        set APP_ID = #{appId,jdbcType=VARCHAR},
+        ROLE_CODE = #{roleCode,jdbcType=VARCHAR},
+        ROLE_NAME = #{roleName,jdbcType=VARCHAR},
+        SYSTEM_ROLE = #{systemRole,jdbcType=VARCHAR},
+        STATUS=#{status, jdbcType=VARCHAR}
+        where ID = #{id,jdbcType=INTEGER}
+    </update>
+
+  <select id="findAll" resultMap="BaseResultMap"
+    parameterType="com.zto.testcase.request.RoleRequest">
+      SELECT * FROM sys_rolesinfo WHERE APP_ID=#{appId, jdbcType=VARCHAR}
+    </select>
+
+  <select id="findByRoleCode" resultMap="BaseResultMap"
+    parameterType="com.zto.testcase.request.RoleRequest">
+        SELECT * FROM sys_rolesinfo WHERE ROLE_CODE=#{roleCode, jdbcType=VARCHAR} AND APP_ID=#{appId, jdbcType=VARCHAR}
+    </select>
+
+  <select id="findByRoleName" resultMap="BaseResultMap"
+    parameterType="com.zto.testcase.request.RoleRequest">
+        SELECT * FROM sys_rolesinfo WHERE ROLE_NAME=#{roleName, jdbcType=VARCHAR} AND APP_ID=#{appId, jdbcType=VARCHAR}
+    </select>
+
+  <select id="findByUserId" parameterType="com.zto.testcase.dto.UserDto" resultMap="BaseResultMap">
+        SELECT
+          *
+        FROM
+          sys_rolesinfo a,
+          sys_userrolesrelation b
+        WHERE
+          a.ROLE_CODE = b.ROLE_ID
+        AND
+          b.APP_ID = #{appId, jdbcType=VARCHAR}
+        AND
+          b.USER_ID = #{userId, jdbcType=VARCHAR}
+    </select>
+
+  <select id="countUserByRoleCode" parameterType="com.zto.testcase.request.RoleRequest"
+    resultType="java.lang.Long">
+      SELECT
+            count(*)
+        FROM
+            sys_userinfo a,
+            sys_rolesinfo b,
+            sys_userrolesrelation c
+        WHERE
+            a.APP_ID = #{appId, jdbcType=VARCHAR}
+        AND b.APP_ID = #{appId, jdbcType=VARCHAR}
+        AND c.APP_ID = #{appId, jdbcType=VARCHAR}
+        AND a.USER_ID = c.USER_ID
+        AND b.ROLE_CODE = c.ROLE_ID
+        AND c.ROLE_ID = #{roleCode, jdbcType=VARCHAR}
+    </select>
+
+  <select id="countSubRole" resultType="java.lang.Long">
+         SELECT count(*) FROM sys_rolesinfo WHERE APP_ID=#{appId, jdbcType=VARCHAR} AND CREATOR_CHAIN LIKE concat(#{creatorChain, jdbcType=VARCHAR}, '%')
+    </select>
+
+  <select id="findRolesByRoleCodeArray" resultMap="BaseResultMap"
+    parameterType="com.zto.testcase.request.RoleRequest">
+    select *
+    from sys_rolesinfo
+    where APP_ID=#{appId, jdbcType=VARCHAR} AND ROLE_CODE in
+    <foreach collection="roleCodeList" item="roleCode" index="index"
+      open="(" close=")" separator=",">
+      #{roleCode}
+    </foreach>
+  </select>
+
+  <select id="findSubRoles" resultMap="BaseResultMap"
+    parameterType="com.zto.testcase.request.RoleRequest">
+        SELECT * FROM
+        sys_rolesinfo
+        WHERE
+        APP_ID = #{appId, jdbcType=VARCHAR}
+        AND
+          CREATOR_CHAIN
+          LIKE
+          CONCAT((SELECT CREATOR_CHAIN FROM sys_rolesinfo WHERE APP_ID = #{appId, jdbcType=VARCHAR} AND ROLE_CODE = #{roleCode, jdbcType=VARCHAR}),'_',#{roleCode, jdbcType=VARCHAR},'%')
+    </select>
+</mapper>

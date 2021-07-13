@@ -1,0 +1,507 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zto.testcase.mapper.testcase.TcTestcaseMapper" >
+  <resultMap id="BaseResultMap" type="com.zto.testcase.model.TcTestcase" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="priority" property="priority" jdbcType="TINYINT" />
+    <result column="status" property="status" jdbcType="BIT" />
+    <result column="type" property="type" jdbcType="TINYINT" />
+    <result column="tag" property="tag" jdbcType="VARCHAR" />
+    <result column="module_id" property="moduleId" jdbcType="INTEGER" />
+    <result column="comment" property="comment" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="update_user" property="updateUser" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.zto.testcase.model.TcTestcase" extends="BaseResultMap" >
+    <result column="precondition" property="precondition" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, priority, status, type, tag, module_id, comment, create_time, update_time, create_user,
+    update_user
+  </sql>
+  <sql id="Blob_Column_List" >
+    precondition
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tc_testcase
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tc_testcase
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zto.testcase.model.TcTestcase" >
+    insert into tc_testcase (id, name, priority,
+      status, type, module_id,
+      comment, create_time, update_time,
+      create_user, update_user, precondition
+      )
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{priority,jdbcType=TINYINT},
+      #{status,jdbcType=BIT}, #{type,jdbcType=TINYINT}, #{moduleId,jdbcType=INTEGER},
+      #{comment,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
+      #{createUser,jdbcType=VARCHAR}, #{updateUser,jdbcType=VARCHAR}, #{precondition,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zto.testcase.model.TcTestcase" >
+    insert into tc_testcase
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="priority != null" >
+        priority,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="moduleId != null" >
+        module_id,
+      </if>
+      <if test="comment != null" >
+        comment,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="updateUser != null" >
+        update_user,
+      </if>
+      <if test="precondition != null" >
+        precondition,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="priority != null" >
+        #{priority,jdbcType=TINYINT},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=BIT},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=TINYINT},
+      </if>
+      <if test="moduleId != null" >
+        #{moduleId,jdbcType=INTEGER},
+      </if>
+      <if test="comment != null" >
+        #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null" >
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="precondition != null" >
+        #{precondition,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zto.testcase.model.TcTestcase" >
+    update tc_testcase
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="priority != null" >
+        priority = #{priority,jdbcType=TINYINT},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=BIT},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=TINYINT},
+      </if>
+      <if test="moduleId != null" >
+        module_id = #{moduleId,jdbcType=INTEGER},
+      </if>
+      <if test="comment != null" >
+        comment = #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null" >
+        update_user = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="precondition != null" >
+        precondition = #{precondition,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zto.testcase.model.TcTestcase" >
+    update tc_testcase
+    set name = #{name,jdbcType=VARCHAR},
+      priority = #{priority,jdbcType=TINYINT},
+      status = #{status,jdbcType=BIT},
+      type = #{type,jdbcType=TINYINT},
+      module_id = #{moduleId,jdbcType=INTEGER},
+      comment = #{comment,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      update_user = #{updateUser,jdbcType=VARCHAR},
+      precondition = #{precondition,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zto.testcase.model.TcTestcase" >
+    update tc_testcase
+    set name = #{name,jdbcType=VARCHAR},
+      priority = #{priority,jdbcType=TINYINT},
+      status = #{status,jdbcType=BIT},
+      type = #{type,jdbcType=TINYINT},
+      module_id = #{moduleId,jdbcType=INTEGER},
+      comment = #{comment,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      update_user = #{updateUser,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <!-- addTestCase -->
+  <insert id="addTestCase" parameterType="com.zto.testcase.model.TcTestcase" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+    insert into tc_testcase (id, name, priority,
+      status, type, tag, module_id,
+      comment, create_time, update_time,
+      create_user, update_user, precondition
+      )
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{priority,jdbcType=TINYINT},
+      #{status,jdbcType=BIT}, #{type,jdbcType=TINYINT}, #{tag,jdbcType=VARCHAR}, #{moduleId,jdbcType=INTEGER},
+      #{comment,jdbcType=VARCHAR}, now(), now(),
+      #{user,jdbcType=VARCHAR}, #{user,jdbcType=VARCHAR}, #{precondition,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+
+  <insert id="copyAddTestCase" parameterType="com.zto.testcase.model.TcTestcase" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+    insert into tc_testcase (id, name, priority,
+      status, type, module_id,
+      comment, create_time, update_time,
+      create_user, update_user, precondition
+      )
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{priority,jdbcType=TINYINT},
+      #{status,jdbcType=BIT}, #{type,jdbcType=TINYINT}, #{moduleId,jdbcType=INTEGER},
+      #{comment,jdbcType=VARCHAR}, now(), now(),
+      #{createUser,jdbcType=VARCHAR}, #{updateUser,jdbcType=VARCHAR}, #{precondition,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+
+   <!-- addTestCase -->
+  <update id="deleteTestCase" parameterType="java.util.List">
+	 update tc_testcase set status = 0
+	 where id in
+	<foreach collection="ids" item="item" open="(" separator=","
+		close=")">
+		#{item}
+	</foreach>
+  </update>
+
+  <select id="getTestCaseList" parameterType="com.zto.testcase.dto.TcTestCaseDto" resultType="com.zto.testcase.model.TcTestcase">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tc_testcase
+    where status = 1
+
+    <if test="moduleIds != null and moduleIds.size > 0" >
+	    and module_id in
+      <foreach collection="moduleIds" item="item" open="(" separator=","
+        close=")">
+        #{item}
+      </foreach>
+    </if>
+    <if test="name != null and name != ''" >
+       and name like concat('%',#{name},'%')
+    </if>
+    <if test="user != null and user != ''" >
+      and (create_user like concat('%',#{user},'%')  or update_user like concat('%',#{user},'%') )
+    </if>
+    <if test="priority != null" >
+     and  priority = #{priority,jdbcType=TINYINT}
+    </if>
+    <if test="type != null" >
+     and type = #{type,jdbcType=TINYINT}
+    </if>
+    <if test="sortField != null and sort != null and sortField != '' and sort != ''">
+      order by #{sortField} #{sortWay}
+    </if>
+    <if test="sortField == null or sortField != '' ">
+      order by id desc
+    </if>
+
+  </select>
+
+  <select id="getTestCaseAndStepsList" parameterType="com.zto.testcase.dto.TcTestCaseDto" resultType="com.zto.testcase.model.TcTestcase">
+    SELECT
+    tc.id id,
+    tc.`name` NAME,
+    tc.priority priority,
+    tc.type type,
+    tc.`comment` 'comment',
+    tc.precondition precondition,
+    GROUP_CONCAT(
+    CONCAT(
+    ts.step_number,
+    '.',
+    ts.step_desc,
+    ';'
+    )
+    ORDER BY
+    ts.step_number SEPARATOR '\r\n'
+    ) stepDesc,
+    GROUP_CONCAT(
+    CONCAT(
+    ts.step_number,
+    '.',
+    ts.expect_result,
+    ';'
+    )
+    ORDER BY
+    ts.step_number SEPARATOR '\r\n'
+    ) expectResult
+    FROM
+    tc_testcase tc
+    LEFT JOIN tc_testcase_step ts ON ts.case_id = tc.id
+    WHERE
+    tc. STATUS = 1
+    <if test="moduleId != null and moduleIds.size > 0" >
+	    and module_id in
+      <foreach collection="moduleIds" item="item" open="(" separator=","
+        close=")">
+        #{item}
+      </foreach>
+    </if>
+    <if test="name != null and name != ''" >
+       and name like concat('%',#{name},'%')
+    </if>
+    <if test="user != null and user != ''" >
+      and (create_user like concat('%',#{user},'%')  or update_user like concat('%',#{user},'%') )
+    </if>
+    <if test="priority != null" >
+     and  priority = #{priority,jdbcType=TINYINT}
+    </if>
+    <if test="type != null" >
+     and type = #{type,jdbcType=TINYINT}
+    </if>
+    GROUP BY tc.id
+    <if test="sortField != null and sort != null and sortField != '' and sort != ''">
+      order by #{sortField} #{sortWay}
+    </if>
+    <if test="sortField == null or sortField != '' ">
+      order by id desc
+    </if>
+  </select>
+
+
+  <update id="editTestCase" parameterType="com.zto.testcase.model.TcTestcase" >
+    update tc_testcase
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="priority != null" >
+        priority = #{priority,jdbcType=TINYINT},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=BIT},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=TINYINT},
+      </if>
+      <if test="moduleId != null" >
+        module_id = #{moduleId,jdbcType=INTEGER},
+      </if>
+      <if test="comment != null" >
+        comment = #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = now(),
+      </if>
+      <if test="user != null" >
+        update_user = #{user,jdbcType=VARCHAR},
+      </if>
+      <if test="precondition != null" >
+        precondition = #{precondition,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+     where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="getTcTestcaseListByIds" parameterType="com.zto.testcase.model.TcTestcase" resultType="com.zto.testcase.model.TcTestcase">
+    select
+     id, name, priority, status, type, module_id as moduleId, comment,
+     create_time as createTime, update_time as updateTime, create_user as createUser,  update_user as updateUser,
+     precondition
+    from tc_testcase
+    where status = 1 and id in
+	<foreach collection="ids" item="item" open="(" separator=","
+		close=")">
+		#{item}
+	</foreach>
+  </select>
+  <select id="getCaseDetail" resultType="com.zto.testcase.response.TcPlanCaseDetailRes"
+            parameterType="com.zto.testcase.request.TcPlanCaseDetailReq">
+    select
+      c.id,
+      c.name,
+      c.priority,
+      c.status,
+      c.type,
+      c.module_id,
+      c.comment,
+      m.name as moduleName,
+      r.result,
+      r.result_comment
+    from tc_testcase c
+    left join tc_testcase_module m on c.module_id = m.id
+    left join tc_plan_case_result r on c.id = r.case_id
+    where r.case_id = #{caseId}
+    and r.plan_id = #{planId}
+   </select>
+
+  <select id="queryTcTestcaseWithModuleId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tc_testcase
+    where status = 1
+    <if test="moduleIds != null and moduleIds.size > 0" >
+	    and module_id in
+      <foreach collection="moduleIds" item="item" open="(" separator=","
+        close=")">
+        #{item}
+      </foreach>
+    </if>
+  </select>
+
+    <update id="updateTestCaseByIds" parameterType="com.zto.testcase.model.TcTestcase">
+    update tc_testcase
+    <set >
+      <if test="moduleId != null" >
+        module_id = #{moduleId,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        update_time = now(),
+      </if>
+      <if test="user != null" >
+        update_user = #{user,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where 1=1 and id in
+    <foreach collection="ids" item="item" open="(" separator=","
+      close=")">
+      #{item}
+    </foreach>
+  </update>
+
+  <select id="getAllTagCase" resultType="com.zto.testcase.model.TcTestcase">
+    select
+    c.id,
+    c.name,
+    c.priority,
+    c.status,
+    c.type,
+    c.tag,
+    c.module_id,
+    c.comment,
+    c.create_time,
+    c.update_time,
+    c.create_user,
+    c.update_user
+    from tc_testcase c
+    left join tc_case_type t on c.type = t.id and t.type = 1
+    where c.tag is not null
+    and t.name = '典型测试'
+    and c.status = 1
+  </select>
+  <select id="getCreatedCaseCountByDate" resultType="java.util.Map">
+    SELECT
+    `date` as `key`,
+    MAX(total) AS `value`
+    FROM
+    (
+    SELECT
+    @cdate := DATE_ADD( @cdate, INTERVAL - 1 DAY ) `date`,
+    0 AS total
+    FROM
+    ( SELECT @cdate := DATE_ADD(#{endDate}, INTERVAL + 1 DAY ) FROM tc_testcase ) t1
+    WHERE
+    @cdate > #{startDate} UNION ALL
+    SELECT
+    DATE_FORMAT(create_time, '%Y-%m-%d' ) AS `date`,
+    COUNT(id) AS total
+    FROM
+    tc_testcase t
+    WHERE
+    t.create_time >= #{startDate} and #{endDate}>=date_format(t.create_time, '%Y-%m-%d')
+    <if test="createUser!=null and createUser!=''">
+      and create_user=#{createUser}
+    </if>
+    GROUP BY
+    `date`
+    ) t2
+    GROUP BY
+    `date`
+  </select>
+  <select id="getCreatedCaseCountByCreator" resultType="java.util.Map">
+    select
+    <if test="groupType!=null and groupType==1">
+      create_user as `key`,
+    </if>
+    count(id) as `value` from tc_testcase
+    where 1=1
+    <if test="createUser!=null and createUser!=''">
+      and create_user=#{createUser}
+    </if>
+    <if test="startDate!=null and startDate!=''">
+      and create_time>=#{startDate}
+    </if>
+    <if test="endDate!=null and endDate!=''">
+      and #{endDate}>=date_format(`create_time`, '%Y-%m-%d')
+    </if>
+    <if test="groupType!=null and groupType==1">
+      group by `key` order by `key`
+    </if>
+  </select>
+
+</mapper>

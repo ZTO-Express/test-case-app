@@ -1,0 +1,76 @@
+logging:
+  config: classpath:log4j2.xml
+  level:
+    org.springframework.web: INFO
+    com.zto.testcase.mapper: INFO
+server:
+  port: 8081
+  tomcat:
+    uri-encoding: UTF-8
+  context-path: /testcase
+spring:
+  profiles:
+    active: test
+  datasources:
+    precision:
+      #      test
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://10.9.35.147:3306/test-case?useUnicode=true&characterEncoding=utf8&autoReconnect=true
+      username: 74478795F6DDD953
+      password: 6D00FD146B05DBE35B51CC53296D32538F2611BC14D24876
+
+    #druid连接池配置
+    druid:
+      #初始化大小，最小，最大
+      initialSize: 5
+      minIdle: 5
+      maxActive: 300
+      #配置获取连接等待超时的时间
+      maxWait: 60000
+      #配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+      timeBetweenEvictionRunsMillis: 60000
+      #配置一个连接在池中最小生存的时间，单位是毫秒
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: SELECT 1 FROM DUAL
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      #打开PSCache，并且指定每个连接上PSCache的大小
+      poolPreparedStatements: true
+      maxPoolPreparedStatementPerConnectionSize: 20
+      #配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+      filters: stat,wall,slf4j
+      #通过connectProperties属性来打开mergeSql功能；慢SQL记录
+      connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=3000
+      #合并多个DruidDataSource的监控数据
+      #useGlobalDataSourceStat: true
+  mvc:
+    view:
+      prefix: /WEB-INF/views
+      suffix: .html
+  http:
+    multipart:
+      max-file-size: 10MB  #单次上传文件最大不超过10MB
+      max-request-size: 100MB  #文件总上传大小不超过100MB
+  # redis-test
+  redis:
+    cluster:
+      nodes: 10.7.69.101:6379,10.7.69.102:6379,10.7.69.102:6380,10.7.69.101:6380
+    password: a88bc30476f048e78d766c73eed696b5
+    timeout: 0
+    pool:
+      max-active: 8
+      max-wait: 2000
+      max-idle: 8
+      min-idle: 0
+
+mybatis-plus:
+  mapper-locations: classpath:mapper/*Mapper.xml
+  type-aliases-package: com.zto.testcase.model
+  
+custom:
+  level: 5
+
+login:
+  loginErrorTimes: 5
+  loginErrorRemind: 3

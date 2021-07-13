@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zto.testcase.mapper.testcase.TcFileMapper" >
+  <resultMap id="BaseResultMap" type="com.zto.testcase.model.TcFile" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="path" property="path" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="relation_id" property="relationId" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="TINYINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="update_user" property="updateUser" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, path, name, relation_id, type, create_time, update_time, create_user, update_user
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tc_file
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tc_file
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zto.testcase.model.TcFile">
+    insert into tc_file (id, path, name, 
+      relation_id, type, create_time, 
+      update_time, create_user, update_user
+      )
+    values (#{id,jdbcType=INTEGER}, #{path,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{relationId,jdbcType=INTEGER}, #{type,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, #{updateUser,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertAndGetId"  useGeneratedKeys="true" keyProperty="id" parameterType="com.zto.testcase.model.TcFile">
+    insert into tc_file (id, path, name,
+      relation_id, type, create_time,
+      update_time, create_user, update_user
+      )
+    values (#{id,jdbcType=INTEGER}, #{path,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},
+      #{relationId,jdbcType=INTEGER}, #{type,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP},
+      #{updateTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, #{updateUser,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zto.testcase.model.TcFile" >
+    insert into tc_file
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="path != null" >
+        path,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="relationId != null" >
+        relation_id,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="updateUser != null" >
+        update_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="path != null" >
+        #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="relationId != null" >
+        #{relationId,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null" >
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zto.testcase.model.TcFile" >
+    update tc_file
+    <set >
+      <if test="path != null" >
+        path = #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="relationId != null" >
+        relation_id = #{relationId,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null" >
+        update_user = #{updateUser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zto.testcase.model.TcFile" >
+    update tc_file
+    set path = #{path,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      relation_id = #{relationId,jdbcType=INTEGER},
+      type = #{type,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      update_user = #{updateUser,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <update id="updateFileRelationship" parameterType="java.util.List">
+		update tc_file set relation_id = #{relationId} , type = 1
+	    where id in 
+			<foreach collection="ids" item="item" open="(" separator=","
+				close=")">
+				#{item}
+			</foreach>    
+   </update>
+   
+   <select id="getFileListByCaseId" resultMap="BaseResultMap" parameterType="java.lang.Integer" resultType="com.zto.testcase.model.TcFile">
+    select 
+    <include refid="Base_Column_List" />
+    from tc_file
+    where relation_id = #{caseId,jdbcType=INTEGER}
+   </select>
+
+
+  <insert id="copyInsert" parameterType="com.zto.testcase.model.TcFile">
+    insert into tc_file (id, path, name, 
+      relation_id, type, create_time, 
+      update_time, create_user, update_user
+      )
+    values (#{id,jdbcType=INTEGER}, #{path,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{relationId,jdbcType=INTEGER}, #{type,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, #{updateUser,jdbcType=VARCHAR}
+      )
+  </insert>
+  <select id="getFilePathListByCaseId" resultType="java.lang.String">
+    select
+    path
+    from tc_file
+    where relation_id = #{caseId,jdbcType=INTEGER}
+  </select>
+</mapper>

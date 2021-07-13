@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zto.testcase.mapper.testcase.SysUimetadataMapper">
+  <resultMap id="BaseResultMap" type="com.zto.testcase.model.SysUimetadata">
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="APP_ID" jdbcType="VARCHAR" property="appId" />
+    <result column="MENU_CODE" jdbcType="VARCHAR" property="menuCode" />
+    <result column="CONTROL_ID" jdbcType="VARCHAR" property="controlId" />
+    <result column="CONTROL_NAME" jdbcType="VARCHAR" property="controlName" />
+    <result column="CONTROL_TYPE" jdbcType="VARCHAR" property="controlType" />
+    <result column="ISDELETED" jdbcType="INTEGER" property="isdeleted" />
+    <result column="CREATED_DATE" jdbcType="TIMESTAMP" property="createdDate" />
+    <result column="UPDATE_DATE" jdbcType="TIMESTAMP" property="updateDate" />
+  </resultMap>
+
+  <insert id="insert" parameterType="com.zto.testcase.model.SysUimetadata">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into sys_uimetadata
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="appId != null">
+        APP_ID,
+      </if>
+      <if test="menuCode != null">
+        MENU_CODE,
+      </if>
+      <if test="controlId != null">
+        CONTROL_ID,
+      </if>
+      <if test="controlName != null">
+        CONTROL_NAME,
+      </if>
+      <if test="controlType != null">
+        CONTROL_TYPE,
+      </if>
+      <if test="isdeleted != null">
+        ISDELETED,
+      </if>
+      CREATED_DATE
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="appId != null">
+        #{appId,jdbcType=VARCHAR},
+      </if>
+      <if test="menuCode != null">
+        #{menuCode,jdbcType=VARCHAR},
+      </if>
+      <if test="controlId != null">
+        #{controlId,jdbcType=VARCHAR},
+      </if>
+      <if test="controlName != null">
+        #{controlName,jdbcType=VARCHAR},
+      </if>
+      <if test="controlType != null">
+        #{controlType,jdbcType=VARCHAR},
+      </if>
+      <if test="isdeleted != null">
+        #{isdeleted,jdbcType=INTEGER},
+      </if>
+      sysdate()
+    </trim>
+  </insert>
+
+  <select id="select" parameterType="com.zto.testcase.model.SysUimetadata" resultMap="BaseResultMap">
+    select DISTINCT t1.* from sys_uimetadata t1 LEFT JOIN sys_permissioninfo t2 on t1.ID = t2.UI_META_ID
+    <where>
+      <if test="appId != null">
+        AND t1.APP_ID = #{appId,jdbcType=VARCHAR}
+      </if>
+      <if test="menuCode != null">
+        AND t1.MENU_CODE = #{menuCode,jdbcType=VARCHAR}
+      </if>
+      <if test="controlId != null">
+        AND t1.CONTROL_ID = #{controlId,jdbcType=VARCHAR}
+      </if>
+      <if test="controlName != null">
+        AND t1.CONTROL_NAME = #{controlName,jdbcType=VARCHAR}
+      </if>
+      <if test="controlType != null">
+        AND t1.CONTROL_TYPE = #{controlType,jdbcType=VARCHAR}
+      </if>
+      <if test="isdeleted != null">
+        AND t1.ISDELETED = #{isdeleted,jdbcType=INTEGER}
+      </if>
+      <if test="id != null" >
+        AND t1.ID = #{id,jdbcType=BIGINT}
+      </if>
+      <if test="roleCode != null" >
+        AND t2.ROLE_CODE = #{roleCode,jdbcType=BIGINT}
+      </if>
+    </where>
+  </select>
+
+  <update id="updateById" parameterType="com.zto.testcase.model.SysUimetadata">
+    update sys_uimetadata
+    <set>
+      <if test="menuCode != null">
+        MENU_CODE = #{menuCode,jdbcType=VARCHAR},
+      </if>
+      <if test="controlId != null">
+        CONTROL_ID = #{controlId,jdbcType=VARCHAR},
+      </if>
+      <if test="controlName != null">
+        CONTROL_NAME = #{controlName,jdbcType=VARCHAR},
+      </if>
+      <if test="controlType != null">
+        CONTROL_TYPE = #{controlType,jdbcType=VARCHAR},
+      </if>
+      <if test="isdeleted != null">
+        ISDELETED = #{isdeleted,jdbcType=INTEGER},
+      </if>
+        UPDATE_DATE = sysdate()
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+    and APP_ID = #{appId,jdbcType=VARCHAR}
+  </update>
+
+</mapper>
