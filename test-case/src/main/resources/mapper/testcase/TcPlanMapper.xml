@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zto.testcase.mapper.testcase.TcPlanMapper" >
+  <resultMap id="BaseResultMap" type="com.zto.testcase.model.TcPlan" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="plan_name" property="planName" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="TINYINT" />
+    <result column="vid" property="vid" jdbcType="INTEGER" />
+    <result column="stage_id" property="stageId" jdbcType="INTEGER" />
+    <result column="execute_user" property="executeUser" jdbcType="INTEGER" />
+    <result column="total_num" property="totalNum" jdbcType="INTEGER" />
+    <result column="execute_num" property="executeNum" jdbcType="INTEGER" />
+    <result column="pass_num" property="passNum" jdbcType="INTEGER" />
+    <result column="fail_num" property="failNum" jdbcType="INTEGER" />
+    <result column="block_num" property="blockNum" jdbcType="INTEGER" />
+    <result column="skip_num" property="skipNum" jdbcType="INTEGER" />
+    <result column="pass_rate" property="passRate" jdbcType="DECIMAL" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="update_user" property="updateUser" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, plan_name, state, vid, stage_id, execute_user, total_num, execute_num, pass_num,
+    fail_num, block_num, skip_num, pass_rate, create_time, update_time, create_user,
+    update_user,status
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from tc_plan
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tc_plan
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zto.testcase.model.TcPlan" >
+    insert into tc_plan (id, plan_name, state,
+      vid, stage_id, execute_user,
+      total_num, execute_num, pass_num,
+      fail_num, block_num, skip_num,
+      pass_rate, create_time, update_time,
+      create_user, update_user,status)
+    values (#{id,jdbcType=INTEGER}, #{planName,jdbcType=VARCHAR}, #{state,jdbcType=TINYINT},
+      #{vid,jdbcType=INTEGER}, #{stageId,jdbcType=INTEGER}, #{executeUser,jdbcType=INTEGER},
+      #{totalNum,jdbcType=INTEGER}, #{executeNum,jdbcType=INTEGER}, #{passNum,jdbcType=INTEGER},
+      #{failNum,jdbcType=INTEGER}, #{blockNum,jdbcType=INTEGER}, #{skipNum,jdbcType=INTEGER},
+      #{passRate,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
+      #{createUser,jdbcType=VARCHAR}, #{updateUser,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zto.testcase.model.TcPlan" useGeneratedKeys="true" keyProperty="id">
+    insert into tc_plan
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="planName != null" >
+        plan_name,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="vid != null" >
+        vid,
+      </if>
+      <if test="stageId != null" >
+        stage_id,
+      </if>
+      <if test="executeUser != null" >
+        execute_user,
+      </if>
+      <if test="totalNum != null" >
+        total_num,
+      </if>
+      <if test="executeNum != null" >
+        execute_num,
+      </if>
+      <if test="passNum != null" >
+        pass_num,
+      </if>
+      <if test="failNum != null" >
+        fail_num,
+      </if>
+      <if test="blockNum != null" >
+        block_num,
+      </if>
+      <if test="skipNum != null" >
+        skip_num,
+      </if>
+      <if test="passRate != null" >
+        pass_rate,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="updateUser != null" >
+        update_user,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="planName != null" >
+        #{planName,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=TINYINT},
+      </if>
+      <if test="vid != null" >
+        #{vid,jdbcType=INTEGER},
+      </if>
+      <if test="stageId != null" >
+        #{stageId,jdbcType=INTEGER},
+      </if>
+      <if test="executeUser != null" >
+        #{executeUser,jdbcType=INTEGER},
+      </if>
+      <if test="totalNum != null" >
+        #{totalNum,jdbcType=INTEGER},
+      </if>
+      <if test="executeNum != null" >
+        #{executeNum,jdbcType=INTEGER},
+      </if>
+      <if test="passNum != null" >
+        #{passNum,jdbcType=INTEGER},
+      </if>
+      <if test="failNum != null" >
+        #{failNum,jdbcType=INTEGER},
+      </if>
+      <if test="blockNum != null" >
+        #{blockNum,jdbcType=INTEGER},
+      </if>
+      <if test="skipNum != null" >
+        #{skipNum,jdbcType=INTEGER},
+      </if>
+      <if test="passRate != null" >
+        #{passRate,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null" >
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zto.testcase.model.TcPlan" >
+    update tc_plan
+    <set >
+      <if test="planName != null" >
+        plan_name = #{planName,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=TINYINT},
+      </if>
+      <if test="vid != null" >
+        vid = #{vid,jdbcType=INTEGER},
+      </if>
+      <if test="stageId != null" >
+        stage_id = #{stageId,jdbcType=INTEGER},
+      </if>
+      <if test="executeUser != null" >
+        execute_user = #{executeUser,jdbcType=INTEGER},
+      </if>
+      <if test="totalNum != null" >
+        total_num = #{totalNum,jdbcType=INTEGER},
+      </if>
+      <if test="executeNum != null" >
+        execute_num = #{executeNum,jdbcType=INTEGER},
+      </if>
+      <if test="passNum != null" >
+        pass_num = #{passNum,jdbcType=INTEGER},
+      </if>
+      <if test="failNum != null" >
+        fail_num = #{failNum,jdbcType=INTEGER},
+      </if>
+      <if test="blockNum != null" >
+        block_num = #{blockNum,jdbcType=INTEGER},
+      </if>
+      <if test="skipNum != null" >
+        skip_num = #{skipNum,jdbcType=INTEGER},
+      </if>
+      <if test="passRate != null" >
+        pass_rate = #{passRate,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null" >
+        update_user = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zto.testcase.model.TcPlan" >
+    update tc_plan
+    set plan_name = #{planName,jdbcType=VARCHAR},
+      state = #{state,jdbcType=TINYINT},
+      vid = #{vid,jdbcType=INTEGER},
+      stage_id = #{stageId,jdbcType=INTEGER},
+      execute_user = #{executeUser,jdbcType=INTEGER},
+      total_num = #{totalNum,jdbcType=INTEGER},
+      execute_num = #{executeNum,jdbcType=INTEGER},
+      pass_num = #{passNum,jdbcType=INTEGER},
+      fail_num = #{failNum,jdbcType=INTEGER},
+      block_num = #{blockNum,jdbcType=INTEGER},
+      skip_num = #{skipNum,jdbcType=INTEGER},
+      pass_rate = #{passRate,jdbcType=DECIMAL},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      update_user = #{updateUser,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="planList" resultType="com.zto.testcase.response.TcPlanListRes"
+          parameterType="com.zto.testcase.request.TcPlanListReq">
+    select
+      p.id,
+      p.plan_name,
+      p.execute_user,
+      u.NICK_NAME as executeUserName,
+      p.state,
+      p.pass_rate,
+      p.execute_num,
+      p.total_num,
+      p.pass_num,
+      p.fail_num,
+      p.block_num,
+      p.skip_num,
+      p.stage_id,
+      p.create_user,
+      p.update_user,
+      s.name as stageName,
+      p.vid,
+      v.name as vname,
+      pt.pname as pname,
+      l.bname as bname,
+      v.id as vid,
+      pt.id as pid,
+      l.id as bid
+    from tc_plan p
+    left join tc_test_stage s on s.id = p.stage_id
+    left join sys_version v on v.id = p.vid
+    left join sys_project pt on pt.id = v.p_id
+    left join sys_business_line l on l.id = pt.b_id
+    left join sys_userinfo u on u.id = p.execute_user
+    where 1=1
+    and p.status = 1
+    <if test="planName != null and planName != ''">
+      and p.plan_name like concat('%',#{planName},'%')
+    </if>
+    <if test="listType == 1">
+      and (u.NICK_NAME = #{user} or p.create_user = #{user} or p.update_user = #{user})
+    </if>
+    <if test="state != null and state != 3">
+      and p.state = #{state}
+    </if>
+    <if test="pmsVersionId != null">
+      and v.pms_version_id = #{pmsVersionId}
+    </if>
+    <if test="stageId != null">
+      and p.stage_id = #{stageId}
+    </if>
+    order by id desc
+  </select>
+
+  <select id="getPlanCount" resultType="HashMap"
+          parameterType="com.zto.testcase.request.TcPlanListReq">
+    select
+      state as 'key',
+      COUNT(state) as 'value'
+    from tc_plan p
+    left join sys_userinfo u on u.USER_ID = p.execute_user
+    where 1=1
+    and p.status = 1
+    <if test="planName != null and planName != ''">
+      and p.plan_name like concat('%',#{planName},'%')
+    </if>
+    <if test="listType == 1">
+      and (u.NICK_NAME = #{user} or p.create_user = #{user} or p.update_user = #{user})
+    </if>
+    <if test="state != null and state != 3">
+      and p.state = #{state}
+    </if>
+    <if test="pmsVersionId != null">
+      and v.pms_version_id = #{pmsVersionId}
+    </if>
+    <if test="stageId != null">
+      and p.stage_id = #{stageId}
+    </if>
+    GROUP BY
+      state
+  </select>
+  <select id="getCaseTag" resultType="java.lang.String">
+    select case_tag
+    from sys_version
+    where id = #{vid}
+  </select>
+  <select id="getCreatedPlanCountByCreator" resultType="java.util.Map">
+    select
+    <if test="groupType!=null and groupType==1">
+      create_user as `key`,
+    </if>
+    count(id) as `value` from tc_plan
+    where 1=1
+    <if test="createUser!=null and createUser!=''">
+        and create_user=#{createUser}
+    </if>
+    <if test="startDate!=null and startDate!=''">
+        and create_time>=#{startDate}
+    </if>
+    <if test="endDate!=null and endDate!=''">
+        and #{endDate}>=date_format(`create_time`, '%Y-%m-%d')
+    </if>
+    <if test="groupType!=null and groupType==1">
+      group by `key` order by `key`
+    </if>
+  </select>
+  <select id="getCreatedPlanCountByDate" resultType="java.util.Map">
+    SELECT
+    `date` as `key`,
+    MAX(total) AS `value`
+    FROM
+    (
+    SELECT
+    @cdate := DATE_ADD( @cdate, INTERVAL - 1 DAY ) `date`,
+    0 AS total
+    FROM
+    ( SELECT @cdate := DATE_ADD(#{endDate}, INTERVAL + 1 DAY ) FROM tc_testcase ) t1
+    WHERE
+    @cdate > #{startDate} UNION ALL
+    SELECT
+    DATE_FORMAT(create_time, '%Y-%m-%d' ) AS `date`,
+    COUNT(id) AS total
+    FROM
+    tc_plan t
+    WHERE
+    t.create_time >= #{startDate} and #{endDate}>=date_format(t.create_time, '%Y-%m-%d')
+    <if test="createUser!=null and createUser!=''">
+      and create_user=#{createUser}
+    </if>
+    GROUP BY
+    `date`
+    ) t2
+    GROUP BY
+    `date`
+
+  </select>
+</mapper>

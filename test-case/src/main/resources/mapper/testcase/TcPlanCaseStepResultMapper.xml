@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zto.testcase.mapper.testcase.TcPlanCaseStepResultMapper" >
+  <resultMap id="BaseResultMap" type="com.zto.testcase.model.TcPlanCaseStepResult" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="plan_id" property="planId" jdbcType="INTEGER" />
+    <result column="case_id" property="caseId" jdbcType="INTEGER" />
+    <result column="step_id" property="stepId" jdbcType="INTEGER" />
+    <result column="result" property="result" jdbcType="TINYINT" />
+    <result column="actual_result" property="actualResult" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="update_user" property="updateUser" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, plan_id, case_id, step_id, result, actual_result, create_time, update_time, create_user, 
+    update_user
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tc_plan_case_step_result
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tc_plan_case_step_result
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.zto.testcase.model.TcPlanCaseStepResult" >
+    insert into tc_plan_case_step_result (id, plan_id, case_id, 
+      step_id, result, actual_result, 
+      create_time, update_time, create_user, 
+      update_user)
+    values (#{id,jdbcType=BIGINT}, #{planId,jdbcType=INTEGER}, #{caseId,jdbcType=INTEGER}, 
+      #{stepId,jdbcType=INTEGER}, #{result,jdbcType=TINYINT}, #{actualResult,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, 
+      #{updateUser,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zto.testcase.model.TcPlanCaseStepResult" >
+    insert into tc_plan_case_step_result
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="planId != null" >
+        plan_id,
+      </if>
+      <if test="caseId != null" >
+        case_id,
+      </if>
+      <if test="stepId != null" >
+        step_id,
+      </if>
+      <if test="result != null" >
+        result,
+      </if>
+      <if test="actualResult != null" >
+        actual_result,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="updateUser != null" >
+        update_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="planId != null" >
+        #{planId,jdbcType=INTEGER},
+      </if>
+      <if test="caseId != null" >
+        #{caseId,jdbcType=INTEGER},
+      </if>
+      <if test="stepId != null" >
+        #{stepId,jdbcType=INTEGER},
+      </if>
+      <if test="result != null" >
+        #{result,jdbcType=TINYINT},
+      </if>
+      <if test="actualResult != null" >
+        #{actualResult,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null" >
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zto.testcase.model.TcPlanCaseStepResult" >
+    update tc_plan_case_step_result
+    <set >
+      <if test="planId != null" >
+        plan_id = #{planId,jdbcType=INTEGER},
+      </if>
+      <if test="caseId != null" >
+        case_id = #{caseId,jdbcType=INTEGER},
+      </if>
+      <if test="stepId != null" >
+        step_id = #{stepId,jdbcType=INTEGER},
+      </if>
+      <if test="result != null" >
+        result = #{result,jdbcType=TINYINT},
+      </if>
+      <if test="actualResult != null" >
+        actual_result = #{actualResult,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null" >
+        update_user = #{updateUser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zto.testcase.model.TcPlanCaseStepResult" >
+    update tc_plan_case_step_result
+    set plan_id = #{planId,jdbcType=INTEGER},
+      case_id = #{caseId,jdbcType=INTEGER},
+      step_id = #{stepId,jdbcType=INTEGER},
+      result = #{result,jdbcType=TINYINT},
+      actual_result = #{actualResult,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      update_user = #{updateUser,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="getActualStepListByPlanId" resultType="com.zto.testcase.model.TcPlanCaseStepResult">
+    select
+    r.plan_id,
+    r.case_id,
+    s.id as stepId,
+    r.update_user as updateUser,
+    r.update_user as createUser
+    from tc_plan_case_result r
+    left join tc_testcase_step s on r.case_id = s.case_id
+    where r.plan_id = #{planId}
+    and s.id is not null
+  </select>
+
+  <select id="getSavedStepListByPlanId" resultType="com.zto.testcase.model.TcPlanCaseStepResult">
+    select
+    <include refid="Base_Column_List" />
+    from tc_plan_case_step_result
+    where plan_id = #{planId}
+  </select>
+
+  <delete id="deleteByIds" parameterType="java.util.List">
+    delete from tc_plan_case_step_result
+    where id in
+    <foreach collection="list" close=")" index="index" item="item" open="(" separator=",">
+      #{item}
+    </foreach>
+  </delete>
+
+  <select id="getResultByPlanIdAndCaseId" resultType="com.zto.testcase.dto.TcPlanStepListDTO">
+    select
+        r.id,
+        s.step_desc,
+        s.expect_result,
+        s.step_number,
+        r.actual_result,
+        r.result
+    from tc_testcase_step s
+    left join tc_plan_case_step_result r on s.id = r.step_id
+    where r.plan_id = #{planId}
+    and r.case_id = #{caseId}
+    order by s.step_number
+  </select>
+</mapper>

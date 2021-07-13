@@ -77,7 +77,7 @@
 
 ```bash
 # 克隆项目
-git clone http://****
+git clone git@github.com:ZTO-Express/test-case-app.git
 
 # 移出后台工程
 将test-case（后台服务）整个目录移出克隆的项目，独立部署

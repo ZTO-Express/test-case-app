@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zto.testcase.mapper.testcase.SysProjectMapper">
+  <resultMap id="BaseResultMap" type="com.zto.testcase.model.SysProject">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="b_ids" jdbcType="INTEGER" property="bIds" />
+    <result column="pname" jdbcType="VARCHAR" property="pname" />
+    <result column="prd_lead" jdbcType="VARCHAR" property="prdLead" />
+    <result column="dev_lead" jdbcType="VARCHAR" property="devLead" />
+    <result column="qa_lead" jdbcType="VARCHAR" property="qaLead" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="pkey" jdbcType="VARCHAR" property="pkey" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="type" jdbcType="TINYINT" property="type" />
+    <result column="notify_email_to" jdbcType="VARCHAR" property="notifyEmailTo" />
+    <result column="notify_email_cc" jdbcType="VARCHAR" property="notifyEmailCc" />
+    <result column="jp_id" jdbcType="DECIMAL" property="jpId" />
+    <result column="category" jdbcType="TINYINT" property="category" />
+    <result column="total_man_day" jdbcType="DECIMAL" property="totalManDay" />
+    <result column="tlp_id" jdbcType="INTEGER" property="tlpId" />
+    <result column="user_exp_notify_email_to" jdbcType="VARCHAR" property="userExpNotifyEmailTo" />
+    <result column="user_exp_notify_email_cc" jdbcType="VARCHAR" property="userExpNotifyEmailCc" />
+    <result column="f_p_id" jdbcType="INTEGER" property="fPId" />
+    <result column="pms_project_id" jdbcType="INTEGER" property="pmsProjectId" />
+    <result column="pms_project_name" jdbcType="VARCHAR" property="pmsProjectName" />
+    <result column="pms_department_id" jdbcType="INTEGER" property="pmsDepartmentId" />
+    <result column="enable" jdbcType="TINYINT" property="enable" />
+    <result column="forbidden" jdbcType="TINYINT" property="forbidden" />
+    <result column="b_id" jdbcType="BIGINT" property="bId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, b_ids, pname, prd_lead, dev_lead, qa_lead, description, pkey, create_time, update_time, 
+    `status`, `type`, notify_email_to, notify_email_cc, jp_id, category, total_man_day, 
+    tlp_id, user_exp_notify_email_to, user_exp_notify_email_cc, f_p_id, pms_project_id, 
+    pms_project_name, pms_department_id, `enable`, forbidden, b_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_project
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectByBid" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sys_project
+    where b_id = #{bId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sys_project
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.zto.testcase.model.SysProject" useGeneratedKeys="true">
+    insert into sys_project (b_ids, pname, prd_lead,
+      dev_lead, qa_lead, description, 
+      pkey, create_time, update_time, 
+      `status`, `type`, notify_email_to, 
+      notify_email_cc, jp_id, category, 
+      total_man_day, tlp_id, user_exp_notify_email_to, 
+      user_exp_notify_email_cc, f_p_id, pms_project_id, 
+      pms_project_name, pms_department_id, `enable`, 
+      forbidden, b_id)
+    values (#{bIds,jdbcType=INTEGER}, #{pname,jdbcType=VARCHAR}, #{prdLead,jdbcType=VARCHAR}, 
+      #{devLead,jdbcType=VARCHAR}, #{qaLead,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{pkey,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=TINYINT}, #{type,jdbcType=TINYINT}, #{notifyEmailTo,jdbcType=VARCHAR}, 
+      #{notifyEmailCc,jdbcType=VARCHAR}, #{jpId,jdbcType=DECIMAL}, #{category,jdbcType=TINYINT}, 
+      #{totalManDay,jdbcType=DECIMAL}, #{tlpId,jdbcType=INTEGER}, #{userExpNotifyEmailTo,jdbcType=VARCHAR}, 
+      #{userExpNotifyEmailCc,jdbcType=VARCHAR}, #{fPId,jdbcType=INTEGER}, #{pmsProjectId,jdbcType=INTEGER}, 
+      #{pmsProjectName,jdbcType=VARCHAR}, #{pmsDepartmentId,jdbcType=INTEGER}, #{enable,jdbcType=TINYINT}, 
+      #{forbidden,jdbcType=TINYINT}, #{bId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.zto.testcase.model.SysProject" useGeneratedKeys="true">
+    insert into sys_project
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="bIds != null">
+        b_ids,
+      </if>
+      <if test="pname != null">
+        pname,
+      </if>
+      <if test="prdLead != null">
+        prd_lead,
+      </if>
+      <if test="devLead != null">
+        dev_lead,
+      </if>
+      <if test="qaLead != null">
+        qa_lead,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="pkey != null">
+        pkey,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+      <if test="type != null">
+        `type`,
+      </if>
+      <if test="notifyEmailTo != null">
+        notify_email_to,
+      </if>
+      <if test="notifyEmailCc != null">
+        notify_email_cc,
+      </if>
+      <if test="jpId != null">
+        jp_id,
+      </if>
+      <if test="category != null">
+        category,
+      </if>
+      <if test="totalManDay != null">
+        total_man_day,
+      </if>
+      <if test="tlpId != null">
+        tlp_id,
+      </if>
+      <if test="userExpNotifyEmailTo != null">
+        user_exp_notify_email_to,
+      </if>
+      <if test="userExpNotifyEmailCc != null">
+        user_exp_notify_email_cc,
+      </if>
+      <if test="fPId != null">
+        f_p_id,
+      </if>
+      <if test="pmsProjectId != null">
+        pms_project_id,
+      </if>
+      <if test="pmsProjectName != null">
+        pms_project_name,
+      </if>
+      <if test="pmsDepartmentId != null">
+        pms_department_id,
+      </if>
+      <if test="enable != null">
+        `enable`,
+      </if>
+      <if test="forbidden != null">
+        forbidden,
+      </if>
+      <if test="bId != null">
+        b_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="bIds != null">
+        #{bIds,jdbcType=INTEGER},
+      </if>
+      <if test="pname != null">
+        #{pname,jdbcType=VARCHAR},
+      </if>
+      <if test="prdLead != null">
+        #{prdLead,jdbcType=VARCHAR},
+      </if>
+      <if test="devLead != null">
+        #{devLead,jdbcType=VARCHAR},
+      </if>
+      <if test="qaLead != null">
+        #{qaLead,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="pkey != null">
+        #{pkey,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=TINYINT},
+      </if>
+      <if test="notifyEmailTo != null">
+        #{notifyEmailTo,jdbcType=VARCHAR},
+      </if>
+      <if test="notifyEmailCc != null">
+        #{notifyEmailCc,jdbcType=VARCHAR},
+      </if>
+      <if test="jpId != null">
+        #{jpId,jdbcType=DECIMAL},
+      </if>
+      <if test="category != null">
+        #{category,jdbcType=TINYINT},
+      </if>
+      <if test="totalManDay != null">
+        #{totalManDay,jdbcType=DECIMAL},
+      </if>
+      <if test="tlpId != null">
+        #{tlpId,jdbcType=INTEGER},
+      </if>
+      <if test="userExpNotifyEmailTo != null">
+        #{userExpNotifyEmailTo,jdbcType=VARCHAR},
+      </if>
+      <if test="userExpNotifyEmailCc != null">
+        #{userExpNotifyEmailCc,jdbcType=VARCHAR},
+      </if>
+      <if test="fPId != null">
+        #{fPId,jdbcType=INTEGER},
+      </if>
+      <if test="pmsProjectId != null">
+        #{pmsProjectId,jdbcType=INTEGER},
+      </if>
+      <if test="pmsProjectName != null">
+        #{pmsProjectName,jdbcType=VARCHAR},
+      </if>
+      <if test="pmsDepartmentId != null">
+        #{pmsDepartmentId,jdbcType=INTEGER},
+      </if>
+      <if test="enable != null">
+        #{enable,jdbcType=TINYINT},
+      </if>
+      <if test="forbidden != null">
+        #{forbidden,jdbcType=TINYINT},
+      </if>
+      <if test="bId != null">
+        #{bId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zto.testcase.model.SysProject">
+    update sys_project
+    <set>
+      <if test="bIds != null">
+        b_ids = #{bIds,jdbcType=INTEGER},
+      </if>
+      <if test="pname != null">
+        pname = #{pname,jdbcType=VARCHAR},
+      </if>
+      <if test="prdLead != null">
+        prd_lead = #{prdLead,jdbcType=VARCHAR},
+      </if>
+      <if test="devLead != null">
+        dev_lead = #{devLead,jdbcType=VARCHAR},
+      </if>
+      <if test="qaLead != null">
+        qa_lead = #{qaLead,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="pkey != null">
+        pkey = #{pkey,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="type != null">
+        `type` = #{type,jdbcType=TINYINT},
+      </if>
+      <if test="notifyEmailTo != null">
+        notify_email_to = #{notifyEmailTo,jdbcType=VARCHAR},
+      </if>
+      <if test="notifyEmailCc != null">
+        notify_email_cc = #{notifyEmailCc,jdbcType=VARCHAR},
+      </if>
+      <if test="jpId != null">
+        jp_id = #{jpId,jdbcType=DECIMAL},
+      </if>
+      <if test="category != null">
+        category = #{category,jdbcType=TINYINT},
+      </if>
+      <if test="totalManDay != null">
+        total_man_day = #{totalManDay,jdbcType=DECIMAL},
+      </if>
+      <if test="tlpId != null">
+        tlp_id = #{tlpId,jdbcType=INTEGER},
+      </if>
+      <if test="userExpNotifyEmailTo != null">
+        user_exp_notify_email_to = #{userExpNotifyEmailTo,jdbcType=VARCHAR},
+      </if>
+      <if test="userExpNotifyEmailCc != null">
+        user_exp_notify_email_cc = #{userExpNotifyEmailCc,jdbcType=VARCHAR},
+      </if>
+      <if test="fPId != null">
+        f_p_id = #{fPId,jdbcType=INTEGER},
+      </if>
+      <if test="pmsProjectId != null">
+        pms_project_id = #{pmsProjectId,jdbcType=INTEGER},
+      </if>
+      <if test="pmsProjectName != null">
+        pms_project_name = #{pmsProjectName,jdbcType=VARCHAR},
+      </if>
+      <if test="pmsDepartmentId != null">
+        pms_department_id = #{pmsDepartmentId,jdbcType=INTEGER},
+      </if>
+      <if test="enable != null">
+        `enable` = #{enable,jdbcType=TINYINT},
+      </if>
+      <if test="forbidden != null">
+        forbidden = #{forbidden,jdbcType=TINYINT},
+      </if>
+      <if test="bId != null">
+        b_id = #{bId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zto.testcase.model.SysProject">
+    update sys_project
+    set b_ids = #{bIds,jdbcType=INTEGER},
+      pname = #{pname,jdbcType=VARCHAR},
+      prd_lead = #{prdLead,jdbcType=VARCHAR},
+      dev_lead = #{devLead,jdbcType=VARCHAR},
+      qa_lead = #{qaLead,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      pkey = #{pkey,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      `status` = #{status,jdbcType=TINYINT},
+      `type` = #{type,jdbcType=TINYINT},
+      notify_email_to = #{notifyEmailTo,jdbcType=VARCHAR},
+      notify_email_cc = #{notifyEmailCc,jdbcType=VARCHAR},
+      jp_id = #{jpId,jdbcType=DECIMAL},
+      category = #{category,jdbcType=TINYINT},
+      total_man_day = #{totalManDay,jdbcType=DECIMAL},
+      tlp_id = #{tlpId,jdbcType=INTEGER},
+      user_exp_notify_email_to = #{userExpNotifyEmailTo,jdbcType=VARCHAR},
+      user_exp_notify_email_cc = #{userExpNotifyEmailCc,jdbcType=VARCHAR},
+      f_p_id = #{fPId,jdbcType=INTEGER},
+      pms_project_id = #{pmsProjectId,jdbcType=INTEGER},
+      pms_project_name = #{pmsProjectName,jdbcType=VARCHAR},
+      pms_department_id = #{pmsDepartmentId,jdbcType=INTEGER},
+      `enable` = #{enable,jdbcType=TINYINT},
+      forbidden = #{forbidden,jdbcType=TINYINT},
+      b_id = #{bId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

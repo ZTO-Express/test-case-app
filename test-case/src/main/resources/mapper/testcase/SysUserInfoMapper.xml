@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zto.testcase.mapper.testcase.SysUserInfoMapper">
+  <resultMap id="BaseResultMap" type="com.zto.testcase.model.SysUserInfo">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="USER_ID" jdbcType="VARCHAR" property="userId" />
+    <result column="USER_NAME" jdbcType="VARCHAR" property="userName" />
+    <result column="NICK_NAME" jdbcType="VARCHAR" property="nickName" />
+    <result column="USER_PWD" jdbcType="VARCHAR" property="userPwd" />
+    <result column="USER_STATUS" jdbcType="VARCHAR" property="userStatus" />
+    <result column="MOBILE" jdbcType="VARCHAR" property="mobile" />
+    <result column="EMAIL" jdbcType="VARCHAR" property="email" />
+    <result column="START_DATE" jdbcType="TIMESTAMP" property="startDate" />
+    <result column="END_DATE" jdbcType="TIMESTAMP" property="endDate" />
+    <result column="DATE_CREATED" jdbcType="TIMESTAMP" property="dateCreated" />
+    <result column="DATE_UPDATED" jdbcType="TIMESTAMP" property="dateUpdated" />
+    <result column="APP_ID" jdbcType="VARCHAR" property="appId" />
+    <result column="LOGIN_ERROR_TIMES" jdbcType="INTEGER" property="loginErrorTimes" />
+    <result column="VALID_KEY" jdbcType="VARCHAR" property="validKey" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, USER_ID, USER_NAME, NICK_NAME, USER_PWD, USER_STATUS, MOBILE, EMAIL, START_DATE,
+    END_DATE, DATE_CREATED, DATE_UPDATED,APP_ID,LOGIN_ERROR_TIMES,VALID_KEY
+  </sql>
+  <select id="findByCondition" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_userinfo
+    where 1=1
+    <if test="appId != null">
+      and APP_ID=#{appId, jdbcType=VARCHAR}
+    </if>
+    <if test="loginName != null">
+      and (USER_NAME = #{loginName, jdbcType=VARCHAR} or MOBILE  = #{loginName, jdbcType=VARCHAR}or EMAIL = #{loginName, jdbcType=VARCHAR})
+    </if>
+    <if test="mobile != null">
+      and MOBILE = #{mobile, jdbcType=VARCHAR}
+    </if>
+    <if test="email != null">
+      and EMAIL = #{email, jdbcType=VARCHAR}
+    </if>
+    <if test="userStatus != null">
+      and USER_STATUS = #{userStatus, jdbcType=VARCHAR}
+    </if>
+    <if test="userId != null">
+      and USER_ID = #{userId, jdbcType=VARCHAR}
+    </if>
+  </select>
+  <select id="findListByCondition" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sys_userinfo
+    where 1=1
+    <if test="appId != null">
+      and APP_ID=#{appId, jdbcType=VARCHAR}
+    </if>
+    <if test="loginName != null">
+      and USER_NAME = #{loginName, jdbcType=VARCHAR}
+    </if>
+    <if test="mobile != null">
+      and MOBILE = #{mobile, jdbcType=VARCHAR}
+    </if>
+    <if test="email != null">
+      and EMAIL = #{email, jdbcType=VARCHAR}
+    </if>
+    <if test="userStatus != null">
+      and USER_STATUS = #{userStatus, jdbcType=VARCHAR}
+    </if>
+    <if test="userId != null">
+      and USER_ID = #{userId, jdbcType=VARCHAR}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sys_userinfo
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sys_userinfo
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zto.testcase.model.SysUserInfo">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into sys_userinfo (USER_ID, USER_NAME, NICK_NAME, 
+      USER_PWD, USER_STATUS, MOBILE, 
+      EMAIL, START_DATE, END_DATE, 
+      DATE_CREATED, DATE_UPDATED)
+    values (#{userId,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR}, 
+      #{userPwd,jdbcType=VARCHAR}, #{userStatus,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{startDate,jdbcType=TIMESTAMP}, #{endDate,jdbcType=TIMESTAMP}, 
+      #{dateCreated,jdbcType=TIMESTAMP}, #{dateUpdated,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zto.testcase.model.SysUserInfo">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into sys_userinfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        USER_ID,
+      </if>
+      <if test="userName != null">
+        USER_NAME,
+      </if>
+      <if test="nickName != null">
+        NICK_NAME,
+      </if>
+      <if test="userPwd != null">
+        USER_PWD,
+      </if>
+      <if test="userStatus != null">
+        USER_STATUS,
+      </if>
+      <if test="mobile != null">
+        MOBILE,
+      </if>
+      <if test="email != null">
+        EMAIL,
+      </if>
+      <if test="startDate != null">
+        START_DATE,
+      </if>
+      <if test="endDate != null">
+        END_DATE,
+      </if>
+      <if test="dateCreated != null">
+        DATE_CREATED,
+      </if>
+      <if test="dateUpdated != null">
+        DATE_UPDATED,
+      </if>
+      <if test="appId != null">
+        APP_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null">
+        #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPwd != null">
+        #{userPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="userStatus != null">
+        #{userStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="startDate != null">
+        #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null">
+        #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dateCreated != null">
+        #{dateCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dateUpdated != null">
+        #{dateUpdated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="appId != null">
+        #{appId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateLoginErrorTimes" >
+    update sys_userinfo set LOGIN_ERROR_TIMES = #{loginErrorTimes,jdbcType=INTEGER} where ID=#{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zto.testcase.model.SysUserInfo">
+    update sys_userinfo
+    <set>
+      <if test="userId != null">
+        USER_ID = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        USER_NAME = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null">
+        NICK_NAME = #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPwd != null">
+        USER_PWD = #{userPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="userStatus != null">
+        USER_STATUS = #{userStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        MOBILE = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        EMAIL = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="startDate != null">
+        START_DATE = #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null">
+        END_DATE = #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dateCreated != null">
+        DATE_CREATED = #{dateCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dateUpdated != null">
+        DATE_UPDATED = #{dateUpdated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="appId != null">
+        APP_ID = #{appId,jdbcType=VARCHAR},
+      </if>
+      <if test="loginErrorTimes != null">
+        LOGIN_ERROR_TIMES = #{loginErrorTimes,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByUserId" parameterType="com.zto.testcase.model.SysUserInfo">
+    update sys_userinfo
+    <set>
+      <if test="userName != null">
+        USER_NAME = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null">
+        NICK_NAME = #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPwd != null">
+        USER_PWD = #{userPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="userStatus != null">
+        USER_STATUS = #{userStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        MOBILE = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        EMAIL = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="startDate != null">
+        START_DATE = #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null">
+        END_DATE = #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dateUpdated != null">
+        DATE_UPDATED = #{dateUpdated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="appId != null">
+        APP_ID = #{appId,jdbcType=VARCHAR},
+      </if>
+      <if test="loginErrorTimes != null">
+        LOGIN_ERROR_TIMES = #{loginErrorTimes,jdbcType=INTEGER},
+      </if>
+    </set>
+    where USER_ID = #{userId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateUserStatusByUserId" parameterType="com.zto.testcase.model.SysUserInfo">
+    update sys_userinfo set USER_STATUS = #{userStatus,jdbcType=VARCHAR},  DATE_UPDATED = #{dateUpdated,jdbcType=TIMESTAMP},LOGIN_ERROR_TIMES=#{loginErrorTimes,jdbcType=INTEGER} where USER_ID = #{userId,jdbcType=VARCHAR} and APP_ID=#{appId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zto.testcase.model.SysUserInfo">
+    update sys_userinfo
+    set USER_ID = #{userId,jdbcType=VARCHAR},
+      USER_NAME = #{userName,jdbcType=VARCHAR},
+      NICK_NAME = #{nickName,jdbcType=VARCHAR},
+      USER_PWD = #{userPwd,jdbcType=VARCHAR},
+      USER_STATUS = #{userStatus,jdbcType=VARCHAR},
+      MOBILE = #{mobile,jdbcType=VARCHAR},
+      EMAIL = #{email,jdbcType=VARCHAR},
+      START_DATE = #{startDate,jdbcType=TIMESTAMP},
+      END_DATE = #{endDate,jdbcType=TIMESTAMP},
+      DATE_CREATED = #{dateCreated,jdbcType=TIMESTAMP},
+      DATE_UPDATED = #{dateUpdated,jdbcType=TIMESTAMP},
+      VALID_KEY = #{validKey,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+
+  <resultMap id="userListItem" type="com.zto.testcase.response.UserListItem">
+    <result column="" property="userName"/>
+  </resultMap>
+
+  <select id="findByRoleCode" resultMap="UserListItemMap">
+    SELECT
+        a.USER_ID AS userId,
+        a.USER_NAME AS userName,
+        a.EMAIL AS email,
+        a.NICK_NAME AS nickName,
+        a.MOBILE AS mobile,
+        a.DATE_CREATED AS createTime,
+        a.USER_STATUS AS STATUS,
+        b.ROLE_CODE AS roleCode,
+        b.ROLE_NAME AS roleName,
+        b.SYSTEM_ROLE AS isSystemRole
+    FROM
+        sys_userinfo a,
+        sys_rolesinfo b,
+        sys_userrolesrelation c
+    WHERE
+        a.USER_ID = c.USER_ID
+    AND b.ROLE_CODE = c.ROLE_ID
+    AND a.APP_ID = #{appId,jdbcType=VARCHAR}
+    AND b.ROLE_CODE = #{roleCode,jdbcType=VARCHAR}
+
+  </select>
+  
+  <resultMap id="UserListItemMap" type="com.zto.testcase.response.UserListItem">
+    <result property="userId" column="userId" jdbcType="VARCHAR"/>
+    <result property="userName" column="userName"  jdbcType="VARCHAR"/>
+    <result property="nickName" column="nickName" jdbcType="VARCHAR"/>
+    <result property="email" column="email" jdbcType="VARCHAR"/>
+    <result property="mobile" column="mobile" jdbcType="VARCHAR"/>
+    <result property="createTime" column="createTime" jdbcType="TIMESTAMP"/>
+    <result property="status" column="status" jdbcType="VARCHAR"/>
+    <collection property="roles" ofType="com.zto.testcase.response.RoleItem">
+      <result property="roleCode" column="roleCode"  jdbcType="VARCHAR"/>
+      <result property="roleName" column="roleName" jdbcType="VARCHAR"/>
+      <result property="isSystemRole" column="isSystemRole" jdbcType="VARCHAR"/>
+    </collection>
+  </resultMap>
+  
+  <select id="findByAppId" resultMap="UserListItemMap">
+    SELECT
+        a.USER_ID AS userId,
+        a.USER_NAME AS userName,
+        a.EMAIL AS email,
+        a.NICK_NAME AS nickName,
+        a.MOBILE AS mobile,
+        a.DATE_CREATED AS createTime,
+        a.USER_STATUS AS STATUS,
+        b.ROLE_CODE AS roleCode,
+        b.ROLE_NAME AS roleName,
+        b.SYSTEM_ROLE AS isSystemRole
+    FROM
+        sys_userinfo a,
+        sys_rolesinfo b,
+        sys_userrolesrelation c
+    WHERE
+        a.USER_ID = c.USER_ID
+    AND b.ROLE_CODE = c.ROLE_ID
+    AND
+        a.APP_ID = #{appId,jdbcType=VARCHAR}
+  </select>
+
+  <select id="getAllTester" resultMap="BaseResultMap">
+		SELECT
+    <include refid="Base_Column_List" />
+		FROM
+      sys_userinfo a
+		WHERE
+      a.USER_STATUS=2
+    and a.ID != 1
+	</select>
+</mapper>

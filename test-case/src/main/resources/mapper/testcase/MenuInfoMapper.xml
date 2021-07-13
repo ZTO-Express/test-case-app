@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zto.testcase.mapper.testcase.MenuInfoMapper">
+  <resultMap id="BaseResultMap" type="com.zto.testcase.model.MenuInfo">
+    <id column="ID" property="id" jdbcType="BIGINT"/>
+    <result column="APP_ID" property="appId" jdbcType="VARCHAR"/>
+    <result column="MENU_CODE" property="menuCode" jdbcType="VARCHAR"/>
+    <result column="MENU_NAME" property="menuName" jdbcType="VARCHAR"/>
+    <result column="ICON" property="icon" jdbcType="VARCHAR"/>
+    <result column="URL" property="url" jdbcType="VARCHAR"/>
+    <result column="PARENT_CODE" property="parentCode" jdbcType="VARCHAR"/>
+    <result column="TREE_PATH" property="treePath" jdbcType="VARCHAR"/>
+    <result column="TREE_PATH_NAME" property="treePathName" jdbcType="VARCHAR"/>
+    <result column="SRL" property="srl" jdbcType="INTEGER"/>
+    <result column="TITLE_DESC" property="titleDesc" jdbcType="VARCHAR"/>
+    <result column="MENU_HELP" property="menuHelp" jdbcType="VARCHAR"/>
+    <result column="ISDELETED" property="isdeleted" jdbcType="INTEGER"/>
+    <result column="DEFAULT_SELECT_STATUS" property="defaultSelectStatus" jdbcType="INTEGER"/>
+    <result column="CHANGEABLE" property="changeable" jdbcType="INTEGER"/>
+    <result column="CREATED_DATE" property="createdDate" jdbcType="TIMESTAMP"/>
+    <result column="UPDATE_DATE" property="updateDate" jdbcType="TIMESTAMP"/>
+  </resultMap>
+
+  <insert id="insert" parameterType="com.zto.testcase.model.MenuInfo">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into sys_menuinfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="appId != null">
+        APP_ID,
+      </if>
+      <if test="menuCode != null">
+        MENU_CODE,
+      </if>
+      <if test="menuName != null">
+        MENU_NAME,
+      </if>
+      <if test="icon != null">
+        ICON,
+      </if>
+      <if test="url != null">
+        URL,
+      </if>
+      <if test="parentCode != null">
+        PARENT_CODE,
+      </if>
+      <if test="treePath != null">
+        TREE_PATH,
+      </if>
+      <if test="treePathName != null">
+        TREE_PATH_NAME,
+      </if>
+      <if test="srl != null">
+        SRL,
+      </if>
+      <if test="titleDesc != null">
+        TITLE_DESC,
+      </if>
+      <if test="menuHelp != null">
+        MENU_HELP,
+      </if>
+      <if test="isdeleted != null">
+        ISDELETED,
+      </if>
+      <if test="defaultSelectStatus != null">
+        DEFAULT_SELECT_STATUS,
+      </if>
+      <if test="changeable != null">
+        CHANGEABLE,
+      </if>
+      CREATED_DATE
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="appId != null">
+        #{appId,jdbcType=VARCHAR},
+      </if>
+      <if test="menuCode != null">
+        #{menuCode,jdbcType=VARCHAR},
+      </if>
+      <if test="menuName != null">
+        #{menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null">
+        #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="parentCode != null">
+        #{parentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="treePath != null">
+        #{treePath,jdbcType=VARCHAR},
+      </if>
+      <if test="treePathName != null">
+        #{treePathName,jdbcType=VARCHAR},
+      </if>
+      <if test="srl != null">
+        #{srl,jdbcType=INTEGER},
+      </if>
+      <if test="titleDesc != null">
+        #{titleDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="menuHelp != null">
+        #{menuHelp,jdbcType=VARCHAR},
+      </if>
+      <if test="isdeleted != null">
+        #{isdeleted,jdbcType=INTEGER},
+      </if>
+      <if test="defaultSelectStatus != null">
+        #{defaultSelectStatus,jdbcType=INTEGER},
+      </if>
+      <if test="changeable != null">
+        #{changeable,jdbcType=INTEGER},
+      </if>
+      sysdate()
+    </trim>
+  </insert>
+
+  <update id="updateById" parameterType="com.zto.testcase.model.MenuInfo">
+    update sys_menuinfo
+    <set>
+      <if test="menuCode != null">
+        MENU_CODE = #{menuCode,jdbcType=VARCHAR},
+      </if>
+      <if test="menuName != null">
+        MENU_NAME = #{menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null">
+        ICON = #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        URL = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="parentCode != null">
+        PARENT_CODE = #{parentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="treePath != null">
+        TREE_PATH = #{treePath,jdbcType=VARCHAR},
+      </if>
+      <if test="treePathName != null">
+        TREE_PATH_NAME = #{treePathName,jdbcType=VARCHAR},
+      </if>
+      <if test="srl != null">
+        SRL = #{srl,jdbcType=INTEGER},
+      </if>
+      <if test="titleDesc != null">
+        TITLE_DESC = #{titleDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="menuHelp != null">
+        MENU_HELP = #{menuHelp,jdbcType=VARCHAR},
+      </if>
+      <if test="isdeleted != null">
+        ISDELETED = #{isdeleted,jdbcType=INTEGER},
+      </if>
+      <if test="defaultSelectStatus != null">
+        DEFAULT_SELECT_STATUS = #{defaultSelectStatus,jdbcType=INTEGER},
+      </if>
+      <if test="changeable != null">
+        CHANGEABLE = #{changeable,jdbcType=INTEGER},
+      </if>
+      UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP}
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+    and APP_ID = #{appId,jdbcType=VARCHAR}
+  </update>
+
+  <select id="select" resultMap="BaseResultMap" parameterType="com.zto.testcase.model.MenuInfo">
+    select * from sys_menuinfo
+    <where>
+      <if test="appId != null">
+        and APP_ID = #{appId,jdbcType=VARCHAR}
+      </if>
+      <if test="menuCode != null">
+        and MENU_CODE = #{menuCode,jdbcType=VARCHAR}
+      </if>
+      <if test="menuName != null">
+        and MENU_NAME = #{menuName,jdbcType=VARCHAR}
+      </if>
+      <if test="icon != null">
+        and ICON = #{icon,jdbcType=VARCHAR}
+      </if>
+      <if test="url != null">
+        and URL = #{url,jdbcType=VARCHAR}
+      </if>
+      <if test="parentCode != null">
+        and PARENT_CODE = #{parentCode,jdbcType=VARCHAR}
+      </if>
+      <if test="treePath != null">
+        and TREE_PATH = #{treePath,jdbcType=VARCHAR}
+      </if>
+      <if test="treePathName != null">
+        and TREE_PATH_NAME = #{treePathName,jdbcType=VARCHAR}
+      </if>
+      <if test="srl != null">
+        and SRL = #{srl,jdbcType=INTEGER}
+      </if>
+      <if test="titleDesc != null">
+        and TITLE_DESC = #{titleDesc,jdbcType=VARCHAR}
+      </if>
+      <if test="menuHelp != null">
+        and MENU_HELP = #{menuHelp,jdbcType=VARCHAR}
+      </if>
+      <if test="isdeleted != null">
+        and ISDELETED = #{isdeleted,jdbcType=INTEGER}
+      </if>
+      <if test="defaultSelectStatus != null">
+        and DEFAULT_SELECT_STATUS = #{defaultSelectStatus,jdbcType=INTEGER}
+      </if>
+      <if test="changeable != null">
+        and CHANGEABLE = #{changeable,jdbcType=INTEGER}
+      </if>
+      <if test="id != null">
+        AND ID = #{id,jdbcType=BIGINT}
+      </if>
+    </where>
+
+  </select>
+</mapper>
